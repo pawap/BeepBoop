@@ -1,14 +1,14 @@
 package beepBoop;
 
-import java.awt.Color;
 import java.util.HashMap;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class TileFactory {
 
 	final int GRASS = 0;
 	final int EARTH = 1;
 	final int ROCK = 2;
-	static HashMap<Integer,Tile> tiles = new HashMap<Integer,Tile>(); ;
+	static HashMap<Integer,Tile[]> tiles = new HashMap<Integer,Tile[]>(); ;
 	private static TileFactory tileFactory = null;
 	private static boolean loaded = false;
 
@@ -27,28 +27,36 @@ public class TileFactory {
 		if (TileFactory.loaded) {
 			return;
 		}
+		Tile[] gArray, eArray, rArray;
+		int BMPsPerType = BmpTile.getBMPsPerType();
+		gArray = new Tile [BMPsPerType];
+		eArray = new Tile [BMPsPerType];
+		rArray = new Tile [BMPsPerType];
 
-		try {
-			//#######GRASS######
-			tiles.put(0, new BmpTile("grass", true));
-
-			//#######EARTH######
-			tiles.put(1, new BmpTile("earth", true));
-
-			//#######ROCK######
-			tiles.put(2, new BmpTile("rock", false));
-
-		} catch (TileTypeException e) {
-			e.printStackTrace();
+		for (int i = 0; i < BMPsPerType; i++) {
+			try {
+				gArray[i] = new BmpTile("grass", i, true);
+				eArray[i] = new BmpTile("earth", i, true);
+				rArray[i] = new BmpTile("rock", i, false);
+			} catch (TileTypeException e) {
+				e.getMessage();
+			}
 		}
+		//#######GRASS######
+		tiles.put(0, gArray);
+
+		//#######EARTH######
+		tiles.put(1, eArray);
+
+		//#######ROCK######
+		tiles.put(2, rArray);
 
 		loaded = true;
 	}
 
 
-	public Tile get(int tileId) {
-
-		return tiles.get(tileId);
+	public Tile get(int tileId, int bmpNo) {
+		return tiles.get(tileId)[bmpNo];
 
 	}
 
