@@ -5,11 +5,11 @@ import java.awt.Image;
 
 abstract public class Tile {
 	
-	final static Dimension SIZE = new Dimension(10,10);
+	final static Dimension SIZE = new Dimension(20,20);
 	
 	private boolean walkable;
 	
-	abstract public Image getTile();
+	abstract public Image getImage();
 
 	public boolean isWalkable() {
 		return walkable;

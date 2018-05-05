@@ -11,7 +11,7 @@ public class DummyTile extends Tile {
 	private Image img;	
 	
 	@Override
-	public Image getTile() {
+	public Image getImage() {
 		return img;
 	}
 
