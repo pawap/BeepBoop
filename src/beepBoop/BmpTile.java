@@ -9,11 +9,13 @@ import java.io.IOException;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class BmpTile extends Tile {
-	Image[] images = new Image[3];
-
+	 //this number should be increased when more BMPs are added. each type needs to have the same number of BMPs 
+	private static final int BMPsPerType = 3;
+	Image[] images = new Image[BMPsPerType];
+	
 	@Override
 	public Image getImage() {
-		int picker = ThreadLocalRandom.current().nextInt(0, 3);
+		int picker = ThreadLocalRandom.current().nextInt(0, BMPsPerType);
 		return images[picker];
 	}
 	
@@ -22,7 +24,7 @@ public class BmpTile extends Tile {
 		setWalkable(walkable);
 		String type = tileType.toLowerCase();
 		if (isValidType(type)) {
-			for (int i = 0; i < 3; i++) {
+			for (int i = 0; i < BMPsPerType; i++) {
 				String filename = "assets" + File.separator + type + String.valueOf(i) + ".bmp";
 				System.out.println("image filename = " + filename);
 				try {
