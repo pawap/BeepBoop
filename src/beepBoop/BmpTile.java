@@ -9,7 +9,7 @@ import java.io.IOException;
 
 public class BmpTile extends Tile {
 	//this number should be increased when more BMPs are added. each type needs to have the same number of BMPs 
-	private static final int BMPsPerType = 3;
+	public static final int BMPSPERTYPE = 3;
 	private Image image;
 
 	@Override
@@ -22,7 +22,7 @@ public class BmpTile extends Tile {
 		setWalkable(walkable);
 		String type = tileType.toLowerCase();
 		if (isValidType(type)) {
-			if (bmpNo <= BMPsPerType && bmpNo >= 0) {
+			if (bmpNo <= BMPSPERTYPE && bmpNo >= 0) {
 				String filename = "assets" + File.separator + type + String.valueOf(bmpNo) + ".bmp";
 				System.out.println("image filename = " + filename);
 				try {
@@ -37,17 +37,12 @@ public class BmpTile extends Tile {
 				}
 			}
 			else {
-				throw new IndexOutOfBoundsException("bmpNo should be between 0 and " + String.valueOf(BMPsPerType));
+				throw new IndexOutOfBoundsException("bmpNo should be between 0 and " + String.valueOf(BMPSPERTYPE));
 			}
 		}
 		else {
 			throw new TileTypeException(type + " is not a valid tile type");
 		}
-	}
-	
-	public static int getBMPsPerType(){
-		return BMPsPerType;
-		
 	}
 
 	private boolean isValidType(String type) {
