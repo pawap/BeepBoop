@@ -1,4 +1,4 @@
-package beepBoop;
+package beepBoop.model;
 /**
  * 
  * @author ptp18-d06(Pawel Rasch, Tim Runge)

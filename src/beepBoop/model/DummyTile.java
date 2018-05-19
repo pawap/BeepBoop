@@ -1,4 +1,4 @@
-package beepBoop;
+package beepBoop.model;
 
 import java.awt.Color;
 import java.awt.Graphics;

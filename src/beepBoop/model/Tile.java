@@ -1,11 +1,11 @@
-package beepBoop;
+package beepBoop.model;
 
 import java.awt.Dimension;
 import java.awt.Image;
 
 abstract public class Tile {
 	
-	final static Dimension SIZE = new Dimension(20,20);
+	public final static Dimension SIZE = new Dimension(20,20);
 	
 	private boolean walkable;
 	
