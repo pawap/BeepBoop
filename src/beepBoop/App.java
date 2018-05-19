@@ -10,6 +10,8 @@ import javax.swing.JComponent;
 import javax.swing.KeyStroke;
 
 import beepBoop.controller.MainController;
+import beepBoop.model.Gold;
+import beepBoop.model.Inventory;
 import beepBoop.model.Landscape;
 import beepBoop.model.Level;
 import beepBoop.model.Player;
@@ -41,8 +43,16 @@ public class App {
 		
 		Level level = new Level(landscape,player);
 		
+		Gold gold = new Gold(200);
+		gold.setPosition(new Point(3,3));
+		Inventory inventory = new Inventory();
+		//inventory.addRessource(new Gold(0));
+		
+		if (level.addThing(gold)) System.out.println("gold");
+		
 		gui = new MainFrame();
 		gui.initLevelUI(level);
+		gui.initInventoryUI(inventory);
 		gui.setSize(1000, 500);	
 		mainContr = new MainController(gui,level);
 

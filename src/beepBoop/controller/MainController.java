@@ -21,7 +21,7 @@ public class MainController extends AbstractController {
 		this.gui = gui;
 		this.exit = false;
 		this.level = level;
-		this.playerController = new PlayerController(gui.getLevelUI());
+		this.playerController = new PlayerController(gui.getLevelUI(),gui.getInventoryUI());
 	}
 
 	public void mainAction() {
