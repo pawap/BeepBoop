@@ -1,10 +1,13 @@
-package beepBoop;
+package beepBoop.controller;
 
 import java.awt.event.ActionEvent;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.KeyStroke;
+
+import beepBoop.model.Level;
+import beepBoop.ui.MainFrame;
 
 public class MainController extends AbstractController {
 	
@@ -18,7 +21,7 @@ public class MainController extends AbstractController {
 		this.gui = gui;
 		this.exit = false;
 		this.level = level;
-		this.playerController = new PlayerController(gui.levelUI);
+		this.playerController = new PlayerController(gui.getLevelUI());
 	}
 
 	public void mainAction() {
@@ -58,23 +61,23 @@ public class MainController extends AbstractController {
 			}
 		
 		};
-		gui.levelUI.getInputMap().put(KeyStroke.getKeyStroke("LEFT"),
+		gui.getLevelUI().getInputMap().put(KeyStroke.getKeyStroke("LEFT"),
                 "left");
-		gui.levelUI.getActionMap().put("left",
+		gui.getLevelUI().getActionMap().put("left",
                  leftAction);
-		gui.levelUI.getInputMap().put(KeyStroke.getKeyStroke("RIGHT"),
+		gui.getLevelUI().getInputMap().put(KeyStroke.getKeyStroke("RIGHT"),
                 "right");
-		gui.levelUI.getActionMap().put("right",
+		gui.getLevelUI().getActionMap().put("right",
                  rightAction);
-		gui.levelUI.getInputMap().put(KeyStroke.getKeyStroke("UP"),
+		gui.getLevelUI().getInputMap().put(KeyStroke.getKeyStroke("UP"),
                 "up");
-		gui.levelUI.getActionMap().put("up",
+		gui.getLevelUI().getActionMap().put("up",
                  upAction);
-		gui.levelUI.getInputMap().put(KeyStroke.getKeyStroke("DOWN"),
+		gui.getLevelUI().getInputMap().put(KeyStroke.getKeyStroke("DOWN"),
                 "down");
-		gui.levelUI.getActionMap().put("down",
+		gui.getLevelUI().getActionMap().put("down",
                  downAction);
-		gui.levelUI.requestFocus();
+		gui.getLevelUI().requestFocus();
 	}
 	
 }

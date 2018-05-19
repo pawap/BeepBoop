@@ -1,4 +1,4 @@
-package beepBoop;
+package beepBoop.model;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -6,6 +6,8 @@ import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+
+import beepBoop.MyBMPFile;
 
 public class BmpTile extends Tile {
 	//this number should be increased when more BMPs are added. each type needs to have the same number of BMPs 

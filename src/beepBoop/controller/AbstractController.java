@@ -1,4 +1,4 @@
-package beepBoop;
+package beepBoop.controller;
 
 /**
  * @author Paw

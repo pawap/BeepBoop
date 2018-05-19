@@ -1,13 +1,13 @@
-package beepBoop;
+package beepBoop.model;
 
 import java.util.HashMap;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class TileFactory {
 
-	final int GRASS = 0;
-	final int EARTH = 1;
-	final int ROCK = 2;
+	public final int GRASS = 0;
+	public final int EARTH = 1;
+	public final int ROCK = 2;
 	static HashMap<Integer,Tile[]> tiles = new HashMap<Integer,Tile[]>(); ;
 	private static TileFactory tileFactory = null;
 	private static boolean loaded = false;

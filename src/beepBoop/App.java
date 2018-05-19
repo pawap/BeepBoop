@@ -9,6 +9,13 @@ import javax.swing.Action;
 import javax.swing.JComponent;
 import javax.swing.KeyStroke;
 
+import beepBoop.controller.MainController;
+import beepBoop.model.Landscape;
+import beepBoop.model.Level;
+import beepBoop.model.Player;
+import beepBoop.model.TileFactory;
+import beepBoop.ui.MainFrame;
+
 public class App {
 
 	
