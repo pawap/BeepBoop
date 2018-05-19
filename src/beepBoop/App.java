@@ -10,11 +10,14 @@ import javax.swing.JComponent;
 import javax.swing.KeyStroke;
 
 import beepBoop.controller.MainController;
+import beepBoop.controller.RobotTerminalController;
 import beepBoop.model.Gold;
 import beepBoop.model.Inventory;
 import beepBoop.model.Landscape;
 import beepBoop.model.Level;
 import beepBoop.model.Player;
+import beepBoop.model.Robot;
+import beepBoop.model.RobotTerminal;
 import beepBoop.model.TileFactory;
 import beepBoop.ui.MainFrame;
 
@@ -45,10 +48,18 @@ public class App {
 		
 		Gold gold = new Gold(200);
 		gold.setPosition(new Point(3,3));
+		level.addThing(gold);
+		
+		Robot robot = new Robot();
+		robot.setPosition(new Point(10,12));
+		level.addThing(robot);
+		
+		RobotTerminal terminal = new RobotTerminal();
+		terminal.setPosition(new Point(10, 7));
+		level.addThing(terminal);
+
 		Inventory inventory = new Inventory();
 		//inventory.addRessource(new Gold(0));
-		
-		if (level.addThing(gold)) System.out.println("gold");
 		
 		gui = new MainFrame();
 		gui.initLevelUI(level);

@@ -3,6 +3,7 @@ package beepBoop.controller;
 import java.awt.Image;
 import java.awt.Point;
 
+import beepBoop.model.Actor;
 import beepBoop.model.Inventory;
 import beepBoop.model.Level;
 import beepBoop.model.Ressource;
@@ -12,12 +13,14 @@ import beepBoop.ui.LevelUI;
 public class PlayerController extends AbstractController {
 	LevelUI levelUI;
 	InventoryUI inventoryUI;
+	private RobotTerminalController terminalContr;
 	
 	
 	public PlayerController(LevelUI levelUI, InventoryUI inventoryUI) {
 		super();
 		this.levelUI = levelUI;
 		this.inventoryUI = inventoryUI;
+		terminalContr = new RobotTerminalController();	
 	}
 
 	private boolean moveTo(int amount, int x, int y) {
@@ -41,6 +44,9 @@ public class PlayerController extends AbstractController {
 				inventoryUI.getInventory().addRessource(transfer);
 				levelUI.repaint();
 				inventoryUI.repaint();
+			}
+			if (level.isRobotTerminal(x,y)) {
+				terminalContr.openTerminal();
 			}
 			return false;
 		}

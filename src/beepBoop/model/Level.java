@@ -57,4 +57,12 @@ public class Level {
 	public Thing getThing(int x, int y) {
 		return (Thing) things.get(new Point(x,y));
 	}
+
+	public boolean isActor(int x, int y) {
+		return (things.get(new Point(x,y)) instanceof Actor);
+	}
+
+	public boolean isRobotTerminal(int x, int y) {
+		return (things.get(new Point(x,y)) instanceof RobotTerminal);
+	}
 }
