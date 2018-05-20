@@ -9,6 +9,11 @@ import javax.swing.KeyStroke;
 import beepBoop.model.Level;
 import beepBoop.ui.MainFrame;
 
+/**
+ * The BeepBoop MainController propagates input to all reevant controllers.
+ * @author ptp18-d06(Pawel Rasch, Tim Runge)
+ *
+ */
 public class MainController extends AbstractController {
 	
 	MainFrame gui;
@@ -16,6 +21,11 @@ public class MainController extends AbstractController {
 	private PlayerController playerController;
 	Level level;
 	
+	/**
+	 * Constructor
+	 * @param gui the Mainframe
+	 * @param level the current level
+	 */
 	public MainController(MainFrame gui, Level level) {
 		super();
 		this.gui = gui;
@@ -28,6 +38,9 @@ public class MainController extends AbstractController {
 		initKeyBindings();
 	}
 	
+	/**
+	 * Initialize key bindings.
+	 */
 	public void initKeyBindings(){
 		Action leftAction = new AbstractAction(){
 
