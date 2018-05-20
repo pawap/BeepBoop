@@ -6,16 +6,22 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import beepBoop.controller.RobotQueue;
+
 public class Level {
 	Landscape landscape;
 	private Map<Point,Thing> things;
 	private Player player;
+	private RobotQueue robotQueue;
 	
+
+
 	public Level(Landscape landscape, Player player) {
 		super();
 		this.landscape = landscape;
 		this.setPlayer(player);
 		this.things = new HashMap<Point,Thing>();
+		this.robotQueue = new RobotQueue();
 	}
 
 	public Player getPlayer() {
@@ -34,8 +40,15 @@ public class Level {
 		this.landscape = landscape;
 	}
 
+	public RobotQueue getRobotQueue() {
+		return robotQueue;
+	}
+	
 	public boolean isPositionFree(int x, int y) {
-		return landscape.getTile(x,y).isWalkable() && !things.containsKey(new Point(x,y));
+		Point p = new Point(x,y);
+		return landscape.getTile(x,y).isWalkable() 
+				&& !things.containsKey(p) 
+				&& !player.getPosition().equals(p);
 	}
 	
 	public boolean addThing(Thing thing) {
@@ -43,6 +56,18 @@ public class Level {
 			return false;
 		}
 		things.put(thing.getPosition(), thing);	
+		return true;
+	}
+	
+	public void moveThing(Point oldPoint, Point newPoint) {
+		things.put(newPoint, things.remove(oldPoint));
+	}
+	
+	public boolean addRobot(Robot robot) {
+		if (robotQueue.contains(robot)) {
+			return false;
+		}
+		robotQueue.add(robot);	
 		return true;
 	}
 
