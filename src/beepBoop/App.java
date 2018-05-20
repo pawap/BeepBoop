@@ -32,7 +32,6 @@ public class App {
 
 	public App() {
 		TileFactory tf = TileFactory.getInstance();
-		tf.loadTiles();
 		Landscape landscape = new Landscape(new Dimension(21,21));
 		landscape.placeRect(0, 0, 20, 20, tf.GRASS);
 		landscape.placeRect(0, 0, 0, 20, tf.ROCK);

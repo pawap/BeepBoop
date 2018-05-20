@@ -5,17 +5,28 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class TileFactory {
 
-	public final int GRASS = 0;
-	public final int EARTH = 1;
-	public final int ROCK = 2;
-	static HashMap<Integer,Tile[]> tiles = new HashMap<Integer,Tile[]>(); ;
+	public static final int GRASS_0 = 0;
+	public static final int GRASS_1 = 1;
+	public static final int GRASS_2 = 2;
+	public static final int EARTH_0 = 3;
+	public static final int EARTH_1 = 4;
+	public static final int EARTH_2 = 5;
+	public static final int ROCK_0 = 6;
+	public static final int ROCK_1 = 7;
+	public static final int ROCK_2 = 8;
+	private static HashMap<Integer,Tile> tiles = new HashMap<Integer,Tile>();
 	private static TileFactory tileFactory = null;
-	private static boolean loaded = false;
+	//	private static boolean loaded = false;
 
+	//prevents instantiation, loads tiles
 	private TileFactory(){
-
+		loadTiles();		
 	}
 
+	/**
+	 * Returns the instance of the TileFactory singleton, creates it if necessary.
+	 * @return the singleton TileFactory instance
+	 */
 	public static TileFactory getInstance() {
 		if (TileFactory.tileFactory == null) {
 			TileFactory.tileFactory = new TileFactory();
@@ -23,41 +34,36 @@ public class TileFactory {
 		return TileFactory.tileFactory;
 	}	
 
-	public void loadTiles() {
-		if (TileFactory.loaded) {
-			return;
-		}
-		Tile[] gArray, eArray, rArray;
-		int BMPsPerType = BmpTile.getBMPsPerType();
-		gArray = new Tile [BMPsPerType];
-		eArray = new Tile [BMPsPerType];
-		rArray = new Tile [BMPsPerType];
+	private void loadTiles() {
+		//		if (TileFactory.loaded) {
+		//			return;
+		//		}
 
-		for (int i = 0; i < BMPsPerType; i++) {
-			try {
-				gArray[i] = new BmpTile("grass", i, true);
-				eArray[i] = new BmpTile("earth", i, true);
-				rArray[i] = new BmpTile("rock", i, false);
-			} catch (TileTypeException e) {
-				e.getMessage();
-			}
-		}
 		//#######GRASS######
-		tiles.put(0, gArray);
+		tiles.put(GRASS_0, new BmpTile("grass 0", true));
+		tiles.put(GRASS_1, new BmpTile("grass 1", true));
+		tiles.put(GRASS_2, new BmpTile("grass 2", true));
 
 		//#######EARTH######
-		tiles.put(1, eArray);
+		tiles.put(EARTH_0, new BmpTile("earth 0", true));
+		tiles.put(EARTH_1, new BmpTile("earth 1", true));
+		tiles.put(EARTH_2, new BmpTile("earth 2", true));
 
 		//#######ROCK######
-		tiles.put(2, rArray);
+		tiles.put(ROCK_0, new BmpTile("rock 0", true));
+		tiles.put(ROCK_1, new BmpTile("rock 1", true));
+		tiles.put(ROCK_2, new BmpTile("rock 3", true));
 
-		loaded = true;
+		//		loaded = true;
 	}
 
-
-	public Tile get(int tileId, int bmpNo) {
-		return tiles.get(tileId)[bmpNo];
-
+	/**
+	 * Returns the tile with the specified Id. Tile Ids can be accessed via the static fields of TileFactory.
+	 * @param tileId the Id of the desired tile
+	 * @return the desired tile
+	 */	
+	public Tile get(int tileId) {
+		return tiles.get(tileId);
 	}
 
 }

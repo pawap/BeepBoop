@@ -34,7 +34,7 @@ public class Landscape {
 	
 	public Tile getTile(int x, int y) {
 		TileFactory tf = TileFactory.getInstance();
-		return tf.get(tiles[x][y], (x+y)%BmpTile.getBMPsPerType());
+		return tf.get(tiles[x][y]);
 	}
 	
 
