@@ -1,10 +1,9 @@
 package beepBoop.model;
 
 import java.util.HashMap;
-import java.util.concurrent.ThreadLocalRandom;
 
 public class TileFactory {
-
+	//tile ids
 	public static final int GRASS_0 = 0;
 	public static final int GRASS_1 = 1;
 	public static final int GRASS_2 = 2;
@@ -14,9 +13,14 @@ public class TileFactory {
 	public static final int ROCK_0 = 6;
 	public static final int ROCK_1 = 7;
 	public static final int ROCK_2 = 8;
+	
+	//tile type offsets
+	public static final int GRASS = 0;
+	public static final int EARTH = 3;
+	public static final int ROCK = 6;
+	
 	private static HashMap<Integer,Tile> tiles = new HashMap<Integer,Tile>();
 	private static TileFactory tileFactory = null;
-	//	private static boolean loaded = false;
 
 	//prevents instantiation, loads tiles
 	private TileFactory(){
@@ -35,9 +39,6 @@ public class TileFactory {
 	}	
 
 	private void loadTiles() {
-		//		if (TileFactory.loaded) {
-		//			return;
-		//		}
 
 		//#######GRASS######
 		tiles.put(GRASS_0, new BmpTile("grass 0", true));
@@ -52,9 +53,8 @@ public class TileFactory {
 		//#######ROCK######
 		tiles.put(ROCK_0, new BmpTile("rock 0", true));
 		tiles.put(ROCK_1, new BmpTile("rock 1", true));
-		tiles.put(ROCK_2, new BmpTile("rock 3", true));
+		tiles.put(ROCK_2, new BmpTile("rock 2", true));
 
-		//		loaded = true;
 	}
 
 	/**

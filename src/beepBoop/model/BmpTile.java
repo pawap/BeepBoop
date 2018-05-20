@@ -20,7 +20,7 @@ public class BmpTile extends Tile {
 	public BmpTile(String tileName, boolean walkable) {
 		super();
 		this.setWalkable(walkable);
-		String type = tileName.substring(0, tileName.length() - 3) //cut off underscore and number
+		String type = tileName.substring(0, tileName.length() - 2)
 				.toLowerCase();
 		String bmpNo = tileName.substring(tileName.length() - 1);
         String filename = "assets" + File.separator + type + bmpNo + ".bmp";

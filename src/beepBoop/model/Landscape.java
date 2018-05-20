@@ -19,10 +19,11 @@ public class Landscape {
 		this.size = size;
 	}
 
-	public void placeRect(int x, int y, int x2, int y2, int tileId) {
+	public void placeRect(int x, int y, int x2, int y2, int type) {
 		for (int i = x; i <= x2; i++) {
 			for (int j = y; j <= y2; j++){
-				place(i,j,tileId);
+				int id = (i + j) % 3 + type;
+				place(i,j, id);
 			}
 		}
 	}
