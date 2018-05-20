@@ -35,9 +35,7 @@ public class LevelUI extends JPanel {
 		for (Thing thing : things) {
 			g.drawImage(thing.getImage(),thing.getPosition().x*Tile.SIZE.width,
 					thing.getPosition().y*Tile.SIZE.height,null);
-		}
-		
-		
+		}	
 	}
 
 

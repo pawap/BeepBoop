@@ -7,6 +7,7 @@ import javax.swing.Action;
 import javax.swing.KeyStroke;
 
 import beepBoop.model.Level;
+import beepBoop.model.Robot;
 import beepBoop.ui.MainFrame;
 
 /**
@@ -20,6 +21,8 @@ public class MainController extends AbstractController {
 	boolean exit;
 	private PlayerController playerController;
 	Level level;
+	private RobotController robotController;
+	
 	
 	/**
 	 * Constructor
@@ -32,10 +35,25 @@ public class MainController extends AbstractController {
 		this.exit = false;
 		this.level = level;
 		this.playerController = new PlayerController(gui.getLevelUI(),gui.getInventoryUI());
+		this.robotController = new RobotController(level);
 	}
 
 	public void mainAction() {
 		initKeyBindings();
+        while(!exit) {
+        	System.out.print("|");
+            for (Robot robot: level.getRobotQueue()) {
+            	robotController.moveAction(robot);
+            	System.out.print(".");
+            }
+            gui.getLevelUI().repaint();
+            try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+        }
 	}
 	
 	/**

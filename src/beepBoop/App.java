@@ -3,6 +3,8 @@ package beepBoop;
 import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
+import java.util.LinkedList;
+import java.util.List;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
@@ -22,9 +24,6 @@ import beepBoop.model.TileFactory;
 import beepBoop.ui.MainFrame;
 
 public class App {
-
-	
-	
 	
 	private MainFrame gui;
 	private boolean exit;
@@ -44,6 +43,13 @@ public class App {
 		player.setPosition(new Point(10,10));
 		
 		Level level = new Level(landscape,player);
+
+		Inventory inventory = new Inventory();
+		//inventory.addRessource(new Gold(0));		
+		gui = new MainFrame();
+		gui.initLevelUI(level);
+		gui.initInventoryUI(inventory);		
+		mainContr = new MainController(gui,level);
 		
 		Gold gold = new Gold(200);
 		gold.setPosition(new Point(3,3));
@@ -51,21 +57,36 @@ public class App {
 		
 		Robot robot = new Robot();
 		robot.setPosition(new Point(10,12));
+		List<String> program = new LinkedList<String>();
+		program.add("U");
+		program.add("L");
+		program.add("D");
+		program.add("R");
+		robot.setMemory(program);
 		level.addThing(robot);
+		level.addRobot(robot);
+		
+		Robot robot2 = new Robot();
+		robot2.setPosition(new Point(16,16));
+		program = new LinkedList<String>();
+		program.add("D");
+		program.add("R");
+		program.add("R");
+		program.add("U");
+		program.add("U");
+		program.add("L");
+		program.add("L");
+		program.add("D");	
+		robot2.setMemory(program);
+		level.addThing(robot2);
+		level.addRobot(robot2);
 		
 		RobotTerminal terminal = new RobotTerminal();
 		terminal.setPosition(new Point(10, 7));
 		level.addThing(terminal);
 
-		Inventory inventory = new Inventory();
-		//inventory.addRessource(new Gold(0));
-		
-		gui = new MainFrame();
-		gui.initLevelUI(level);
-		gui.initInventoryUI(inventory);
 		gui.setSize(1000, 500);	
-		mainContr = new MainController(gui,level);
-
+		
 		//gui.pack();
 		gui.setVisible(true); // 
 		mainContr.mainAction();

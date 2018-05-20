@@ -14,11 +14,15 @@ public class Robot extends Actor {
 	private List<String> memory;
 	private int pc;
 	private Point nextPosition;
-
+	private boolean blocked;
+	private boolean moved;
+	
 	public Robot() {
 		super();
 		this.memory = new LinkedList<String>();
 		pc = 0;
+		blocked = false;
+		moved = false;
 		img = new BufferedImage(Tile.SIZE.width,Tile.SIZE.height,BufferedImage.TYPE_INT_ARGB);
 		Graphics g = img.getGraphics();
 		g.setColor(Color.BLACK);
@@ -28,7 +32,12 @@ public class Robot extends Actor {
 		g.drawRect(6, 7, 8, 7);
 		g.drawOval(3, 15, 14, 4);
 	}
-
+	@Override
+	public void setPosition(Point position) {
+		super.setPosition(position);
+		moved = true;
+	}
+	
 	@Override
 	public Image getImage() {
 		return img;
@@ -52,8 +61,11 @@ public class Robot extends Actor {
 	}
 
 	public Point calcNextPosition() {
-		String command = memory.get(pc);
-		nextPosition = process(command);
+		if (moved) {
+			String command = memory.get(pc);
+			nextPosition = process(command);
+			moved = false;
+		}
 		return nextPosition;
 	}
 
@@ -66,6 +78,16 @@ public class Robot extends Actor {
 			case "IF": 
 		}
 		return getPosition();
+	}
+
+	public void setBlocked(boolean b) {
+		this.blocked = b;
+		
+	}
+	public void move() {
+		this.setPosition(nextPosition);
+		pc = (pc >= memory.size()-1)?0:pc+1;
+		moved = true;
 	}
 	
 
