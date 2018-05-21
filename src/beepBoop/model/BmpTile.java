@@ -7,7 +7,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-import beepBoop.MyBMPFile;
+import javax.imageio.ImageIO;
 
 public class BmpTile extends Tile {
 	private Image image;
@@ -25,7 +25,7 @@ public class BmpTile extends Tile {
 		String bmpNo = tileName.substring(tileName.length() - 1);
         String filename = "assets" + File.separator + type + bmpNo + ".bmp";
         try {
-			image = MyBMPFile.read(filename);
+			image = ImageIO.read(new File(filename));
 		} catch (IOException e) {
 			System.out.println("File " + filename + " could not be read.");
 			System.out.println(e.getMessage());

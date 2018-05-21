@@ -12,8 +12,8 @@ import java.util.Observer;
 import javax.swing.JPanel;
 
 import beepBoop.model.Inventory;
-import beepBoop.model.Ressource;
 import beepBoop.model.Tile;
+import beepBoop.model.ressource.Ressource;
 
 public class InventoryUI extends JPanel {
 	Inventory inventory;

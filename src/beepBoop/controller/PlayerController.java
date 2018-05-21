@@ -6,7 +6,7 @@ import java.awt.Point;
 import beepBoop.model.Actor;
 import beepBoop.model.Inventory;
 import beepBoop.model.Level;
-import beepBoop.model.Ressource;
+import beepBoop.model.ressource.Ressource;
 import beepBoop.ui.InventoryUI;
 import beepBoop.ui.LevelUI;
 
@@ -46,12 +46,7 @@ public class PlayerController extends AbstractController {
 		if (!level.isPositionFree(x,y)) {
 			if (level.isRessource(x,y)) {
 				Ressource ressource = (Ressource) level.getThing(x,y);
-				Ressource transfer = new Ressource(ressource.takeAmount(10)) {
-
-					@Override
-					public String getName() {
-;						return ressource.getName();
-					}
+				Ressource transfer = new Ressource(ressource.takeAmount(10), ressource.getName()) {
 
 					@Override
 					public Image getImage() {

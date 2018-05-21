@@ -13,7 +13,6 @@ import javax.swing.KeyStroke;
 
 import beepBoop.controller.MainController;
 import beepBoop.controller.RobotTerminalController;
-import beepBoop.model.Gold;
 import beepBoop.model.Inventory;
 import beepBoop.model.Landscape;
 import beepBoop.model.Level;
@@ -21,6 +20,11 @@ import beepBoop.model.Player;
 import beepBoop.model.Robot;
 import beepBoop.model.RobotTerminal;
 import beepBoop.model.TileFactory;
+import beepBoop.model.ressource.Copper;
+import beepBoop.model.ressource.Gold;
+import beepBoop.model.ressource.Iron;
+import beepBoop.model.ressource.Platinum;
+import beepBoop.model.ressource.Silicon;
 import beepBoop.ui.MainFrame;
 
 public class App {
@@ -51,9 +55,25 @@ public class App {
 		gui.initInventoryUI(inventory);		
 		mainContr = new MainController(gui,level);
 		
+		Copper copper = new Copper(200);
+		copper.setPosition(new Point(3,3));
+		level.addThing(copper);
+		
 		Gold gold = new Gold(200);
-		gold.setPosition(new Point(3,3));
+		gold.setPosition(new Point(3,6));
 		level.addThing(gold);
+		
+		Iron iron = new Iron(200);
+		iron.setPosition(new Point(3,9));
+		level.addThing(iron);
+		
+		Platinum platinum = new Platinum(200);
+		platinum.setPosition(new Point(3,12));
+		level.addThing(platinum);
+		
+		Silicon silicon = new Silicon(200);
+		silicon.setPosition(new Point(3,15));
+		level.addThing(silicon);
 		
 		Robot robot = new Robot();
 		robot.setPosition(new Point(10,12));

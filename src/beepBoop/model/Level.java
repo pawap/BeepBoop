@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Set;
 
 import beepBoop.controller.RobotQueue;
+import beepBoop.model.ressource.Ressource;
 
 public class Level {
 	Landscape landscape;

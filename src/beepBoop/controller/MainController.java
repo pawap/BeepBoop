@@ -41,10 +41,10 @@ public class MainController extends AbstractController {
 	public void mainAction() {
 		initKeyBindings();
         while(!exit) {
-        	System.out.print("|");
+        	//System.out.print("|");
             for (Robot robot: level.getRobotQueue()) {
             	robotController.moveAction(robot);
-            	System.out.print(".");
+            	//System.out.print(".");
             }
             gui.getLevelUI().repaint();
             try {
