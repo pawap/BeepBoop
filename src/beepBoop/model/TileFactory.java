@@ -51,9 +51,9 @@ public class TileFactory {
 		tiles.put(EARTH_2, new BmpTile("earth 2", true));
 
 		//#######ROCK######
-		tiles.put(ROCK_0, new BmpTile("rock 0", true));
-		tiles.put(ROCK_1, new BmpTile("rock 1", true));
-		tiles.put(ROCK_2, new BmpTile("rock 2", true));
+		tiles.put(ROCK_0, new BmpTile("rock 0", false));
+		tiles.put(ROCK_1, new BmpTile("rock 1", false));
+		tiles.put(ROCK_2, new BmpTile("rock 2", false));
 
 	}
 
