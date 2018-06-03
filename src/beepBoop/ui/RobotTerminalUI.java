@@ -23,7 +23,7 @@ public class RobotTerminalUI extends JPanel {
 	 * Returns whether the terminal is currently active
 	 * @return true if the terminal is currently active
 	 */
-	public Boolean getActive() {
+	public Boolean isActive() {
 		return active;
 	}
 

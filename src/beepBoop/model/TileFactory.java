@@ -9,37 +9,37 @@ import javax.imageio.ImageIO;
 
 public class TileFactory {
 	//ground tile ids
-	public static final int GRASS_0 = 0;
-	public static final int GRASS_1 = 1;
-	public static final int GRASS_2 = 2;
-	public static final int EARTH_0 = 3;
-	public static final int EARTH_1 = 4;
-	public static final int EARTH_2 = 5;
-	public static final int ROCK_0 = 6;
-	public static final int ROCK_1 = 7;
-	public static final int ROCK_2 = 8;
+	public static final int GRASS_0 = 1;
+	public static final int GRASS_1 = 2;
+	public static final int GRASS_2 = 3;
+	public static final int EARTH_0 = 4;
+	public static final int EARTH_1 = 5;
+	public static final int EARTH_2 = 6;
+	public static final int ROCK_0 = 7;
+	public static final int ROCK_1 = 8;
+	public static final int ROCK_2 = 9;
 	
 	//ground tile type offsets
-	public static final int GRASS_OFFSET = 0;
-	public static final int EARTH_OFFSET = 3;
-	public static final int ROCK_OFFSET = 6;
+	public static final int GRASS_OFFSET = 1;
+	public static final int EARTH_OFFSET = 4;
+	public static final int ROCK_OFFSET = 7;
 	
 	//ressource tile ids
-	public static final int COPPER = 9;
-	public static final int GOLD = 10;
-	public static final int IRON = 11;
-	public static final int PLATINUM = 12;
-	public static final int SILICON = 13;
+	public static final int COPPER = 10;
+	public static final int GOLD = 11;
+	public static final int IRON = 12;
+	public static final int PLATINUM = 13;
+	public static final int SILICON = 14;
 	
 	//player and terminal tile ids
-	public static final int PLAYER = 14;
-	public static final int TERMINAL = 15;
+	public static final int PLAYER = 15;
+	public static final int TERMINAL = 16;
 	
 	//robot tile ids
-	public static final int ROBOT_0 = 16;
+	public static final int ROBOT_0 = 17;
 	
 	//imageless tile id
-	public static final int NULL_TILE = 100;
+	public static final int NULL_TILE = 0;
 		
 	
 	private static HashMap<Integer,Tile> tiles = new HashMap<Integer,Tile>();

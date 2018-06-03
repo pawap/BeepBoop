@@ -18,4 +18,5 @@ abstract public class Tile {
 	public void setWalkable(boolean walkable) {
 		this.walkable = walkable;
 	}
+
 }

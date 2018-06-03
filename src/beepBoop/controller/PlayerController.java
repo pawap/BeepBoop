@@ -9,6 +9,8 @@ import beepBoop.model.TileFactory;
 import beepBoop.model.resource.Resource;
 import beepBoop.ui.InventoryUI;
 import beepBoop.ui.LevelUI;
+import beepBoop.ui.MainFrame;
+import beepBoop.ui.RobotTerminalUI;
 
 /**
  * Controller for the BeepBoop player.
@@ -19,6 +21,7 @@ import beepBoop.ui.LevelUI;
 public class PlayerController extends AbstractController {
 	LevelUI levelUI;
 	InventoryUI inventoryUI;
+	RobotTerminalUI terminalUI;
 	private RobotTerminalController terminalContr;
 	
 	/**
@@ -26,10 +29,11 @@ public class PlayerController extends AbstractController {
 	 * @param levelUI current level UI
 	 * @param inventoryUI the inventory UI
 	 */
-	public PlayerController(LevelUI levelUI, InventoryUI inventoryUI) {
+	public PlayerController(MainFrame mf) {
 		super();
-		this.levelUI = levelUI;
-		this.inventoryUI = inventoryUI;
+		this.levelUI = mf.getLevelUI();
+		this.inventoryUI = mf.getInventoryUI();
+		this.terminalUI = mf.getTerminalUI();
 		terminalContr = new RobotTerminalController();	
 	}
 
@@ -58,6 +62,7 @@ public class PlayerController extends AbstractController {
 			}
 			if (level.isRobotTerminal(x,y)) {
 				terminalContr.openTerminal();
+				terminalUI.setActive(true);
 			}
 			return false;
 		}
