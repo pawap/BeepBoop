@@ -10,7 +10,7 @@ import java.util.List;
 
 public class Robot extends Thing {
 
-	private BufferedImage img;
+//	private BufferedImage img;
 	private List<String> memory;
 	private int pc;
 	private Point nextPosition;
@@ -23,14 +23,14 @@ public class Robot extends Thing {
 		pc = 0;
 		blocked = false;
 		moved = false;
-		img = new BufferedImage(Tile.SIZE.width,Tile.SIZE.height,BufferedImage.TYPE_INT_ARGB);
-		Graphics g = img.getGraphics();
-		g.setColor(Color.BLACK);
-		g.fillRect(0,0,Tile.SIZE.width, Tile.SIZE.height);
-		g.setColor(Color.WHITE);
-		g.drawOval(8,3,4,3);
-		g.drawRect(6, 7, 8, 7);
-		g.drawOval(3, 15, 14, 4);
+//		img = new BufferedImage(Tile.SIZE.width,Tile.SIZE.height,BufferedImage.TYPE_INT_ARGB);
+//		Graphics g = img.getGraphics();
+//		g.setColor(Color.BLACK);
+//		g.fillRect(0,0,Tile.SIZE.width, Tile.SIZE.height);
+//		g.setColor(Color.WHITE);
+//		g.drawOval(8,3,4,3);
+//		g.drawRect(6, 7, 8, 7);
+//		g.drawOval(3, 15, 14, 4);
 	}
 	@Override
 	public void setPosition(Point position) {
@@ -38,10 +38,10 @@ public class Robot extends Thing {
 		moved = true;
 	}
 	
-	@Override
-	public Image getImage() {
-		return img;
-	}
+//	@Override
+//	public Image getImage() {
+//		return img;
+//	}
 	
 	
 	public List<String> getMemory() {
