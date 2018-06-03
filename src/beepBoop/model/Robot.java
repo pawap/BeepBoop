@@ -8,7 +8,7 @@ import java.awt.image.BufferedImage;
 import java.util.LinkedList;
 import java.util.List;
 
-public class Robot extends Actor {
+public class Robot extends Thing {
 
 	private BufferedImage img;
 	private List<String> memory;
@@ -18,7 +18,7 @@ public class Robot extends Actor {
 	private boolean moved;
 	
 	public Robot() {
-		super();
+		super(TileFactory.ROBOT_0);
 		this.memory = new LinkedList<String>();
 		pc = 0;
 		blocked = false;

@@ -20,11 +20,11 @@ import beepBoop.model.Player;
 import beepBoop.model.Robot;
 import beepBoop.model.RobotTerminal;
 import beepBoop.model.TileFactory;
-import beepBoop.model.ressource.Copper;
-import beepBoop.model.ressource.Gold;
-import beepBoop.model.ressource.Iron;
-import beepBoop.model.ressource.Platinum;
-import beepBoop.model.ressource.Silicon;
+import beepBoop.model.resource.Copper;
+import beepBoop.model.resource.Gold;
+import beepBoop.model.resource.Iron;
+import beepBoop.model.resource.Platinum;
+import beepBoop.model.resource.Silicon;
 import beepBoop.ui.MainFrame;
 
 public class App {
@@ -36,12 +36,12 @@ public class App {
 	public App() {
 		TileFactory tf = TileFactory.getInstance();
 		Landscape landscape = new Landscape(new Dimension(21,21));
-		landscape.placeRect(0, 0, 20, 20, tf.GRASS);
-		landscape.placeRect(0, 0, 0, 20, tf.ROCK);
-		landscape.placeRect(0, 0, 20, 0, tf.ROCK);
-		landscape.placeRect(0, 20, 20, 20, tf.ROCK);
-		landscape.placeRect(20, 0, 20, 20, tf.ROCK);
-		landscape.placeRect(8, 8, 12, 12, tf.EARTH);
+		landscape.placeRect(0, 0, 20, 20, tf.GRASS_OFFSET);
+		landscape.placeRect(0, 0, 0, 20, tf.ROCK_OFFSET);
+		landscape.placeRect(0, 0, 20, 0, tf.ROCK_OFFSET);
+		landscape.placeRect(0, 20, 20, 20, tf.ROCK_OFFSET);
+		landscape.placeRect(20, 0, 20, 20, tf.ROCK_OFFSET);
+		landscape.placeRect(8, 8, 12, 12, tf.EARTH_OFFSET);
 		
 		Player player = new Player();
 		player.setPosition(new Point(10,10));

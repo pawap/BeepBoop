@@ -6,27 +6,27 @@ import java.util.Map;
 import java.util.Observable;
 import java.util.Set;
 
-import beepBoop.model.ressource.Ressource;
+import beepBoop.model.resource.Resource;
 
 public class Inventory extends Observable {
-	private Set<Ressource> ressources;
+	private Set<Resource> ressources;
 	
 	public Inventory() {
-		this.ressources = new HashSet<Ressource>();
+		this.ressources = new HashSet<Resource>();
 	}
 
-	public Set<Ressource> getRessources() {
+	public Set<Resource> getRessources() {
 		return ressources;
 	}
 
-	public void setRessources(Set<Ressource> ressources) {
+	public void setRessources(Set<Resource> ressources) {
 		this.ressources = ressources;
 	}
 
 
 
-	public void addRessource(Ressource ressource) {
-		for (Ressource res: ressources) {
+	public void addRessource(Resource ressource) {
+		for (Resource res: ressources) {
 			if (res.getName().equals(ressource.getName())) {		
 				res.increaseAmount(ressource.getAmount());
 				return;
@@ -35,8 +35,8 @@ public class Inventory extends Observable {
 		ressources.add(ressource);
 	}
 	
-	public boolean subtractRessource(Ressource ressource) {
-		for (Ressource res: ressources) {
+	public boolean subtractRessource(Resource ressource) {
+		for (Resource res: ressources) {
 			if (res.getName().equals(ressource.getName()) && res.getAmount() >= ressource.getAmount()) {		
 				res.takeAmount(ressource.getAmount());
 				this.notifyObservers();

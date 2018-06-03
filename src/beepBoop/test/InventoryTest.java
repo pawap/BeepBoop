@@ -9,23 +9,23 @@ import org.junit.Before;
 import org.junit.Test;
 
 import beepBoop.model.Inventory;
-import beepBoop.model.ressource.Copper;
-import beepBoop.model.ressource.Gold;
-import beepBoop.model.ressource.Iron;
-import beepBoop.model.ressource.Platinum;
-import beepBoop.model.ressource.Ressource;
-import beepBoop.model.ressource.Silicon;
+import beepBoop.model.resource.Copper;
+import beepBoop.model.resource.Gold;
+import beepBoop.model.resource.Iron;
+import beepBoop.model.resource.Platinum;
+import beepBoop.model.resource.Resource;
+import beepBoop.model.resource.Silicon;
 
 public class InventoryTest {
 
 	private Inventory inv;
-	private HashSet<Ressource> ressources;
+	private HashSet<Resource> ressources;
 	
 	
 	@Before
 	public void setup() {
 		inv = new Inventory();
-		ressources = new HashSet<Ressource>();
+		ressources = new HashSet<Resource>();
 		ressources.add(new Copper(100));
 		ressources.add(new Iron(40));
 		
@@ -36,7 +36,7 @@ public class InventoryTest {
 	 */
 	@Test
 	public void getAndSetRessourcesTest() {
-		HashSet<Ressource> noRessources = new HashSet<Ressource>();
+		HashSet<Resource> noRessources = new HashSet<Resource>();
 		
 		assertTrue(inv.getRessources().isEmpty());
 		inv.setRessources(ressources);
@@ -56,9 +56,9 @@ public class InventoryTest {
 		assertTrue(inv.subtractRessource(new Copper(100)));
 		inv.addRessource(new Iron(2));
 		inv.addRessource(new Silicon(314159));
-		Set<Ressource> currRess = inv.getRessources();
+		Set<Resource> currRess = inv.getRessources();
 		Boolean containsCu = false, containsFe = false, containsSi = false;
-		for (Ressource r : currRess) {
+		for (Resource r : currRess) {
 			String resType = r.getName().toLowerCase();
 			switch(resType) {
 			case("copper"):
