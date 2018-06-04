@@ -52,7 +52,8 @@ public class App {
 		//inventory.addRessource(new Gold(0));		
 		gui = new MainFrame();
 		gui.initLevelUI(level);
-		gui.initInventoryUI(inventory);		
+		gui.initInventoryUI(inventory);
+		gui.initTerminalUI();
 		mainContr = new MainController(gui,level);
 		
 		Copper copper = new Copper(200);
