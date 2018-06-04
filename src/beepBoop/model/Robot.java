@@ -8,13 +8,9 @@ import java.awt.image.BufferedImage;
 import java.util.LinkedList;
 import java.util.List;
 
-<<<<<<< HEAD
-import beepBoop.model.ressource.Ressource;
+import beepBoop.model.resource.Resource;
 
-public class Robot extends Actor {
-=======
 public class Robot extends Thing {
->>>>>>> bba70bfa4ee644138ec910f950687ba1f0d5b22a
 
 //	private BufferedImage img;
 	private List<String> memory;
@@ -22,7 +18,7 @@ public class Robot extends Thing {
 	private Point nextPosition;
 	private boolean blocked;
 	private boolean moved;
-	private Ressource cargo;
+	private Resource cargo;
 	
 	public Robot() {
 		super(TileFactory.ROBOT_0);
@@ -98,7 +94,7 @@ public class Robot extends Thing {
 	}	
 	
 	private void loadRessource(String substring) {
-		if (cargo == nu)		
+		if (cargo == null); 		
 	}
 	private void dumpRessource(String substring) {
 		// TODO Auto-generated method stub
