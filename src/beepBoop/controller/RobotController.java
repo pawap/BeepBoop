@@ -16,11 +16,16 @@ public class RobotController extends AbstractController {
 
 	public void moveAction(Robot robot) {
 		Point p = robot.calcNextPosition();
-		if (level.isPositionFree(p.x, p.y)) {
-			level.moveThing(robot.getPosition(),p);
-			robot.move();
+		if (!robot.getPosition().equals(p)) {
+			if (level.isPositionFree(p.x, p.y)) {
+				level.moveThing(robot.getPosition(),p);
+				robot.move();
+			} else {
+				robot.setBlocked(true);
+			}
 		} else {
-			robot.setBlocked(true);
-		}	
+			robot.act();
+		}
+		
 	}
 }

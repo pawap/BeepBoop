@@ -8,6 +8,8 @@ import java.awt.image.BufferedImage;
 import java.util.LinkedList;
 import java.util.List;
 
+import beepBoop.model.ressource.Ressource;
+
 public class Robot extends Actor {
 
 	private BufferedImage img;
@@ -16,6 +18,7 @@ public class Robot extends Actor {
 	private Point nextPosition;
 	private boolean blocked;
 	private boolean moved;
+	private Ressource cargo;
 	
 	public Robot() {
 		super();
@@ -63,32 +66,59 @@ public class Robot extends Actor {
 	public Point calcNextPosition() {
 		if (moved) {
 			String command = memory.get(pc);
-			nextPosition = process(command);
+			nextPosition = calcPositionFromCommand(command);
 			moved = false;
 		}
 		return nextPosition;
 	}
 
-	private Point process(String command) {
+	private Point calcPositionFromCommand(String command) {
 		switch(command.substring(0,Math.min(2, command.length()))) {
 			case "L": return new Point(getPosition().x-1,getPosition().y);
 			case "R": return new Point(getPosition().x+1,getPosition().y);
 			case "U": return new Point(getPosition().x,getPosition().y-1);
 			case "D": return new Point(getPosition().x,getPosition().y+1);
+			case "DP":
+			case "LD": return getPosition();
 			case "IF": 
 		}
 		return getPosition();
 	}
 
+	
+	private void process(String command) {
+		switch(command.substring(0,Math.min(2, command.length()))) {
+			case "DP": dumpRessource(command.substring(3));
+			case "LD": loadRessource(command.substring(3));
+		}	
+	}	
+	
+	private void loadRessource(String substring) {
+		if (cargo == nu)		
+	}
+	private void dumpRessource(String substring) {
+		// TODO Auto-generated method stub
+		
+	}
 	public void setBlocked(boolean b) {
 		this.blocked = b;
 		
 	}
+	
 	public void move() {
 		this.setPosition(nextPosition);
-		pc = (pc >= memory.size()-1)?0:pc+1;
+		incrementPc();
 		moved = true;
 	}
 	
+	public void act() {
+		String command = memory.get(pc);
+		process(command);
+	}
+	
+
+	private void incrementPc() {
+		pc = (pc >= memory.size()-1)?0:pc+1;
+	}
 
 }
