@@ -1,31 +1,31 @@
 package beepBoop.test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.*;
 
 import java.util.HashSet;
 import java.util.Set;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.Before;
+import org.junit.Test;
 
 import beepBoop.model.Inventory;
-import beepBoop.model.ressource.Copper;
-import beepBoop.model.ressource.Gold;
-import beepBoop.model.ressource.Iron;
-import beepBoop.model.ressource.Platinum;
-import beepBoop.model.ressource.Ressource;
-import beepBoop.model.ressource.Silicon;
+import beepBoop.model.resource.Copper;
+import beepBoop.model.resource.Gold;
+import beepBoop.model.resource.Iron;
+import beepBoop.model.resource.Platinum;
+import beepBoop.model.resource.Resource;
+import beepBoop.model.resource.Silicon;
 
-class InventoryTest {
+public class InventoryTest {
 
 	private Inventory inv;
-	private HashSet<Ressource> ressources;
+	private HashSet<Resource> ressources;
 	
 	
-	@BeforeEach
-	void setup() {
+	@Before
+	public void setup() {
 		inv = new Inventory();
-		ressources = new HashSet<Ressource>();
+		ressources = new HashSet<Resource>();
 		ressources.add(new Copper(100));
 		ressources.add(new Iron(40));
 		
@@ -35,8 +35,8 @@ class InventoryTest {
 	 * Tests getRessources() and setRessources(Set<Ressource>)
 	 */
 	@Test
-	void getAndSetRessourcesTest() {
-		HashSet<Ressource> noRessources = new HashSet<Ressource>();
+	public void getAndSetRessourcesTest() {
+		HashSet<Resource> noRessources = new HashSet<Resource>();
 		
 		assertTrue(inv.getRessources().isEmpty());
 		inv.setRessources(ressources);
@@ -49,16 +49,16 @@ class InventoryTest {
 	 * Test method for addRessource(Ressource) and substractRessource(Ressource)
 	 */
 	@Test
-	void addAndSubstractRessourceTest() {
+	public void addAndSubstractRessourceTest() {
 		inv.setRessources(ressources);
-		assertFalse(inv.subtractRessource(new Copper(101)));
-		assertFalse(inv.subtractRessource(new Gold(100)));
+		assertFalse(inv.subtractRessource(new Copper(101))); //don't substract too much
+		assertFalse(inv.subtractRessource(new Gold(100))); //don't substract what isn't there
 		assertTrue(inv.subtractRessource(new Copper(100)));
 		inv.addRessource(new Iron(2));
 		inv.addRessource(new Silicon(314159));
-		Set<Ressource> currRess = inv.getRessources();
+		Set<Resource> currRess = inv.getRessources();
 		Boolean containsCu = false, containsFe = false, containsSi = false;
-		for (Ressource r : currRess) {
+		for (Resource r : currRess) {
 			String resType = r.getName().toLowerCase();
 			switch(resType) {
 			case("copper"):

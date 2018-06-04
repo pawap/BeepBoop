@@ -11,7 +11,7 @@ import beepBoop.model.Robot;
 import beepBoop.ui.MainFrame;
 
 /**
- * The BeepBoop MainController propagates input to all reevant controllers.
+ * The BeepBoop MainController propagates input to all relevant controllers.
  * @author ptp18-d06(Pawel Rasch, Tim Runge)
  *
  */
@@ -22,6 +22,7 @@ public class MainController extends AbstractController {
 	private PlayerController playerController;
 	Level level;
 	private RobotController robotController;
+	private RobotTerminalController terminalController;
 	
 	
 	/**
@@ -34,8 +35,9 @@ public class MainController extends AbstractController {
 		this.gui = gui;
 		this.exit = false;
 		this.level = level;
-		this.playerController = new PlayerController(gui.getLevelUI(),gui.getInventoryUI());
+		this.playerController = new PlayerController(gui);
 		this.robotController = new RobotController(level);
+		this.terminalController = new RobotTerminalController();
 	}
 
 	public void mainAction() {

@@ -7,7 +7,7 @@ import java.util.Map;
 import java.util.Set;
 
 import beepBoop.controller.RobotQueue;
-import beepBoop.model.ressource.Ressource;
+import beepBoop.model.resource.Resource;
 
 public class Level {
 	Landscape landscape;
@@ -77,16 +77,16 @@ public class Level {
 	}
 
 	public boolean isRessource(int x, int y) {
-		return (things.get(new Point(x,y)) instanceof Ressource);
+		return (things.get(new Point(x,y)) instanceof Resource);
 	}
 
 	public Thing getThing(int x, int y) {
 		return (Thing) things.get(new Point(x,y));
 	}
 
-	public boolean isActor(int x, int y) {
-		return (things.get(new Point(x,y)) instanceof Actor);
-	}
+//	public boolean isActor(int x, int y) {
+//		return (things.get(new Point(x,y)) instanceof Actor);
+//	}
 
 	public boolean isRobotTerminal(int x, int y) {
 		return (things.get(new Point(x,y)) instanceof RobotTerminal);

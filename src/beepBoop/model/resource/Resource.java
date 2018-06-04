@@ -1,4 +1,4 @@
-package beepBoop.model.ressource;
+package beepBoop.model.resource;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -6,31 +6,19 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
-
 import com.sun.xml.internal.ws.util.StringUtils;
 
-import beepBoop.ImageFactory;
 import beepBoop.model.Thing;
 import beepBoop.model.Tile;
 
-abstract public class Ressource extends Thing {
+abstract public class Resource extends Thing {
 	protected int amount;
-	private Image image;
 	private String name;
 	
-	public Ressource(int amount, String type) {
-		super();
+	public Resource(int amount, int tileId, String type) {
+		super(tileId);
 		this.amount = amount;
-		this.name = StringUtils.capitalize(type);
-		ImageFactory imgFac = ImageFactory.getInstance();
-		try {
-			image = imgFac.getImage(getName());
-		} catch (IOException e) {
-			System.out.println("could not get image for " + getName());
-			e.printStackTrace();
-		}
-		
+		this.name = StringUtils.capitalize(type);		
 	}
 
 	public int takeAmount(int quantity) {
@@ -55,7 +43,7 @@ abstract public class Ressource extends Thing {
 	public Image getImage() {
 		Image reImg = new BufferedImage(Tile.SIZE.width,Tile.SIZE.height,BufferedImage.TYPE_INT_ARGB);
 		Graphics2D g = (Graphics2D) reImg.getGraphics();
-		g.drawImage(image, 0, 0, null);
+		g.drawImage(super.getImage(), 0, 0, null);
 		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
 		        RenderingHints.VALUE_ANTIALIAS_ON);
 		g.setFont(new Font("Verdana", Font.BOLD, Tile.SIZE.width /2 -1));

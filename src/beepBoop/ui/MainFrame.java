@@ -11,6 +11,7 @@ import beepBoop.model.Level;
 public class MainFrame extends JFrame {
 	private LevelUI levelUI;
 	private InventoryUI inventoryUI;
+	private RobotTerminalUI terminalUI;
 	
 
 	public MainFrame(){
@@ -50,11 +51,30 @@ public class MainFrame extends JFrame {
 		add(inventoryUI,c);
 		
 	}
+	
+	public void initTerminalUI() {
+		this.terminalUI = new RobotTerminalUI();
+		GridBagConstraints c = new GridBagConstraints();
+		c.fill = GridBagConstraints.BOTH;
+		c.anchor = GridBagConstraints.WEST;
+		c.weightx = 1;
+		c.weighty = 1;
+		c.gridx = 1;
+		c.gridy = 1;
+		add(terminalUI,c);
+		
+	}
 
 	public InventoryUI getInventoryUI() {
 		return inventoryUI;
 	}
-	
-	
+
+	public RobotTerminalUI getTerminalUI() {
+		return terminalUI;
+	}
+
+	public void setTerminalUI(RobotTerminalUI terminalUI) {
+		this.terminalUI = terminalUI;
+	}
 	
 }

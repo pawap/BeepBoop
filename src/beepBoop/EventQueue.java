@@ -2,9 +2,9 @@ package beepBoop;
 
 import java.util.PriorityQueue;
 
-import beepBoop.model.Actor;
+import beepBoop.model.Thing;
 
-public class EventQueue extends PriorityQueue<Actor> {
+public class EventQueue extends PriorityQueue<Thing> {
 
 	public EventQueue() {
 		super();

@@ -3,12 +3,14 @@ package beepBoop.controller;
 import java.awt.Image;
 import java.awt.Point;
 
-import beepBoop.model.Actor;
 import beepBoop.model.Inventory;
 import beepBoop.model.Level;
-import beepBoop.model.ressource.Ressource;
+import beepBoop.model.TileFactory;
+import beepBoop.model.resource.Resource;
 import beepBoop.ui.InventoryUI;
 import beepBoop.ui.LevelUI;
+import beepBoop.ui.MainFrame;
+import beepBoop.ui.RobotTerminalUI;
 
 /**
  * Controller for the BeepBoop player.
@@ -19,6 +21,7 @@ import beepBoop.ui.LevelUI;
 public class PlayerController extends AbstractController {
 	LevelUI levelUI;
 	InventoryUI inventoryUI;
+	RobotTerminalUI terminalUI;
 	private RobotTerminalController terminalContr;
 	
 	/**
@@ -26,10 +29,11 @@ public class PlayerController extends AbstractController {
 	 * @param levelUI current level UI
 	 * @param inventoryUI the inventory UI
 	 */
-	public PlayerController(LevelUI levelUI, InventoryUI inventoryUI) {
+	public PlayerController(MainFrame mf) {
 		super();
-		this.levelUI = levelUI;
-		this.inventoryUI = inventoryUI;
+		this.levelUI = mf.getLevelUI();
+		this.inventoryUI = mf.getInventoryUI();
+		this.terminalUI = mf.getTerminalUI();
 		terminalContr = new RobotTerminalController();	
 	}
 
@@ -45,14 +49,12 @@ public class PlayerController extends AbstractController {
 		Level level = levelUI.getLevel();
 		if (!level.isPositionFree(x,y)) {
 			if (level.isRessource(x,y)) {
-				Ressource ressource = (Ressource) level.getThing(x,y);
-				Ressource transfer = new Ressource(ressource.takeAmount(10), ressource.getName()) {
-
+				Resource ressource = (Resource) level.getThing(x,y);
+				Resource transfer = new Resource(ressource.takeAmount(10),TileFactory.NULL_TILE, ressource.getName()) {
 					@Override
 					public Image getImage() {
 						return null;
 					}
-					
 				};
 				inventoryUI.getInventory().addRessource(transfer);
 				levelUI.repaint();
@@ -60,6 +62,7 @@ public class PlayerController extends AbstractController {
 			}
 			if (level.isRobotTerminal(x,y)) {
 				terminalContr.openTerminal();
+				terminalUI.setActive(true);
 			}
 			return false;
 		}
