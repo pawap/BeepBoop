@@ -55,5 +55,14 @@ abstract public class Resource extends Thing {
 	public void setName(String name) {
 		this.name = name;
 	}
+	
+	@Override
+	public boolean equals (Object o) {
+		return o.hashCode() == this.hashCode();
+	}
 
+	@Override
+	public int hashCode() {
+		return this.name.hashCode() * 42;
+	}
 }
