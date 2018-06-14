@@ -9,6 +9,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import beepBoop.controller.PlayerController;
+import beepBoop.controller.RobotQueue;
+import beepBoop.controller.RobotTerminalController;
 import beepBoop.model.Inventory;
 import beepBoop.model.Landscape;
 import beepBoop.model.Level;
@@ -51,7 +53,7 @@ public class IntegrationTest {
 		gui.initInventoryUI(inv);
 		gui.initLevelUI(lvl);
 		gui.initTerminalUI();
-		plrCtrl = new PlayerController(gui);		
+		plrCtrl = new PlayerController(gui,new RobotTerminalController(new RobotQueue()));		
 		terminal = new RobotTerminal();
 		terminalUI = gui.getTerminalUI();
 	}

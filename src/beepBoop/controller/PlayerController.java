@@ -29,12 +29,12 @@ public class PlayerController extends AbstractController {
 	 * @param levelUI current level UI
 	 * @param inventoryUI the inventory UI
 	 */
-	public PlayerController(MainFrame mf) {
+	public PlayerController(MainFrame mf,RobotTerminalController robotTerminalController) {
 		super();
 		this.levelUI = mf.getLevelUI();
 		this.inventoryUI = mf.getInventoryUI();
 		this.terminalUI = mf.getTerminalUI();
-		terminalContr = new RobotTerminalController();	
+		terminalContr = robotTerminalController;	
 	}
 
 	/*
@@ -61,6 +61,7 @@ public class PlayerController extends AbstractController {
 				inventoryUI.repaint();
 			}
 			if (level.isRobotTerminal(x,y)) {
+			    
 				terminalContr.openTerminal();
 				terminalUI.setActive(true);
 			}
