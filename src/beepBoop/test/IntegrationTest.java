@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import java.awt.Dimension;
 import java.awt.Point;
+import java.util.Set;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -18,9 +19,11 @@ import beepBoop.model.Player;
 import beepBoop.model.RobotTerminal;
 import beepBoop.model.Thing;
 import beepBoop.model.TileFactory;
+import beepBoop.model.resource.Copper;
 import beepBoop.model.resource.Gold;
 import beepBoop.model.resource.Iron;
 import beepBoop.model.resource.Resource;
+import beepBoop.model.resource.Silicon;
 import beepBoop.ui.InventoryUI;
 import beepBoop.ui.LevelUI;
 import beepBoop.ui.MainFrame;
@@ -39,6 +42,9 @@ public class IntegrationTest {
 	private RobotTerminal terminal;
 	private RobotTerminalUI terminalUI;
 	
+	/**
+	 * initializes the objcts necessary for most tests in this class
+	 */
 	@Before
 	public void setup() {
 		tiFa = TileFactory.getInstance();
@@ -85,7 +91,9 @@ public class IntegrationTest {
 		assertTrue("Wrong tile at 2,2 after shrinking the landscape. Should be ROCK_1",
 				landscape.getTile(2,2) == tiFa.get(TileFactory.ROCK_1));		
 	}
-	
+	/**
+	 * Test for the level class
+	 */
 	@Test
 	public void levelTest() {
 		setUpLevel();
@@ -102,13 +110,19 @@ public class IntegrationTest {
 	@Test
 	public void playerActionTest() {
 		setUpLevel();
+		Set<Resource> resources = inv.getRessources();
 		plrCtrl.rightAction();
 		assertTrue("Player did not move right when they were supposed to",
 				player.getPosition().equals(new Point(2,2)));
 		plrCtrl.rightAction();
 		assertFalse("Player moved into resource.",
 				player.getPosition().equals(new Point(3,2)));
+		for (Resource r : resources) {
+			System.out.println((r.getName()));
+		}
 		
+		assertTrue("Player should have collected Gold. Their inventory contains none.",
+				resources.contains(new Gold(20)));
 		plrCtrl.upAction();
 		assertTrue("Player did not move up when they were supposed to",
 				player.getPosition().equals(new Point(2,1)));
@@ -138,22 +152,22 @@ public class IntegrationTest {
 	
 	//helper methods
 	
-	/*Set up the following level(I:Iron, G:Gold, T:Terminal, P:Player):
+	/*Set up the following level(I:Iron,S:Silicon, G:Gold, T:Terminal, P:Player, C:Copper):
 	 *   0|1|2|3
 	 *  ---------
 	 * 0| | |I| |
-	 * 1|G| | | |
+	 * 1|S| | | |
 	 * 2|T|P| |G|
-	 * 3| |G| | |
+	 * 3| |C| | |
 	 */
 	private void setUpLevel() {
 		Resource res0 = new Iron(100);
 		res0.setPosition(new Point(2,0));
-		Resource res1 = new Iron(100);
+		Resource res1 = new Silicon(100);
 		res1.setPosition(new Point(0,1));
 		Resource res2 = new Gold(100);
 		res2.setPosition(new Point(3,2));
-		Resource res3 = new Gold(100);
+		Resource res3 = new Copper(100);
 		res3.setPosition(new Point(1,3));
 		player.setPosition(new Point(1,2));
 		terminal.setPosition(new Point(0,2));
