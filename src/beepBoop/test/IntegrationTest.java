@@ -59,7 +59,7 @@ public class IntegrationTest {
 		gui.initInventoryUI(inv);
 		gui.initLevelUI(lvl);
 		gui.initTerminalUI();
-		plrCtrl = new PlayerController(gui,new RobotTerminalController(new RobotQueue()));		
+		plrCtrl = new PlayerController(gui,new RobotTerminalController(gui.getTerminalUI(), new RobotQueue()));		
 		terminal = new RobotTerminal();
 		terminalUI = gui.getTerminalUI();
 	}

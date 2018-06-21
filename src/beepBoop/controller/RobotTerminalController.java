@@ -1,21 +1,26 @@
 package beepBoop.controller;
 
 import beepBoop.model.Robot;
+import beepBoop.ui.RobotTerminalUI;
 
 public class RobotTerminalController extends AbstractController {
 
     private RobotQueue robotQueue;
+    private RobotTerminalUI robotTerminalUI;
     
-	public RobotTerminalController(RobotQueue robotQueue)
+	public RobotTerminalController(RobotTerminalUI robotTerminalUI, RobotQueue robotQueue)
     {
        this.robotQueue = robotQueue;
+       this.robotTerminalUI = robotTerminalUI;
     }
 
     /**
 	 * This method should be called when the player interacts with a terminal. Sets the terminalUI to active.
 	 */
 	public void openTerminal() {
-		// TODO Set the TerminalUI to active
+		robotTerminalUI.setActive(true);
+		robotTerminalUI.fillRobotsDropDown(robotQueue);
+		    
 		System.out.println("RobotTerminal Interaction");
 		for (Robot robot: robotQueue) {
 		    if (robot.getCargo() != null) {

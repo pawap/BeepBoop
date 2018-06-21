@@ -2,8 +2,9 @@ package beepBoop.model;
 
 import java.awt.Image;
 import java.awt.Point;
+import java.util.Observable;
 
-abstract public class Thing {
+abstract public class Thing extends Observable {
 	private Point position;
 	private Tile tile;
 	

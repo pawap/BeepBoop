@@ -1,6 +1,8 @@
 package beepBoop.controller;
 
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
@@ -35,7 +37,7 @@ public class MainController extends AbstractController {
 		this.gui = gui;
 		this.exit = false;
 		this.level = level;
-		this.terminalController = new RobotTerminalController(level.getRobotQueue());
+		this.terminalController = new RobotTerminalController(gui.getTerminalUI(), this.level.getRobotQueue());
 		this.playerController = new PlayerController(gui, terminalController);
 		this.robotController = new RobotController(level);
 		
@@ -112,6 +114,45 @@ public class MainController extends AbstractController {
 		gui.getLevelUI().getActionMap().put("down",
                  downAction);
 		gui.getLevelUI().requestFocus();
+		
+		gui.getLevelUI().addMouseListener(new MouseListener() {
+
+            @Override
+            public void mouseClicked(MouseEvent arg0)
+            {
+                gui.getLevelUI().requestFocus();
+                
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent arg0)
+            {
+                // TODO Auto-generated method stub
+                
+            }
+
+            @Override
+            public void mouseExited(MouseEvent arg0)
+            {
+                // TODO Auto-generated method stub
+                
+            }
+
+            @Override
+            public void mousePressed(MouseEvent arg0)
+            {
+                gui.getLevelUI().requestFocus();
+                
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent arg0)
+            {
+                // TODO Auto-generated method stub
+                
+            }
+		    
+		});
 	}
 	
 }

@@ -44,7 +44,7 @@ public class MainFrame extends JFrame {
 		GridBagConstraints c = new GridBagConstraints();
 		c.fill = GridBagConstraints.BOTH;
 		c.anchor = GridBagConstraints.WEST;
-		c.weightx = 0.5;
+		c.weightx = 0.25;
 		c.weighty = 1;
 		c.gridx = 1;
 		c.gridy = 0;
@@ -57,7 +57,7 @@ public class MainFrame extends JFrame {
 		GridBagConstraints c = new GridBagConstraints();
 		c.fill = GridBagConstraints.BOTH;
 		c.anchor = GridBagConstraints.WEST;
-		c.weightx = 0.5;
+		c.weightx = 0.25;
 		c.weighty = 1;
 		c.gridx = 2;
 		c.gridy = 0;

@@ -76,6 +76,8 @@ public class Robot extends Thing {
     public void setCargo(Resource cargo)
     {
         this.cargo = cargo;
+        this.setChanged();
+        this.notifyObservers();
     }
     public List<String> getErrorLog()
     {
@@ -84,6 +86,8 @@ public class Robot extends Thing {
     public void setErrorLog(List<String> errorLog)
     {
         this.errorLog = errorLog;
+        this.setChanged();
+        this.notifyObservers();
     }
     public Point calcNextPosition() {
 		if (moved) {
@@ -132,11 +136,16 @@ public class Robot extends Thing {
     {
         if (errorMsg.equals("NoError")) return;
         this.errorLog.add(errorMsg);
+        this.setChanged();
+        this.notifyObservers();
         
     }
     public void addCargo(int load)
     {
-        this.cargo.increaseAmount(load);      
+        moved = true;
+        this.cargo.increaseAmount(load);
+        this.setChanged();
+        this.notifyObservers();
     }
 
 }
