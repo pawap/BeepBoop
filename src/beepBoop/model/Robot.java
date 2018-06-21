@@ -123,6 +123,7 @@ public class Robot extends Thing {
 	
 	public Command act() {
 		String command = memory.get(pc);
+		moved = true;
 		incrementPc();
 		return process(command);
 	}
@@ -142,7 +143,6 @@ public class Robot extends Thing {
     }
     public void addCargo(int load)
     {
-        moved = true;
         this.cargo.increaseAmount(load);
         this.setChanged();
         this.notifyObservers();

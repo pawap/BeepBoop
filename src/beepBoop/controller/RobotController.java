@@ -27,8 +27,10 @@ public class RobotController extends AbstractController {
 				robot.move();
 			} else {
 				robot.setBlocked(true);
-				System.out.println("blocked");
 				robot.setError("Blocked by "+level.getThing(p.x, p.y).toString());
+				if (level.getThing(p.x, p.y) instanceof Resource) {
+				    robot.act();
+				}
 			}
 		} else {
 		    Command command = robot.act();
