@@ -12,6 +12,8 @@ import beepBoop.model.resource.Resource;
 
 public class Robot extends Thing {
 
+    public final static int MAX_CAPACITY = 1000;
+    
 //	private BufferedImage img;
 	private List<String> memory;
 	private int pc;
@@ -19,10 +21,14 @@ public class Robot extends Thing {
 	private boolean blocked;
 	private boolean moved;
 	private Resource cargo;
+
+    private List<String> errorLog;
+	
 	
 	public Robot() {
 		super(TileFactory.ROBOT_0);
 		this.memory = new LinkedList<String>();
+	    this.errorLog = new LinkedList<String>();
 		pc = 0;
 		blocked = false;
 		moved = false;
@@ -63,7 +69,23 @@ public class Robot extends Thing {
 		this.pc = pc;
 	}
 
-	public Point calcNextPosition() {
+	public Resource getCargo()
+    {
+        return cargo;
+    }
+    public void setCargo(Resource cargo)
+    {
+        this.cargo = cargo;
+    }
+    public List<String> getErrorLog()
+    {
+        return errorLog;
+    }
+    public void setErrorLog(List<String> errorLog)
+    {
+        this.errorLog = errorLog;
+    }
+    public Point calcNextPosition() {
 		if (moved) {
 			String command = memory.get(pc);
 			nextPosition = calcPositionFromCommand(command);
@@ -72,34 +94,18 @@ public class Robot extends Thing {
 		return nextPosition;
 	}
 
-	private Point calcPositionFromCommand(String command) {
-		switch(command.substring(0,Math.min(2, command.length()))) {
-			case "L": return new Point(getPosition().x-1,getPosition().y);
-			case "R": return new Point(getPosition().x+1,getPosition().y);
-			case "U": return new Point(getPosition().x,getPosition().y-1);
-			case "D": return new Point(getPosition().x,getPosition().y+1);
-			case "DP":
-			case "LD": return getPosition();
-			case "IF": 
-		}
-		return getPosition();
+	private Point calcPositionFromCommand(String commandStr) {
+		Command command = new Command(commandStr);
+	    Point newPosition = Command.getPointFromDirection(getPosition(), command.getType());
+		return newPosition;
 	}
 
 	
-	private void process(String command) {
-		switch(command.substring(0,Math.min(2, command.length()))) {
-			case "DP": dumpRessource(command.substring(3));
-			case "LD": loadRessource(command.substring(3));
-		}	
+	private Command process(String commandStr) {
+        return new Command(commandStr);
 	}	
 	
-	private void loadRessource(String substring) {
-		if (cargo == null); 		
-	}
-	private void dumpRessource(String substring) {
-		// TODO Auto-generated method stub
-		
-	}
+
 	public void setBlocked(boolean b) {
 		this.blocked = b;
 		
@@ -111,14 +117,26 @@ public class Robot extends Thing {
 		moved = true;
 	}
 	
-	public void act() {
+	public Command act() {
 		String command = memory.get(pc);
-		process(command);
+		incrementPc();
+		return process(command);
 	}
 	
 
 	private void incrementPc() {
 		pc = (pc >= memory.size()-1)?0:pc+1;
 	}
+	
+    public void setError(String errorMsg)
+    {
+        if (errorMsg.equals("NoError")) return;
+        this.errorLog.add(errorMsg);
+        
+    }
+    public void addCargo(int load)
+    {
+        this.cargo.increaseAmount(load);      
+    }
 
 }

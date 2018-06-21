@@ -79,10 +79,14 @@ public class App {
 		Robot robot = new Robot();
 		robot.setPosition(new Point(10,12));
 		List<String> program = new LinkedList<String>();
-		program.add("U");
 		program.add("L");
-		program.add("D");
-		program.add("R");
+		program.add("L");
+		program.add("L");
+		program.add("L");
+		program.add("L");
+		program.add("L");
+	    program.add("LD L 50");
+
 		robot.setMemory(program);
 		level.addThing(robot);
 		level.addRobot(robot);
