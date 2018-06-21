@@ -14,8 +14,6 @@ public class Level {
 	private Map<Point,Thing> things;
 	private Player player;
 	private RobotQueue robotQueue;
-	
-
 
 	public Level(Landscape landscape, Player player) {
 		super();
@@ -23,6 +21,7 @@ public class Level {
 		this.setPlayer(player);
 		this.things = new HashMap<Point,Thing>();
 		this.robotQueue = new RobotQueue();
+		
 	}
 
 	public Player getPlayer() {
