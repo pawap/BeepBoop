@@ -48,7 +48,7 @@ public class MainController extends AbstractController {
         while(!exit) {
         	//System.out.print("|");
             for (Robot robot: level.getRobotQueue()) {
-            	robotController.moveAction(robot);
+            	robotController.processAction(robot);
             	//System.out.print(".");
             }
             gui.getLevelUI().repaint();

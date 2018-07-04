@@ -14,10 +14,8 @@ public class Command
            throw new IllegalArgumentException();
        }
        String[] strArray = commandStr.split(" ");
-       this.type = strArray[0];
-       
-       this.args = new String[strArray.length-1];
-       
+       this.type = strArray[0]; 
+       this.args = new String[strArray.length-1];   
        if (strArray.length > 1) {
            for (int i = 1; i < strArray.length; i++) {
                this.args[i-1] = strArray[i];
