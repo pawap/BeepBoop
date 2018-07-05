@@ -119,7 +119,7 @@ public class RobotController extends AbstractController {
         if (thing == null) {
             Resource resource = new Resource(robot.removeCargo(dump),
                     TileFactory.getTileIdForResource(cargo.getName()),
-                    cargo.getName()){};
+                    cargo.getName());
             resource.setPosition(actOn);
             
             System.out.println(level.addThing(resource)+" "+resource.getName()+" "+resource.getPosition()+" "+actOn+level.getThing(actOn.x,actOn.y));
@@ -139,9 +139,9 @@ public class RobotController extends AbstractController {
         if (thing instanceof RobotTerminal) {
             level.getInventory().addRessource(new Resource(robot.removeCargo(dump),
                                             TileFactory.NULL_TILE,
-                                            cargo.getName()){});
+                                            cargo.getName()));
             
-           
+         
         }
     }
 
@@ -157,13 +157,16 @@ public class RobotController extends AbstractController {
             if (cargo == null) {
                 robot.setCargo(new Resource(resource.takeAmount(amount),
                 							TileFactory.NULL_TILE,
-                							resource.getName()){});
+                							resource.getName()));
             } else if (cargo.getName().equals(resource.getName())) {
                 int load = Math.min(Robot.MAX_CAPACITY - cargo.getAmount(), amount) ;
                 robot.addCargo(resource.takeAmount(load));       
             } else {
                 return "Incompatible Resource loaded";
             }
+			if (resource.getAmount() == 0) {
+				level.removeThing(resource);
+			}
             return "NoError";
         } else {
             return "No Resource";

@@ -49,16 +49,14 @@ public class PlayerController extends AbstractController {
 		Level level = levelUI.getLevel();
 		if (!level.isPositionFree(x,y)) {
 			if (level.isRessource(x,y)) {
-				Resource ressource = (Resource) level.getThing(x,y);
-				Resource transfer = new Resource(ressource.takeAmount(10),TileFactory.NULL_TILE, ressource.getName()) {
-					@Override
-					public Image getImage() {
-						return null;
-					}
-				};
+				Resource resource = (Resource) level.getThing(x,y);
+				Resource transfer = new Resource(resource.takeAmount(10),TileFactory.NULL_TILE, resource.getName());
+				if (resource.getAmount() == 0) {
+					level.removeThing(resource);
+				}
 				inventoryUI.getInventory().addRessource(transfer);
 				levelUI.repaint();
-				inventoryUI.repaint();
+				
 			}
 			if (level.isRobotTerminal(x,y)) {
 			    

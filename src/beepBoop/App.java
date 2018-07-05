@@ -20,11 +20,7 @@ import beepBoop.model.Player;
 import beepBoop.model.Robot;
 import beepBoop.model.RobotTerminal;
 import beepBoop.model.TileFactory;
-import beepBoop.model.resource.Copper;
-import beepBoop.model.resource.Gold;
-import beepBoop.model.resource.Iron;
-import beepBoop.model.resource.Platinum;
-import beepBoop.model.resource.Silicon;
+import beepBoop.model.resource.Resource;
 import beepBoop.ui.MainFrame;
 
 public class App {
@@ -56,23 +52,23 @@ public class App {
 		gui.initTerminalUI();
 		mainContr = new MainController(gui,level);
 		
-		Copper copper = new Copper(200);
+		Resource copper = new Resource(200, TileFactory.COPPER, "copper");
 		copper.setPosition(new Point(3,3));
 		level.addThing(copper);
 		
-		Gold gold = new Gold(200);
+		Resource gold = new Resource(200, TileFactory.GOLD, "gold");
 		gold.setPosition(new Point(3,6));
 		level.addThing(gold);
 		
-		Iron iron = new Iron(200);
+		Resource iron = new Resource(200, TileFactory.IRON, "iron");
 		iron.setPosition(new Point(3,9));
 		level.addThing(iron);
 		
-		Platinum platinum = new Platinum(200);
+		Resource platinum = new Resource(200, TileFactory.PLATINUM, "platinum");
 		platinum.setPosition(new Point(3,12));
 		level.addThing(platinum);
 		
-		Silicon silicon = new Silicon(200);
+		Resource silicon = new Resource(200, TileFactory.SILICON, "silicon");
 		silicon.setPosition(new Point(3,15));
 		level.addThing(silicon);
 		

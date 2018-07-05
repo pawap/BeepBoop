@@ -29,16 +29,21 @@ public class Inventory extends Observable {
 		for (Resource res: ressources) {
 			if (res.getName().equals(ressource.getName())) {		
 				res.increaseAmount(ressource.getAmount());
+				this.setChanged();
+				this.notifyObservers();
 				return;
 			}
 		}
 		ressources.add(ressource);
+		this.setChanged();
+		this.notifyObservers();
 	}
 	
 	public boolean subtractRessource(Resource ressource) {
 		for (Resource res: ressources) {
 			if (res.getName().equals(ressource.getName()) && res.getAmount() >= ressource.getAmount()) {		
 				res.takeAmount(ressource.getAmount());
+				this.setChanged();
 				this.notifyObservers();
 				return true;
 				

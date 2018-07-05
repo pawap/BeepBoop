@@ -11,14 +11,14 @@ import com.sun.xml.internal.ws.util.StringUtils;
 import beepBoop.model.Thing;
 import beepBoop.model.Tile;
 
-abstract public class Resource extends Thing {
+public class Resource extends Thing {
 	protected int amount;
 	private String name;
 	
-	public Resource(int amount, int tileId, String type) {
+	public Resource(int amount, int tileId, String name) {
 		super(tileId);
 		this.amount = amount;
-		this.name = StringUtils.capitalize(type);		
+		this.name = name;		
 	}
 
 	public int takeAmount(int quantity) {
