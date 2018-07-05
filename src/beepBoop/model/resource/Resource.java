@@ -56,13 +56,13 @@ abstract public class Resource extends Thing {
 		this.name = name;
 	}
 	
-	@Override
-	public boolean equals (Object o) {
-		return o.hashCode() == this.hashCode();
-	}
-
-	@Override
-	public int hashCode() {
-		return this.name.hashCode() * 42;
-	}
+//	@Override
+//	public boolean equals (Object o) {
+//		return o.hashCode() == this.hashCode();
+//	}
+//
+//	@Override
+//	public int hashCode() {
+//		return this.name.hashCode() * 42;
+//	}
 }

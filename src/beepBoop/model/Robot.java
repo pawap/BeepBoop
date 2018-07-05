@@ -15,7 +15,6 @@ public class Robot extends Thing {
 
     public final static int MAX_CAPACITY = 1000;
     
-//	private BufferedImage img;
 	private List<String> memory;
 	private int pc;
 	private boolean blocked;
@@ -23,15 +22,19 @@ public class Robot extends Thing {
 	
 
     private List<String> errorLog;
+
+    private List<String> sensors;
 	
 	
 	public Robot() {
 		super(TileFactory.ROBOT_0);
 		this.memory = new LinkedList<String>();
 		this.errorLog = new LinkedList<String>();
-
+		this.sensors = new LinkedList<String>();
 		pc = 0;
 		blocked = false;
+		sensors.add("FREE");
+		sensors.add("RESOURCE");
 	}
 	
 
@@ -102,6 +105,18 @@ public class Robot extends Thing {
         this.cargo.increaseAmount(load);
         this.setChanged();
         this.notifyObservers();
+    }
+    public int removeCargo(int load)
+    {       
+        this.setChanged();
+        this.notifyObservers();
+        return  this.cargo.takeAmount(load);
+    }
+
+
+    public boolean hasSensor(String name)
+    {
+        return sensors.contains(name);
     }
 
 

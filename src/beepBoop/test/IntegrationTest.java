@@ -51,10 +51,10 @@ public class IntegrationTest {
 		player = new Player();
 		landscape = new Landscape(new Dimension(4,4));
 		landscape.placeRect(0, 0, 3, 3, TileFactory.EARTH_OFFSET);
-		lvl = new Level(landscape, player);
-		lvlUI = new LevelUI(lvl);
 		inv = new Inventory();
-		invUI = new InventoryUI(inv);
+        invUI = new InventoryUI(inv);
+		lvl = new Level(landscape, player, inv);
+		lvlUI = new LevelUI(lvl);
 		gui = new MainFrame();
 		gui.initInventoryUI(inv);
 		gui.initLevelUI(lvl);

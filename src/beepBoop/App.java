@@ -45,10 +45,10 @@ public class App {
 		
 		Player player = new Player();
 		player.setPosition(new Point(10,10));
-		
-		Level level = new Level(landscape,player);
-
 		Inventory inventory = new Inventory();
+		Level level = new Level(landscape,player,inventory);
+
+		
 		//inventory.addRessource(new Gold(0));		
 		gui = new MainFrame();
 		gui.initLevelUI(level);
@@ -81,13 +81,21 @@ public class App {
 		List<String> program = new LinkedList<String>();
 		program.add("IF FREE L");
 		program.add("L");
-		program.add("L");
-		program.add("L");
-		program.add("L");
-		program.add("L");
+		program.add("GOTO 0");
 		program.add("END");
 		program.add("LD L 50");
-
+        program.add("U");
+        program.add("U");
+        program.add("U");
+        program.add("U");
+        program.add("U");        
+        program.add("IF FREE R");
+        program.add("DP L 1"); 
+        program.add("R");
+        program.add("GOTO 10");
+        program.add("END");
+        program.add("DP R 50");
+        
 		robot.setMemory(program);
 		level.addThing(robot);
 		level.addRobot(robot);

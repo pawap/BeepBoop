@@ -10,20 +10,31 @@ import beepBoop.controller.RobotQueue;
 import beepBoop.model.resource.Resource;
 
 public class Level {
-	Landscape landscape;
+	private Landscape landscape;
 	private Map<Point,Thing> things;
 	private Player player;
 	private RobotQueue robotQueue;
+	private Inventory inventory;
 
-	public Level(Landscape landscape, Player player) {
+    public Level(Landscape landscape, Player player, Inventory inventory) {
 		super();
 		this.landscape = landscape;
+		this.inventory = inventory;
 		this.setPlayer(player);
 		this.things = new HashMap<Point,Thing>();
 		this.robotQueue = new RobotQueue();
 		
 	}
+    
+	public Inventory getInventory()
+    {
+        return inventory;
+    }
 
+    public void setInventory(Inventory inventory)
+    {
+        this.inventory = inventory;
+    }
 	public Player getPlayer() {
 		return player;
 	}

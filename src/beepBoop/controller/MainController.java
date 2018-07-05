@@ -53,7 +53,7 @@ public class MainController extends AbstractController {
             }
             gui.getLevelUI().repaint();
             try {
-				Thread.sleep(1000);
+				Thread.sleep(250);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

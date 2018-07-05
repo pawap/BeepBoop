@@ -100,4 +100,17 @@ public class TileFactory {
 	public Tile get(int tileId) {
 		return tiles.get(tileId);
 	}
+
+    public static int getTileIdForResource(String name)
+    {
+        int id = NULL_TILE; 
+        switch (name.toLowerCase()) {
+            case "copper": id = COPPER; break;
+            case "gold": id = GOLD; break;
+            case "iron": id = IRON; break;
+            case "platinum": id = PLATINUM; break;
+            case "silicon": id = SILICON; break;
+        }
+        return id;
+    }
 }
