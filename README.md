@@ -1,3 +1,3 @@
 # BeepBoop
 BeepBoop - the Robotgame
-I shall log now again
+I shall log now
