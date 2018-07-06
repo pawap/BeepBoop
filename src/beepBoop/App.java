@@ -16,6 +16,7 @@ import beepBoop.controller.RobotTerminalController;
 import beepBoop.model.Inventory;
 import beepBoop.model.Landscape;
 import beepBoop.model.Level;
+import beepBoop.model.MsgEvent;
 import beepBoop.model.Player;
 import beepBoop.model.Robot;
 import beepBoop.model.RobotTerminal;
@@ -137,11 +138,20 @@ public class App {
 		RobotTerminal terminal = new RobotTerminal();
 		terminal.setPosition(new Point(10, 7));
 		level.addThing(terminal);
+		MsgEvent msg = new MsgEvent("This is rather confusing, isn't it?");
+		msg.setTimeout(15);
+		level.addEvent(msg);
+		msg = new MsgEvent("Welcome!");
+		msg.setTimeout(3);
+		level.addEvent(msg);
+		msg = new MsgEvent("Get to work! Those robots are going beserk!");
+		msg.setTimeout(8);		
+		level.addEvent(msg);
 
 		gui.setSize(1000, 500);	
 		
 		//gui.pack();
-		gui.setVisible(true); // 
+		gui.setVisible(true); //
 		mainContr.mainAction();
 	}
 

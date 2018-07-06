@@ -1,9 +1,13 @@
 package beepBoop.ui;
 
+import java.awt.Dialog;
+import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
+import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 
 import beepBoop.model.Inventory;
 import beepBoop.model.Level;
@@ -75,6 +79,15 @@ public class MainFrame extends JFrame {
 
 	public void setTerminalUI(RobotTerminalUI terminalUI) {
 		this.terminalUI = terminalUI;
+	}
+	
+	public void showMessage(String str) {
+		JDialog messageBox = new JDialog(this, "Message", Dialog.ModalityType.DOCUMENT_MODAL);
+		messageBox.add(new JLabel(str));
+		messageBox.setLocation(this.getWidth()/2, this.getHeight()/2);
+		messageBox.setLayout(new FlowLayout());
+		messageBox.pack();
+		messageBox.setVisible(true);
 	}
 	
 }

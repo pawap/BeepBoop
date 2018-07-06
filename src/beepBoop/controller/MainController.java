@@ -1,5 +1,6 @@
 package beepBoop.controller;
 
+import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -8,7 +9,9 @@ import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.KeyStroke;
 
+import beepBoop.model.Event;
 import beepBoop.model.Level;
+import beepBoop.model.MsgEvent;
 import beepBoop.model.Robot;
 import beepBoop.ui.MainFrame;
 
@@ -25,6 +28,7 @@ public class MainController extends AbstractController {
 	Level level;
 	private RobotController robotController;
 	private RobotTerminalController terminalController;
+	private EventController eventController;
 	
 	
 	/**
@@ -40,16 +44,21 @@ public class MainController extends AbstractController {
 		this.terminalController = new RobotTerminalController(gui.getTerminalUI(), this.level.getRobotQueue());
 		this.playerController = new PlayerController(gui, terminalController);
 		this.robotController = new RobotController(level);
-		
+		this.eventController = new EventController(level,gui);
 	}
 
 	public void mainAction() {
 		initKeyBindings();
+		eventController.initAction(level.getEventQueue());
         while(!exit) {
         	//System.out.print("|");
             for (Robot robot: level.getRobotQueue()) {
             	robotController.processAction(robot);
             	//System.out.print(".");
+            }
+            Event event;
+            while ((event = level.getEventQueue().poll()) != null) {
+            	eventController.processAction(event);
             }
             gui.getLevelUI().repaint();
             try {
