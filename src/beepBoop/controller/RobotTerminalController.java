@@ -7,11 +7,13 @@ public class RobotTerminalController extends AbstractController {
 
     private RobotQueue robotQueue;
     private RobotTerminalUI robotTerminalUI;
+	private RobotController robotController;
     
-	public RobotTerminalController(RobotTerminalUI robotTerminalUI, RobotQueue robotQueue)
+	public RobotTerminalController(RobotTerminalUI robotTerminalUI, RobotQueue robotQueue, RobotController robotController2)
     {
        this.robotQueue = robotQueue;
        this.robotTerminalUI = robotTerminalUI;
+       this.robotController = robotController2;
     }
 
     /**

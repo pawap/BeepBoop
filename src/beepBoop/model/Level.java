@@ -84,6 +84,7 @@ public class Level {
 		if (robotQueue.contains(robot)) {
 			return false;
 		}
+		this.addThing(robot);
 		robotQueue.add(robot);	
 		return true;
 	}

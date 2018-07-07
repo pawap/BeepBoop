@@ -117,7 +117,6 @@ public class App {
         program.add("DP R 50");
         
 		robot.setMemory(program);
-		level.addThing(robot);
 		level.addRobot(robot);
 		
 		Robot robot2 = new Robot();
@@ -132,7 +131,6 @@ public class App {
 		program.add("L");
 		program.add("D");	
 		robot2.setMemory(program);
-		level.addThing(robot2);
 		level.addRobot(robot2);
 		
 		RobotTerminal terminal = new RobotTerminal();

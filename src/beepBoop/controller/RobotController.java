@@ -21,6 +21,16 @@ public class RobotController extends AbstractController {
 		this.level = level;
 	}
 
+	public Robot newAction(String type, Point position) {
+		Robot robot;
+		switch (type) {
+			case "r1": robot = new Robot(); break;
+			default: return null;
+		}
+		robot.setPosition(position);
+		level.addRobot(robot);
+		return robot;
+	}
 	public void processAction(Robot robot) {
 		Command command = robot.getCurrentCommand();
 	    switch(command.getType()) {
