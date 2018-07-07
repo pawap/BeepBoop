@@ -32,12 +32,12 @@ public class App {
 	public App() {
 		TileFactory tf = TileFactory.getInstance();
 		Landscape landscape = new Landscape(new Dimension(50,50));
-		landscape.placeRect(0, 0, 49, 49, tf.GRASS_OFFSET);
-		landscape.placeRect(0, 0, 0, 49, tf.ROCK_OFFSET);
-		landscape.placeRect(0, 0, 49, 0, tf.ROCK_OFFSET);
-		landscape.placeRect(0, 49, 49, 49, tf.ROCK_OFFSET);
-		landscape.placeRect(49, 0, 49, 49, tf.ROCK_OFFSET);
-		landscape.placeRect(8, 8, 12, 12, tf.EARTH_OFFSET);
+		landscape.placeRect(0, 0, 49, 49, TileFactory.GRASS_OFFSET);
+		landscape.placeRect(0, 0, 0, 49, TileFactory.ROCK_OFFSET);
+		landscape.placeRect(0, 0, 49, 0, TileFactory.ROCK_OFFSET);
+		landscape.placeRect(0, 49, 49, 49, TileFactory.ROCK_OFFSET);
+		landscape.placeRect(49, 0, 49, 49, TileFactory.ROCK_OFFSET);
+		landscape.placeRect(8, 8, 12, 12, TileFactory.EARTH_OFFSET);
 		
 		Player player = new Player();
 		player.setPosition(new Point(10,10));

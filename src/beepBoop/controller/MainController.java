@@ -37,7 +37,7 @@ public class MainController extends AbstractController {
 		this.gui = gui;
 		this.exit = false;
 		this.level = level;
-		this.terminalController = new RobotTerminalController(gui.getTerminalUI(), this.level.getRobotQueue());
+		this.terminalController = new RobotTerminalController(gui.getTerminalUI(), gui, this.level.getRobotQueue());
 		this.playerController = new PlayerController(gui, terminalController);
 		this.robotController = new RobotController(level);
 		

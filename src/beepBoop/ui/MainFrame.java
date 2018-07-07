@@ -4,6 +4,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 import beepBoop.model.Inventory;
 import beepBoop.model.Level;
@@ -11,7 +12,7 @@ import beepBoop.model.Level;
 public class MainFrame extends JFrame {
 	private LevelUI levelUI;
 	private InventoryUI inventoryUI;
-	private RobotTerminalUI terminalUI;
+	private JPanel terminalUI;
 	
 
 	public MainFrame(){
@@ -69,11 +70,11 @@ public class MainFrame extends JFrame {
 		return inventoryUI;
 	}
 
-	public RobotTerminalUI getTerminalUI() {
+	public JPanel getTerminalUI() {
 		return terminalUI;
 	}
 
-	public void setTerminalUI(RobotTerminalUI terminalUI) {
+	public void setTerminalUI(JPanel terminalUI) {
 		this.terminalUI = terminalUI;
 	}
 	
