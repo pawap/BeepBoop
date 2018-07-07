@@ -12,8 +12,8 @@ import java.util.Observer;
 import javax.swing.JPanel;
 
 import beepBoop.model.Inventory;
-import beepBoop.model.Ressource;
 import beepBoop.model.Tile;
+import beepBoop.model.resource.Resource;
 
 public class InventoryUI extends JPanel {
 	Inventory inventory;
@@ -25,8 +25,7 @@ public class InventoryUI extends JPanel {
 
 			@Override
 			public void update(Observable arg0, Object arg1) {
-				
-				
+				repaint();
 			}});
 		this.setPreferredSize(new Dimension(500,500));
 		this.setSize(new Dimension(500,500));
@@ -49,7 +48,9 @@ public class InventoryUI extends JPanel {
 		g2d.setFont(new Font("Verdana", Font.BOLD, 15));
 		g2d.setColor(Color.BLACK);
 		int y = 15;
-		for (Ressource res: inventory.getRessources()){ 
+		g2d.drawString("Inventory",0, y);
+		y += 20;
+		for (Resource res: inventory.getRessources()){ 
 				g2d.drawString(res.getName()+": "+res.getAmount(),0, y);
 				y += 20;
 		}

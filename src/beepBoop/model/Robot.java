@@ -7,33 +7,37 @@ import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
-public class Robot extends Actor {
+import beepBoop.model.resource.Resource;
 
-	private BufferedImage img;
+public class Robot extends Thing {
+
+    public final static int MAX_CAPACITY = 1000;
+    
 	private List<String> memory;
 	private int pc;
-	private Point nextPosition;
+	private boolean blocked;
+	private Resource cargo;
+	
 
+    private List<String> errorLog;
+
+    private List<String> sensors;
+	
+	
 	public Robot() {
-		super();
+		super(TileFactory.ROBOT_0);
 		this.memory = new LinkedList<String>();
+		this.errorLog = new LinkedList<String>();
+		this.sensors = new LinkedList<String>();
 		pc = 0;
-		img = new BufferedImage(Tile.SIZE.width,Tile.SIZE.height,BufferedImage.TYPE_INT_ARGB);
-		Graphics g = img.getGraphics();
-		g.setColor(Color.BLACK);
-		g.fillRect(0,0,Tile.SIZE.width, Tile.SIZE.height);
-		g.setColor(Color.WHITE);
-		g.drawOval(8,3,4,3);
-		g.drawRect(6, 7, 8, 7);
-		g.drawOval(3, 15, 14, 4);
-	}
-
-	@Override
-	public Image getImage() {
-		return img;
+		blocked = false;
+		sensors.add("FREE");
+		sensors.add("RESOURCE");
 	}
 	
+
 	
 	public List<String> getMemory() {
 		return memory;
@@ -51,22 +55,70 @@ public class Robot extends Actor {
 		this.pc = pc;
 	}
 
-	public Point calcNextPosition() {
-		String command = memory.get(pc);
-		nextPosition = process(command);
-		return nextPosition;
-	}
+	public Resource getCargo()
+    {
+        return cargo;
+    }
+    public void setCargo(Resource cargo)
+    {
+        this.cargo = cargo;
+        this.setChanged();
+        this.notifyObservers();
+    }
+    public List<String> getErrorLog()
+    {
+        return errorLog;
+    }
+    public void setErrorLog(List<String> errorLog)
+    {
+        this.errorLog = errorLog;
+        this.setChanged();
+        this.notifyObservers();
+    }
 
-	private Point process(String command) {
-		switch(command.substring(0,Math.min(2, command.length()))) {
-			case "L": return new Point(getPosition().x-1,getPosition().y);
-			case "R": return new Point(getPosition().x+1,getPosition().y);
-			case "U": return new Point(getPosition().x,getPosition().y-1);
-			case "D": return new Point(getPosition().x,getPosition().y+1);
-			case "IF": 
-		}
-		return getPosition();
+
+	
+	public void move(Point p) {
+		this.setPosition(p);
+		incrementPc();
 	}
 	
+	public Command getCurrentCommand() {
+		String command = memory.get(pc);
+		return new Command(command);
+	}
+
+	public void incrementPc() {
+		pc = (pc >= memory.size()-1)?0:pc+1;
+	}
+	
+    public void setError(String errorMsg)
+    {
+        if (errorMsg.equals("NoError")) return;
+        this.errorLog.add(errorMsg);
+        this.setChanged();
+        this.notifyObservers();
+        
+    }
+    public void addCargo(int load)
+    {
+        this.cargo.increaseAmount(load);
+        this.setChanged();
+        this.notifyObservers();
+    }
+    public int removeCargo(int load)
+    {       
+        this.setChanged();
+        this.notifyObservers();
+        return  this.cargo.takeAmount(load);
+    }
+
+
+    public boolean hasSensor(String name)
+    {
+        return sensors.contains(name);
+    }
+
+
 
 }

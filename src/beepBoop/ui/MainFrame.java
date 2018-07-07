@@ -1,9 +1,13 @@
 package beepBoop.ui;
 
+import java.awt.Dialog;
+import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
+import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 
 import beepBoop.model.Inventory;
 import beepBoop.model.Level;
@@ -11,6 +15,7 @@ import beepBoop.model.Level;
 public class MainFrame extends JFrame {
 	private LevelUI levelUI;
 	private InventoryUI inventoryUI;
+	private RobotTerminalUI terminalUI;
 	
 
 	public MainFrame(){
@@ -43,18 +48,46 @@ public class MainFrame extends JFrame {
 		GridBagConstraints c = new GridBagConstraints();
 		c.fill = GridBagConstraints.BOTH;
 		c.anchor = GridBagConstraints.WEST;
-		c.weightx = 1;
+		c.weightx = 0.25;
 		c.weighty = 1;
 		c.gridx = 1;
 		c.gridy = 0;
 		add(inventoryUI,c);
 		
 	}
+	
+	public void initTerminalUI() {
+		this.terminalUI = new RobotTerminalUI();
+		GridBagConstraints c = new GridBagConstraints();
+		c.fill = GridBagConstraints.BOTH;
+		c.anchor = GridBagConstraints.WEST;
+		c.weightx = 0.25;
+		c.weighty = 1;
+		c.gridx = 2;
+		c.gridy = 0;
+		add(terminalUI,c);
+		
+	}
 
 	public InventoryUI getInventoryUI() {
 		return inventoryUI;
 	}
+
+	public RobotTerminalUI getTerminalUI() {
+		return terminalUI;
+	}
+
+	public void setTerminalUI(RobotTerminalUI terminalUI) {
+		this.terminalUI = terminalUI;
+	}
 	
-	
+	public void showMessage(String str) {
+		JDialog messageBox = new JDialog(this, "Message", Dialog.ModalityType.DOCUMENT_MODAL);
+		messageBox.add(new JLabel(str));
+		messageBox.setLocation(this.getWidth()/2, this.getHeight()/2);
+		messageBox.setLayout(new FlowLayout());
+		messageBox.pack();
+		messageBox.setVisible(true);
+	}
 	
 }
