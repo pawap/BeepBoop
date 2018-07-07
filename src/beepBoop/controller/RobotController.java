@@ -21,6 +21,15 @@ public class RobotController extends AbstractController {
 		this.level = level;
 	}
 
+	/**
+	 * 
+	 * Adds new Robot of the requested type at the specified position to the level
+	 * and returns a reference to the new robot.
+	 * 
+	 * @param type
+	 * @param position
+	 * @return
+	 */
 	public Robot newAction(String type, Point position) {
 		Robot robot;
 		switch (type) {
