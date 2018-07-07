@@ -46,7 +46,9 @@ public class MainController extends AbstractController {
 		this.playerController = new PlayerController(gui, terminalController);
 		this.eventController = new EventController(level,gui);
 	}
-
+	/**
+	 * Main action. Runs the game loop.
+	 */
 	public void mainAction() {
 		initKeyBindings();
 		eventController.initAction(level.getEventQueue());

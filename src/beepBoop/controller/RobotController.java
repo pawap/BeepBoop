@@ -40,6 +40,12 @@ public class RobotController extends AbstractController {
 		level.addRobot(robot);
 		return robot;
 	}
+	
+	/**
+	 * Takes care of processing a robot 
+	 * 
+	 * @param robot
+	 */
 	public void processAction(Robot robot) {
 		Command command = robot.getCurrentCommand();
 	    switch(command.getType()) {
