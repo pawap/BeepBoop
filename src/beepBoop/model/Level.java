@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import beepBoop.controller.EventQueue;
 import beepBoop.controller.RobotQueue;
 import beepBoop.model.resource.Resource;
 
@@ -15,15 +16,20 @@ public class Level {
 	private Player player;
 	private RobotQueue robotQueue;
 	private Inventory inventory;
+	private EventQueue eventQueue;
 
-    public Level(Landscape landscape, Player player, Inventory inventory) {
+    public EventQueue getEventQueue() {
+		return eventQueue;
+	}
+
+	public Level(Landscape landscape, Player player, Inventory inventory) {
 		super();
 		this.landscape = landscape;
 		this.inventory = inventory;
 		this.setPlayer(player);
 		this.things = new HashMap<Point,Thing>();
 		this.robotQueue = new RobotQueue();
-		
+		this.eventQueue = new EventQueue();
 	}
     
 	public Inventory getInventory()
@@ -81,7 +87,14 @@ public class Level {
 		robotQueue.add(robot);	
 		return true;
 	}
-
+	public boolean addEvent(Event event) {
+		if (eventQueue.contains(event)) {
+			return false;
+		}
+		
+		eventQueue.add(event);	
+		return true;
+	}
 	public Set<Thing> getThings() {
 		return new HashSet<Thing>(things.values());
 	}
