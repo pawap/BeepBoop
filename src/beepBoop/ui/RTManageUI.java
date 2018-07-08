@@ -141,6 +141,10 @@ public class RTManageUI extends AbstractRobotTerminalUI implements Observer{
 		this.currentRobot.deleteObserver(this);
 		this.currentRobot = robot;
 		this.currentRobot.addObserver(this);
+		
+		if (currentInfoType.equals("Program")) { //if the program of the last robot is being shown, prepare to load this one's
+			currentInfoType = "Load Program";
+		}
 		update(null, null);
 		
 	}
@@ -170,17 +174,6 @@ public class RTManageUI extends AbstractRobotTerminalUI implements Observer{
         case("Load Program"):
         	setInfoText(currentRobot.getMemory());
             this.setCurrentInfoType("Program");
-//        	break;
-//        case("Import Script"):
-//        	this.infoField.setText("");
-//            for (String str : importScript()) {
-//        	    this.infoField.append(str+"\n");
-//            }
-//
-//            this.setCurrentInfoType("editing");
-//        	break;
-//        case("Export Script"):
-//        	exportScript(this.infoField.getText());
         }
 
         this.repaint();
@@ -198,44 +191,6 @@ public class RTManageUI extends AbstractRobotTerminalUI implements Observer{
 		this.currentRobot.addObserver(this);
 	}
 
-//	private void exportScript(String text) {
-//		JFileChooser chooser = new JFileChooser();
-//		String fileExtension = ".bbp";
-//		String fileType = "BeepBoopProgram File";
-//		if (currentInfoType.equals("Show Error Log")) {
-//			fileExtension = ".txt";
-//			fileType = "Textfile";
-//		}
-//		chooser.setFileFilter(new FileNameExtensionFilter(fileType, fileExtension));
-//		int result = chooser.showOpenDialog(this);
-//		if(result == JFileChooser.APPROVE_OPTION) {
-//			String name = chooser.getSelectedFile().getPath();
-//			if (!name.endsWith(fileExtension)) {
-//				name += fileExtension;
-//			}
-//			try (FileWriter writer = new FileWriter(name)){	
-//				writer.write(text);
-//				writer.flush();
-//			} catch (IOException e) {
-//				e.printStackTrace();
-//			}
-//		}
-//	}
-
-//	private List<String> importScript() {
-//		JFileChooser chooser = new JFileChooser();
-//		chooser.setFileFilter(new FileNameExtensionFilter("BeepBoopProgram File", "bbp"));
-//		int result = chooser.showOpenDialog(this);
-//		List<String> imported = new ArrayList<String>();
-//		if(result == JFileChooser.APPROVE_OPTION) {
-//			try {
-//				imported = Files.readAllLines(Paths.get(chooser.getSelectedFile().getPath()));
-//			} catch (IOException e) {
-//				e.printStackTrace();
-//			}
-//		}
-//		return imported;
-//	}
 
 	/**
 	 * Sets the text of the infoField

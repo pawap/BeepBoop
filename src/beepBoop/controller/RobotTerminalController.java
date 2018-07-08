@@ -67,7 +67,9 @@ public class RobotTerminalController extends AbstractController {
 			robotTerminalUI.addListeners(listeners);
 		}
 		else if (robotTerminalUI instanceof RTConstrUI) {
-
+			listeners.put("rcDropDown", new RCDropListener());
+			listeners.put("constr", new ConstructListener());
+			listeners.put("back", new NavToMainListener());
 			robotTerminalUI.addListeners(listeners);
 		}
 		else if (robotTerminalUI instanceof RTMainUI) {
@@ -240,6 +242,20 @@ public class RobotTerminalController extends AbstractController {
 	}
 	
 	/**
+	 * This Listener tries to have a robot of the chosen Type constructed. 
+	 */
+	class ConstructListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			System.out.println("Robot construction is a thing of the future. Try to live in the now while we work on implementing this feature.");
+
+		}
+
+	}
+
+	
+	/**
 	 * This Listener reacts to changes of a RTManageUI's robotsDropdown. 
 	 */
 	class RobDropListener implements ItemListener {
@@ -261,6 +277,20 @@ public class RobotTerminalController extends AbstractController {
 		public void itemStateChanged(ItemEvent e) {
 			((RTManageUI) robotTerminalUI).setCurrentInfoType((String) e.getItem());
 			((RTManageUI) robotTerminalUI).update(null, null);
+		}
+
+	}
+	
+	/**
+	 * This Listener reacts to the choosing of a new class of robot in the RTConstrUI and shows
+	 * some information about the chosen class in the infoField. 
+	 */
+	class RCDropListener implements ItemListener {
+
+		@Override
+		public void itemStateChanged(ItemEvent e) {
+			((RTConstrUI) robotTerminalUI).setInfoText((String) e.getItem());
+			robotTerminalUI.repaint();
 		}
 
 	}
