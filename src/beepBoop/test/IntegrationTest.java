@@ -21,7 +21,7 @@ import beepBoop.model.Thing;
 import beepBoop.model.TileFactory;
 
 import beepBoop.model.resource.Resource;
-
+import beepBoop.ui.AbstractRobotTerminalUI;
 import beepBoop.ui.InventoryUI;
 import beepBoop.ui.LevelUI;
 import beepBoop.ui.MainFrame;
@@ -38,7 +38,7 @@ public class IntegrationTest {
 	private Level lvl;
 	private TileFactory tiFa;
 	private RobotTerminal terminal;
-	private RobotTerminalUI terminalUI;
+	private AbstractRobotTerminalUI terminalUI;
 	
 	/**
 	 * initializes the objcts necessary for most tests in this class
@@ -57,7 +57,7 @@ public class IntegrationTest {
 		gui.initInventoryUI(inv);
 		gui.initLevelUI(lvl);
 		gui.initTerminalUI();
-		plrCtrl = new PlayerController(gui,new RobotTerminalController(gui.getTerminalUI(), new RobotQueue()));		
+		plrCtrl = new PlayerController(gui,new RobotTerminalController(gui.getTerminalUI(),gui, new RobotQueue()));		
 		terminal = new RobotTerminal();
 		terminalUI = gui.getTerminalUI();
 	}

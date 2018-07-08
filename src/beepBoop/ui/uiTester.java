@@ -6,7 +6,7 @@ public class uiTester extends JFrame{
 
 	public static void main (String[] args) {
 		JFrame gui = new uiTester();
-		MenuUI rt = new RTMainUI();
+		AbstractRobotTerminalUI rt = new RTManageUI();
 		gui.add(rt);
 		gui.setSize(500, 500);
 		gui.setVisible(true);

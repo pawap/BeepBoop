@@ -3,6 +3,7 @@ package beepBoop.ui;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionListener;
+import java.util.EventListener;
 import java.util.HashMap;
 
 import javax.swing.JButton;
@@ -36,9 +37,18 @@ public class RTMainUI extends AbstractRobotTerminalUI {
 	 * @param listeners the keys should be "constr" and "manage" 
 	 */
 	@Override
-	public void addListeners(HashMap<String, ActionListener> listeners) {
-		constrButton.addActionListener(listeners.get("constr"));
-		manageButton.addActionListener(listeners.get("manage"));		
+	public void addListeners(HashMap<String, EventListener> listeners) {
+		EventListener constrL = listeners.get("constr");
+		EventListener manageL = listeners.get("manage");
+		
+		if(constrL instanceof ActionListener &&
+		   manageL instanceof ActionListener) {
+			constrButton.addActionListener((ActionListener) constrL);
+			manageButton.addActionListener((ActionListener) manageL);		
+		}
+		else {
+			System.out.println("Tried to pass wrong Listener type to RTMainUI");
+		}
 	}
 
 

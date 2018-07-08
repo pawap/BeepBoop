@@ -4,10 +4,18 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.EventListener;
 import java.util.HashMap;
+import java.util.List;
 
-import javax.swing.JPanel;
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import beepBoop.model.Robot;
 import beepBoop.ui.AbstractRobotTerminalUI;
@@ -15,7 +23,6 @@ import beepBoop.ui.MainFrame;
 import beepBoop.ui.RTConstrUI;
 import beepBoop.ui.RTMainUI;
 import beepBoop.ui.RTManageUI;
-import beepBoop.ui.RobotTerminalUI;
 
 public class RobotTerminalController extends AbstractController {
 
@@ -28,61 +35,51 @@ public class RobotTerminalController extends AbstractController {
 		this.robotQueue = robotQueue;
 		this.mainFrame = mainFrame;
 		this.robotTerminalUI = robotTerminalUI;
+		addUIListeners();
 	}
 
 	public void navigateTo(String destination) {
 		switch(destination) {
 		case("main"):
 			this.robotTerminalUI = new RTMainUI();
-		    addRTMainUIListeners();
 		    break;
 		case("constr"):
 			this.robotTerminalUI = new RTConstrUI();
-		    addRTConstrUIListeners();
 		    break;
 		case("manage"):
 			this.robotTerminalUI = new RTManageUI();
-		    addRTManageUIListeners();
+		    ((RTManageUI) this.robotTerminalUI).fillRobotsDropDown(robotQueue);
 		}
-
+		addUIListeners();
 		mainFrame.setTerminalUI(robotTerminalUI);
 	}
 
-	private void addRTManageUIListeners() {
-		if (robotTerminalUI instanceof RTManageUI) {
-			HashMap<String, EventListener> listeners = new HashMap<String, EventListener>();
+	private void addUIListeners() {
+		HashMap<String, EventListener> listeners = new HashMap<String, EventListener>();
+
+		if (robotTerminalUI instanceof RTManageUI) {			
 			listeners.put("robDrop", new RobDropListener());
 			listeners.put("infDrop", new InfDropListener());
+			listeners.put("import", new ImportListener());
+			listeners.put("export", new ExportListener());
+			listeners.put("apply", new ApplyListener());
 			listeners.put("back", new NavToMainListener());
+			robotTerminalUI.addListeners(listeners);
 		}
-		else {
-			System.out.println("Called addRTManageUIListeners() on an instance of the wron class.");
+		else if (robotTerminalUI instanceof RTConstrUI) {
+
+			robotTerminalUI.addListeners(listeners);
 		}
-	}
-
-	private void addRTConstrUIListeners() {
-		if (robotTerminalUI instanceof RTConstrUI) {
-			HashMap<String, ActionListener> listeners = new HashMap<String, ActionListener>();
-
-		}
-		else {
-			System.out.println("Called addRTConstrUIListeners() on an instance of the wron class.");
-		}
-
-	}
-
-	private void addRTMainUIListeners() {
-		if (robotTerminalUI instanceof RTMainUI) {
-			HashMap<String, ActionListener> listeners = new HashMap<String, ActionListener>();
+		else if (robotTerminalUI instanceof RTMainUI) {
 			listeners.put("constr", new NavToConstrListener()); 
 			listeners.put("manage", new NavToManageListener());
 			robotTerminalUI.addListeners(listeners);
 		}
 		else {
-			System.out.println("Called addRTRTMainUIListeners() on an instance of the wron class.");
+			System.out.println("Tried to add Listeners to an unknown subclass of AbstractTerminalUI.");
 		}
-
 	}
+
 
 	/**
 	 * This method should be called when the player interacts with a terminal. Sets the terminalUI to active.
@@ -104,6 +101,51 @@ public class RobotTerminalController extends AbstractController {
 		}
 
 	}
+	
+	private List<String> importProgram() {
+		JFileChooser chooser = new JFileChooser();
+		chooser.setFileFilter(new FileNameExtensionFilter("BeepBoopProgram File", "bbp"));
+		chooser.setApproveButtonText("Import");
+		chooser.setDialogTitle("Import a BeepBoopProgram for your Robot.");
+		int result = chooser.showOpenDialog(this.robotTerminalUI);
+		List<String> imported = new ArrayList<String>();
+		if(result == JFileChooser.APPROVE_OPTION) {
+			try {
+				imported = Files.readAllLines(Paths.get(chooser.getSelectedFile().getPath()));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		return imported;
+	}
+	
+	private void export(String type, String text) {
+		JFileChooser chooser = new JFileChooser();
+		String fileExtension = ".bbp";
+		String fileType = "BeepBoopProgram File";
+		chooser.setApproveButtonText("Export");
+		chooser.setDialogTitle("Export the BeepBoopProgram of your Robot.");
+		if (type.equals("Error Log")) {
+			chooser.setDialogTitle("Export the Error Log of your Robot.");
+			fileExtension = ".txt";
+			fileType = "Textfile";
+		}
+		chooser.setFileFilter(new FileNameExtensionFilter(fileType, fileExtension));
+		int result = chooser.showOpenDialog(this.robotTerminalUI);
+		if(result == JFileChooser.APPROVE_OPTION) {
+			String name = chooser.getSelectedFile().getPath();
+			if (!name.endsWith(fileExtension)) {
+				name += fileExtension;
+			}
+			try (FileWriter writer = new FileWriter(name)){	
+				writer.write(text);
+				writer.flush();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		
+	}
 
 	/*
 	 * Following are some EventListener implementations to be passed to the AbstractRobotTerminal
@@ -112,38 +154,32 @@ public class RobotTerminalController extends AbstractController {
 
 	/**
 	 * This Listener navigates to the RTMainUI. 
-	 * @author ptp18-d06(Pawel Rasch, Tim Runge)
-	 *
 	 */
 	class NavToMainListener implements ActionListener {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			navigateTo("main");
-
+			System.out.println("navigate to main");
 		}
 
 	}
 
 	/**
 	 * This Listener navigates to the RTConstrUI. 
-	 * @author ptp18-d06(Pawel Rasch, Tim Runge)
-	 *
 	 */
 	class NavToConstrListener implements ActionListener {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			navigateTo("constr");
-
+			
 		}
 
 	}
 
 	/**
 	 * This Listener navigates to the RTManageUI. 
-	 * @author ptp18-d06(Pawel Rasch, Tim Runge)
-	 *
 	 */
 	class NavToManageListener implements ActionListener {
 
@@ -156,33 +192,77 @@ public class RobotTerminalController extends AbstractController {
 	}
 	
 	/**
+	 * This Listener is used to import .bbp files for the RTManageUI. 
+	 */
+	class ImportListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			((RTManageUI) robotTerminalUI).setInfoText(importProgram());
+			((RTManageUI) robotTerminalUI).setCurrentInfoType("Program");
+
+		}
+
+	}
+	
+	/**
+	 * This Listener exports text from RTManageUI's infoField. 
+	 */
+	class ExportListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			String text = ((RTManageUI) robotTerminalUI).getInfoText();
+			String type = ((RTManageUI) robotTerminalUI).getCurrentInfoType();
+			export(type, text);
+
+		}
+
+	}
+	
+	/**
+	 * This Listener navigates to the RTManageUI. 
+	 */
+	class ApplyListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			if (((RTManageUI) robotTerminalUI).getCurrentInfoType().equals("Program")) {
+				Robot robot = ((RTManageUI) robotTerminalUI).getCurrentRobot();
+				String splitRegex = "\\s*" + System.getProperty("line.separator") + "\\s*";
+				List<String> program = Arrays.asList(((RTManageUI) robotTerminalUI).getInfoText().split(splitRegex));
+				robot.setMemory(program);
+				robot.setPc(0);
+			}
+
+		}
+
+	}
+	
+	/**
 	 * This Listener reacts to changes of a RTManageUI's robotsDropdown. 
-	 * @author ptp18-d06(Pawel Rasch, Tim Runge)
-	 *
 	 */
 	class RobDropListener implements ItemListener {
 
 		@Override
 		public void itemStateChanged(ItemEvent e) {
 			((RTManageUI) robotTerminalUI).setCurrentRobot((Robot) e.getItem());
-			((RTManageUI) robotTerminalUI).updateInfoField();
+			((RTManageUI) robotTerminalUI).update(null, null);
 		}
 
 	}
 	
 	/**
 	 * This Listener reacts to changes of a RTManageUI's infoChooserDropdown. 
-	 * @author ptp18-d06(Pawel Rasch, Tim Runge)
-	 *
 	 */
 	class InfDropListener implements ItemListener {
 
 		@Override
 		public void itemStateChanged(ItemEvent e) {
-			((RTManageUI) robotTerminalUI).setCurrentInfo((String) e.getItem());
-			((RTManageUI) robotTerminalUI).updateInfoField();
+			((RTManageUI) robotTerminalUI).setCurrentInfoType((String) e.getItem());
+			((RTManageUI) robotTerminalUI).update(null, null);
 		}
 
 	}
-
+	
 }
