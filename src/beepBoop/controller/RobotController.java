@@ -122,8 +122,8 @@ public class RobotController extends AbstractController {
                     cargo.getName());
             resource.setPosition(actOn);
             
-            System.out.println(level.addThing(resource)+" "+resource.getName()+" "+resource.getPosition()+" "+actOn+level.getThing(actOn.x,actOn.y));
-            System.out.println(level.getThings());
+            level.addThing(resource);
+            
             return;
         }
         if (thing instanceof Resource) {

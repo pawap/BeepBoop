@@ -117,8 +117,9 @@ public class RobotTerminalController extends AbstractController {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+			return imported;
 		}
-		return imported;
+		return null;
 	}
 	
 	private void export(String type, String text) {
@@ -229,14 +230,17 @@ public class RobotTerminalController extends AbstractController {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			if (((RTManageUI) robotTerminalUI).getCurrentInfoType().equals("Program")) {
+			RTManageUI ui = ((RTManageUI) robotTerminalUI);
+			if (ui.getCurrentInfoType().equals("Load Program") || ui.getCurrentInfoType().equals("Program")) {
 				Robot robot = ((RTManageUI) robotTerminalUI).getCurrentRobot();
-				String splitRegex = "\\s*" + System.getProperty("line.separator") + "\\s*";
-				List<String> program = Arrays.asList(((RTManageUI) robotTerminalUI).getInfoText().split(splitRegex));
+				//String splitRegex = "\\s*" + System.getProperty("line.separator") + "\\s*";
+				List<String> program = Arrays.asList(((RTManageUI) robotTerminalUI).getInfoText().split("\n"));
+				System.out.println("Program:"+program.get(2));
 				robot.setMemory(program);
 				robot.setPc(0);
+				
 			}
-
+			System.out.println(Character.getName("\n".toCharArray()[0])+"RLSE"+((RTManageUI) robotTerminalUI).getCurrentInfoType());
 		}
 
 	}

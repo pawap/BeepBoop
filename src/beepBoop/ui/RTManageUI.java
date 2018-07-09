@@ -197,6 +197,9 @@ public class RTManageUI extends AbstractRobotTerminalUI implements Observer{
 	 * @param text each String will be a row in the infoField
 	 */
 	public void setInfoText(List<String> text) {
+		if (text == null) {
+			return;
+		}
 		this.infoField.setText("");
         for (String row : text) {
         	this.infoField.append(row + "\n");
