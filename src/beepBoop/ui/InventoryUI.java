@@ -27,8 +27,8 @@ public class InventoryUI extends JPanel {
 			public void update(Observable arg0, Object arg1) {
 				repaint();
 			}});
-		this.setPreferredSize(new Dimension(500,500));
-		this.setSize(new Dimension(500,500));
+//		this.setPreferredSize(new Dimension(500,500));
+//		this.setSize(new Dimension(500,500));
 	}
 
 	public Inventory getInventory() {

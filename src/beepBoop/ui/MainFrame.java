@@ -37,11 +37,11 @@ public class MainFrame extends JFrame {
 		setLevelUI(new LevelUI(level));
 		GridBagConstraints c = new GridBagConstraints();		
 		c.weighty = 1;
-		c.weightx = 1;
+		c.weightx = 0.6;
 		c.gridx = 0;
 		c.gridy = 0;
 		c.fill = GridBagConstraints.BOTH;
-		c.anchor = GridBagConstraints.WEST;
+		c.anchor = GridBagConstraints.EAST;
 		this.add(getLevelUI(),c);
 	}
 
@@ -49,8 +49,8 @@ public class MainFrame extends JFrame {
 		this.inventoryUI = new InventoryUI(inventory);
 		GridBagConstraints c = new GridBagConstraints();
 		c.fill = GridBagConstraints.BOTH;
-		c.anchor = GridBagConstraints.WEST;
-		c.weightx = 0.25;
+		c.anchor = GridBagConstraints.NORTHWEST;
+		c.weightx = 0.2;
 		c.weighty = 1;
 		c.gridx = 1;
 		c.gridy = 0;
@@ -63,7 +63,7 @@ public class MainFrame extends JFrame {
 		GridBagConstraints c = new GridBagConstraints();
 		c.fill = GridBagConstraints.BOTH;
 		c.anchor = GridBagConstraints.WEST;
-		c.weightx = 0.25;
+		c.weightx = 0.2;
 		c.weighty = 1;
 		c.gridx = 2;
 		c.gridy = 0;
@@ -85,7 +85,7 @@ public class MainFrame extends JFrame {
 		GridBagConstraints c = new GridBagConstraints();
 		c.fill = GridBagConstraints.BOTH;
 		c.anchor = GridBagConstraints.WEST;
-		c.weightx = 0.25;
+		c.weightx = 0.2;
 		c.weighty = 1;
 		c.gridx = 2;
 		c.gridy = 0;
