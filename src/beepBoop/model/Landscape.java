@@ -1,8 +1,11 @@
 package beepBoop.model;
 
 import java.awt.Dimension;
+import java.io.Serializable;
 
-public class Landscape {
+public class Landscape implements Serializable{
+
+	private static final long serialVersionUID = -4911774013421889355L;
 	private Dimension size;
 	private int[][] tiles;
 	

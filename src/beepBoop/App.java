@@ -52,6 +52,10 @@ public class App {
 		gui.initInventoryUI(inventory);
 		gui.initTerminalUI();
 		mainContr = new MainController(gui,level);
+		gui.initMenuBar(mainContr.getLoadListener(),
+				        mainContr.getSaveListener(),
+				        mainContr.getExitListener());
+		
 		
 		Resource copper = new Resource(200, TileFactory.COPPER, "copper");
 		copper.setPosition(new Point(3,3));
@@ -115,15 +119,15 @@ public class App {
 		RobotTerminal terminal = new RobotTerminal();
 		terminal.setPosition(new Point(10, 7));
 		level.addThing(terminal);
-		MsgEvent msg = new MsgEvent("This is rather confusing, isn't it?");
-		msg.setTimeout(15);
-		level.addEvent(msg);
-		msg = new MsgEvent("Welcome!");
-		msg.setTimeout(3);
-		level.addEvent(msg);
-		msg = new MsgEvent("Get to work! Those robots are going beserk!");
-		msg.setTimeout(8);		
-		level.addEvent(msg);
+//		MsgEvent msg = new MsgEvent("This is rather confusing, isn't it?");
+//		msg.setTimeout(15);
+//		level.addEvent(msg);
+//		msg = new MsgEvent("Welcome!");
+//		msg.setTimeout(3);
+//		level.addEvent(msg);
+//		msg = new MsgEvent("Get to work! Those robots are going beserk!");
+//		msg.setTimeout(8);		
+//		level.addEvent(msg);
 		
 		for (int i = 0; i < 20; i++) {
 			
@@ -148,10 +152,10 @@ public class App {
 
 		}
 
-		gui.setSize(1000, 500);	
+		gui.setSize(1200, 500);	
 		
 		//gui.pack();
-		gui.setVisible(true); //
+		gui.setVisible(true);
 		mainContr.mainAction();
 	}
 

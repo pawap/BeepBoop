@@ -152,7 +152,7 @@ public class RobotTerminalController extends AbstractController {
 
 	/*
 	 * Following are some EventListener implementations to be passed to the AbstractRobotTerminal
-	 * implementations via the add*Listeners methods.
+	 * implementations via the addListeners method.
 	 */
 
 	/**

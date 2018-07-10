@@ -4,11 +4,18 @@ import java.awt.Dialog;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.KeyStroke;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 
 import beepBoop.model.Inventory;
 import beepBoop.model.Level;
@@ -23,6 +30,36 @@ public class MainFrame extends JFrame {
 		super();
 		this.setLayout(new GridBagLayout());
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+	
+	}
+	
+	public void initMenuBar(ActionListener loadListener, ActionListener saveListener, ActionListener exitListener) {
+		//the bar
+		JMenuBar menuBar = new JMenuBar();
+		//the file menu
+		JMenu fileMenu= new JMenu("File");
+		fileMenu.setMnemonic(KeyEvent.VK_F);
+		//the load item
+		JMenuItem loadMI = new JMenuItem("Load...");
+		loadMI.setMnemonic(KeyEvent.VK_O);
+		loadMI.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, ActionEvent.CTRL_MASK));
+		loadMI.addActionListener(loadListener);
+		fileMenu.add(loadMI);
+		//the save item
+		JMenuItem saveMI = new JMenuItem("Save as...");
+		saveMI.setMnemonic(KeyEvent.VK_S);
+		saveMI.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.CTRL_MASK));
+		saveMI.addActionListener(saveListener);
+		fileMenu.add(saveMI);
+		//the exit item
+		JMenuItem exitMI = new JMenuItem("Exit");
+		exitMI.setMnemonic(KeyEvent.VK_E);
+		exitMI.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_E, ActionEvent.CTRL_MASK));
+		exitMI.addActionListener(exitListener);
+		fileMenu.add(exitMI);
+		
+		menuBar.add(fileMenu);
+		this.setJMenuBar(menuBar);	
 	}
 	
 	public LevelUI getLevelUI() {
