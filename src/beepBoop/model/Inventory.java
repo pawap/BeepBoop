@@ -1,8 +1,6 @@
 package beepBoop.model;
 
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Observable;
 import java.util.Set;
 

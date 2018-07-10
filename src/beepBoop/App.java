@@ -72,29 +72,6 @@ public class App {
 		Resource silicon = new Resource(200, TileFactory.SILICON, "silicon");
 		silicon.setPosition(new Point(3,15));
 		level.addThing(silicon);
-
-		for (int i = 0; i < 20; i++) {
-			
-			for (String tileName: new String[]{"silicon","platinum","iron","gold","copper"}) {
-				int tileId = 0;
-				switch(tileName) {
-					case "silicon" :  tileId = TileFactory.SILICON; break;
-					case "platinum": tileId = TileFactory.PLATINUM; break;
-					case "iron": tileId = TileFactory.IRON; break;
-					case "gold": tileId = TileFactory.GOLD; break;
-					case "copper": tileId = TileFactory.COPPER; break;
-				}
-				Resource resource = new Resource((int) Math.round(Math.random() * 100), tileId, tileName);
-				resource.setPosition(new Point((int) Math.round(Math.random() * 50), (int) Math.round(Math.random() * 50)));
-				if (!level.addThing(resource)) {
-					i--;
-				}
-			
-			}
-				
-				
-
-		}
 		
 		Robot robot = new Robot();
 		robot.setPosition(new Point(10,12));
@@ -147,6 +124,29 @@ public class App {
 		msg = new MsgEvent("Get to work! Those robots are going beserk!");
 		msg.setTimeout(8);		
 		level.addEvent(msg);
+		
+		for (int i = 0; i < 20; i++) {
+			
+			for (String tileName: new String[]{"silicon","platinum","iron","gold","copper"}) {
+				int tileId = 0;
+				switch(tileName) {
+					case "silicon" :  tileId = TileFactory.SILICON; break;
+					case "platinum": tileId = TileFactory.PLATINUM; break;
+					case "iron": tileId = TileFactory.IRON; break;
+					case "gold": tileId = TileFactory.GOLD; break;
+					case "copper": tileId = TileFactory.COPPER; break;
+				}
+				Resource resource = new Resource((int) Math.round(Math.random() * 100) + 1, tileId, tileName);
+				resource.setPosition(new Point((int) Math.round(Math.random() * 50), (int) Math.round(Math.random() * 50)));
+				if (!level.addThing(resource)) {
+					i--;
+				}
+			
+			}
+				
+				
+
+		}
 
 		gui.setSize(1000, 500);	
 		
