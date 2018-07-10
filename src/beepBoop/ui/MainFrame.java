@@ -1,6 +1,7 @@
 package beepBoop.ui;
 
 import java.awt.Dialog;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -73,8 +74,10 @@ public class MainFrame extends JFrame {
 	public void initLevelUI(Level level) {
 		setLevelUI(new LevelUI(level));
 		GridBagConstraints c = new GridBagConstraints();		
-		c.weighty = 1;
-		c.weightx = 0.6;
+		c.weighty = 0.9;
+		c.weightx = 0.7;
+		c.gridheight = 1;
+		c.gridwidth = 1;
 		c.gridx = 0;
 		c.gridy = 0;
 		c.fill = GridBagConstraints.BOTH;
@@ -85,24 +88,30 @@ public class MainFrame extends JFrame {
 	public void initInventoryUI(Inventory inventory) {
 		this.inventoryUI = new InventoryUI(inventory);
 		GridBagConstraints c = new GridBagConstraints();
-		c.fill = GridBagConstraints.BOTH;
-		c.anchor = GridBagConstraints.NORTHWEST;
-		c.weightx = 0.2;
-		c.weighty = 1;
-		c.gridx = 1;
-		c.gridy = 0;
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.anchor = GridBagConstraints.ABOVE_BASELINE_LEADING;
+		c.weightx = 1;
+		c.weighty = 0.1;
+		c.gridheight = 1;
+		c.gridwidth = 2;
+		c.gridx = 0;
+		c.gridy = 1;
 		add(inventoryUI,c);
 		
 	}
 	
 	public void initTerminalUI() {
 		this.terminalUI = new RTMainUI();
+		Dimension dim = new Dimension(300,400);
+		terminalUI.setPreferredSize(dim);
 		GridBagConstraints c = new GridBagConstraints();
 		c.fill = GridBagConstraints.BOTH;
 		c.anchor = GridBagConstraints.WEST;
-		c.weightx = 0.2;
-		c.weighty = 1;
-		c.gridx = 2;
+		c.weightx = 0.3;
+		c.weighty = 0.9;
+		c.gridheight = 1;
+		c.gridwidth = 1;
+		c.gridx = 1;
 		c.gridy = 0;
 		add(terminalUI,c);
 		
@@ -121,10 +130,12 @@ public class MainFrame extends JFrame {
 		this.terminalUI = terminalUI;
 		GridBagConstraints c = new GridBagConstraints();
 		c.fill = GridBagConstraints.BOTH;
-		c.anchor = GridBagConstraints.WEST;
-		c.weightx = 0.2;
-		c.weighty = 1;
-		c.gridx = 2;
+		c.anchor = GridBagConstraints.ABOVE_BASELINE_TRAILING;
+		c.weightx = 0.3;
+		c.weighty = 0.9;
+		c.gridheight = 1;
+		c.gridwidth = 1;
+		c.gridx = 1;
 		c.gridy = 0;
 		add(terminalUI,c);
 		this.setVisible(true);

@@ -52,7 +52,7 @@ public class PlayerController extends AbstractController {
 		if (!level.isPositionFree(x,y)) {
 			if (level.isRessource(x,y)) {
 				Resource resource = (Resource) level.getThing(x,y);
-				Resource transfer = new Resource(resource.takeAmount(10),TileFactory.NULL_TILE, resource.getName());
+				Resource transfer = new Resource(resource.takeAmount(10),TileFactory.getTileIdForResource(resource.getName()), resource.getName());
 				if (resource.getAmount() == 0) {
 					level.removeThing(resource);
 				}

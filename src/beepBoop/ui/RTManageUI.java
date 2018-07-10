@@ -1,5 +1,7 @@
 package beepBoop.ui;
 
+import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionListener;
@@ -16,6 +18,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
@@ -65,6 +68,7 @@ public class RTManageUI extends AbstractRobotTerminalUI implements Observer{
 		//Add cargoLabel
 		cargoLabel = new JLabel();
 		c.gridy = 2;
+		cargoLabel.setBackground(Color.DARK_GRAY);
 		this.add(cargoLabel);
 		
 		// Add infoField and its scrollPane
@@ -73,7 +77,8 @@ public class RTManageUI extends AbstractRobotTerminalUI implements Observer{
 		c.gridy = 3;
 		this.add(infoField,c);
 		JScrollPane scrollPane = new JScrollPane(infoField);
-        this.add(scrollPane,c);
+        scrollPane.setMinimumSize(new Dimension(200,300));
+		this.add(scrollPane,c);
         
         //Add infoChooserDropDown and set currentInfoType
         infoChooserDropDown = new JComboBox<String>();
@@ -100,6 +105,8 @@ public class RTManageUI extends AbstractRobotTerminalUI implements Observer{
 		this.add(applyButton, c);
 		c.gridx = 6;
 		this.add(backButton, c);
+//		this.setMinimumSize(new Dimension(300,500));
+//		this.setPreferredSize(new Dimension(300,500));
         
 	}
 
@@ -164,9 +171,10 @@ public class RTManageUI extends AbstractRobotTerminalUI implements Observer{
 	public void update(Observable arg0, Object arg1) {
 		//update cargoLabel
 		String cargoString = (currentRobot.getCargo() != null)?
-				currentRobot.getCargo().getName()+": "+currentRobot.getCargo().getAmount():"No Cargo!";
+				currentRobot.getCargo().getName()+": ":"No Cargo!";
         this.cargoLabel.setText(cargoString);
-        
+        this.cargoLabel.setIcon(new ImageIcon(currentRobot.getCargo().getImage()));
+        cargoLabel.setBackground(Color.DARK_GRAY);
         switch(currentInfoType) {
         case("Error Log"):		
         	setInfoText(currentRobot.getErrorLog()); 

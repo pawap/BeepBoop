@@ -152,8 +152,8 @@ public class App {
 
 		}
 
-		gui.setSize(1200, 500);	
-		
+		gui.setSize(850, 510);	
+		gui.setMaximumSize(new Dimension(850,510));
 		//gui.pack();
 		gui.setVisible(true);
 		mainContr.mainAction();

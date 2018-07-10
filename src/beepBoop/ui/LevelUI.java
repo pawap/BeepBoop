@@ -15,7 +15,7 @@ import beepBoop.model.Tile;
 
 public class LevelUI extends JPanel {
 	private Level level;
-	private java.awt.Dimension viewSize = new java.awt.Dimension(20,20);
+	private Dimension viewSize = new Dimension(20,20);
 	private Point viewOrigin;
 	private int maxViewOrgX;
 	private int maxViewOrgY;
@@ -24,9 +24,10 @@ public class LevelUI extends JPanel {
 		super();
 		Dimension lvlSize = level.getLandscape().getSize();
 		this.setLevel(level);
-		this.setPreferredSize(viewSize);
-		this.setSize(lvlSize);
-
+		Dimension viewPort = new Dimension(viewSize.width * Tile.SIZE.width, viewSize.height * Tile.SIZE.height);
+		this.setPreferredSize(viewPort);
+		this.setSize(viewPort);
+		this.setMinimumSize(viewPort);
 		this.maxViewOrgX = (int) Math.max(0, lvlSize.getWidth() - viewSize.getWidth());
 		this.maxViewOrgY = (int) Math.max(0, lvlSize.getHeight() - viewSize.getHeight());
 	}

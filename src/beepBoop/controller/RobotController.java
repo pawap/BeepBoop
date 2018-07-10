@@ -138,7 +138,7 @@ public class RobotController extends AbstractController {
         }
         if (thing instanceof RobotTerminal) {
             level.getInventory().addRessource(new Resource(robot.removeCargo(dump),
-                                            TileFactory.NULL_TILE,
+            		 					TileFactory.getTileIdForResource(cargo.getName()),
                                             cargo.getName()));
             
          
@@ -156,7 +156,7 @@ public class RobotController extends AbstractController {
             }
             if (cargo == null) {
                 robot.setCargo(new Resource(resource.takeAmount(amount),
-                							TileFactory.NULL_TILE,
+                							TileFactory.getTileIdForResource(resource.getName()),
                 							resource.getName()));
             } else if (cargo.getName().equals(resource.getName())) {
                 int load = Math.min(Robot.MAX_CAPACITY - cargo.getAmount(), amount) ;
