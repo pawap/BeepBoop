@@ -173,7 +173,8 @@ public class RTManageUI extends AbstractRobotTerminalUI implements Observer{
 		String cargoString = (currentRobot.getCargo() != null)?
 				currentRobot.getCargo().getName()+": ":"No Cargo!";
         this.cargoLabel.setText(cargoString);
-        this.cargoLabel.setIcon(new ImageIcon(currentRobot.getCargo().getImage()));
+        this.cargoLabel.setIcon((currentRobot.getCargo() != null)?new ImageIcon(currentRobot.getCargo().getImage()):null);
+ 
         cargoLabel.setBackground(Color.DARK_GRAY);
         switch(currentInfoType) {
         case("Error Log"):		
