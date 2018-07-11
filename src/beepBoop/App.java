@@ -33,12 +33,12 @@ public class App {
 	public App() {
 		TileFactory tf = TileFactory.getInstance();
 		Landscape landscape = new Landscape(new Dimension(50,50));
-		landscape.placeRect(0, 0, 49, 49, tf.GRASS_OFFSET);
-		landscape.placeRect(0, 0, 0, 49, tf.ROCK_OFFSET);
-		landscape.placeRect(0, 0, 49, 0, tf.ROCK_OFFSET);
-		landscape.placeRect(0, 49, 49, 49, tf.ROCK_OFFSET);
-		landscape.placeRect(49, 0, 49, 49, tf.ROCK_OFFSET);
-		landscape.placeRect(8, 8, 12, 12, tf.EARTH_OFFSET);
+		landscape.placeRect(0, 0, 49, 49, TileFactory.GRASS_OFFSET);
+		landscape.placeRect(0, 0, 0, 49, TileFactory.ROCK_OFFSET);
+		landscape.placeRect(0, 0, 49, 0, TileFactory.ROCK_OFFSET);
+		landscape.placeRect(0, 49, 49, 49, TileFactory.ROCK_OFFSET);
+		landscape.placeRect(49, 0, 49, 49, TileFactory.ROCK_OFFSET);
+		landscape.placeRect(8, 8, 12, 12, TileFactory.EARTH_OFFSET);
 		
 		Player player = new Player();
 		player.setPosition(new Point(10,10));
@@ -52,6 +52,10 @@ public class App {
 		gui.initInventoryUI(inventory);
 		gui.initTerminalUI();
 		mainContr = new MainController(gui,level);
+		gui.initMenuBar(mainContr.getLoadListener(),
+				        mainContr.getSaveListener(),
+				        mainContr.getExitListener());
+		
 		
 		Resource copper = new Resource(200, TileFactory.COPPER, "copper");
 		copper.setPosition(new Point(3,3));
@@ -72,29 +76,6 @@ public class App {
 		Resource silicon = new Resource(200, TileFactory.SILICON, "silicon");
 		silicon.setPosition(new Point(3,15));
 		level.addThing(silicon);
-
-		for (int i = 0; i < 20; i++) {
-			
-			for (String tileName: new String[]{"silicon","platinum","iron","gold","copper"}) {
-				int tileId = 0;
-				switch(tileName) {
-					case "silicon" :  tileId = TileFactory.SILICON; break;
-					case "platinum": tileId = TileFactory.PLATINUM; break;
-					case "iron": tileId = TileFactory.IRON; break;
-					case "gold": tileId = TileFactory.GOLD; break;
-					case "copper": tileId = TileFactory.COPPER; break;
-				}
-				Resource resource = new Resource((int) Math.round(Math.random() * 100), tileId, tileName);
-				resource.setPosition(new Point((int) Math.round(Math.random() * 50), (int) Math.round(Math.random() * 50)));
-				if (!level.addThing(resource)) {
-					i--;
-				}
-			
-			}
-				
-				
-
-		}
 		
 		Robot robot = new Robot();
 		robot.setPosition(new Point(10,12));
@@ -136,20 +117,43 @@ public class App {
 		RobotTerminal terminal = new RobotTerminal();
 		terminal.setPosition(new Point(10, 7));
 		level.addThing(terminal);
-		MsgEvent msg = new MsgEvent("This is rather confusing, isn't it?");
-		msg.setTimeout(15);
-		level.addEvent(msg);
-		msg = new MsgEvent("Welcome!");
-		msg.setTimeout(3);
-		level.addEvent(msg);
-		msg = new MsgEvent("Get to work! Those robots are going beserk!");
-		msg.setTimeout(8);		
-		level.addEvent(msg);
-
-		gui.setSize(1000, 500);	
+//		MsgEvent msg = new MsgEvent("This is rather confusing, isn't it?");
+//		msg.setTimeout(15);
+//		level.addEvent(msg);
+//		msg = new MsgEvent("Welcome!");
+//		msg.setTimeout(3);
+//		level.addEvent(msg);
+//		msg = new MsgEvent("Get to work! Those robots are going beserk!");
+//		msg.setTimeout(8);		
+//		level.addEvent(msg);
 		
+		for (int i = 0; i < 20; i++) {
+			
+			for (String tileName: new String[]{"silicon","platinum","iron","gold","copper"}) {
+				int tileId = 0;
+				switch(tileName) {
+					case "silicon" :  tileId = TileFactory.SILICON; break;
+					case "platinum": tileId = TileFactory.PLATINUM; break;
+					case "iron": tileId = TileFactory.IRON; break;
+					case "gold": tileId = TileFactory.GOLD; break;
+					case "copper": tileId = TileFactory.COPPER; break;
+				}
+				Resource resource = new Resource((int) Math.round(Math.random() * 100) + 1, tileId, tileName);
+				resource.setPosition(new Point((int) Math.round(Math.random() * 50), (int) Math.round(Math.random() * 50)));
+				if (!level.addThing(resource)) {
+					i--;
+				}
+			
+			}
+				
+				
+
+		}
+
+		gui.setSize(850, 510);	
+		gui.setMaximumSize(new Dimension(850,510));
 		//gui.pack();
-		gui.setVisible(true); //
+		gui.setVisible(true);
 		mainContr.mainAction();
 	}
 

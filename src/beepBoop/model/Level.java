@@ -1,18 +1,20 @@
 package beepBoop.model;
 
 import java.awt.Point;
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
 
 import beepBoop.controller.EventQueue;
 import beepBoop.controller.RobotQueue;
 import beepBoop.model.resource.Resource;
 
-public class Level {
+public class Level implements Serializable{
+
+	private static final long serialVersionUID = -4156377316804061536L;
 	private Landscape landscape;
-	private Map<Point,Thing> things;
+	private HashMap<Point,Thing> things;
 	private Player player;
 	private RobotQueue robotQueue;
 	private Inventory inventory;
@@ -97,7 +99,7 @@ public class Level {
 		return true;
 	}
 	public Set<Thing> getThings() {
-		return new HashSet<Thing>(things.values());
+		return new HashSet(things.values());
 	}
 
 	public boolean isRessource(int x, int y) {

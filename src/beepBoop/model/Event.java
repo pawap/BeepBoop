@@ -1,10 +1,13 @@
 package beepBoop.model;
 
+import java.io.Serializable;
 import java.util.Observable;
 import java.util.concurrent.Delayed;
 import java.util.concurrent.TimeUnit;
 
-abstract public class Event extends Observable implements Delayed {
+abstract public class Event extends Observable implements Delayed, Serializable {
+
+	private static final long serialVersionUID = 7015862117632560347L;
 	private long timeout;
 	private long startTime;
 		

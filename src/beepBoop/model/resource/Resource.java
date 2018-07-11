@@ -12,6 +12,8 @@ import beepBoop.model.Thing;
 import beepBoop.model.Tile;
 
 public class Resource extends Thing {
+
+	private static final long serialVersionUID = 7834668969195871400L;
 	protected int amount;
 	private String name;
 	
@@ -55,14 +57,5 @@ public class Resource extends Thing {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
-//	@Override
-//	public boolean equals (Object o) {
-//		return o.hashCode() == this.hashCode();
-//	}
-//
-//	@Override
-//	public int hashCode() {
-//		return this.name.hashCode() * 42;
-//	}
+
 }
