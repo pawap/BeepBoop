@@ -2,17 +2,27 @@ package beepBoop.controller;
 
 import java.awt.Window;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
+import javax.swing.JFileChooser;
 import javax.swing.KeyStroke;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import beepBoop.model.Event;
 import beepBoop.model.Level;
 import beepBoop.model.MsgEvent;
 import beepBoop.model.Robot;
+import beepBoop.model.Thing;
 import beepBoop.ui.MainFrame;
 
 /**
@@ -23,7 +33,7 @@ import beepBoop.ui.MainFrame;
 public class MainController extends AbstractController {
 	
 	MainFrame gui;
-	boolean exit;
+	private boolean exit;
 	private PlayerController playerController;
 	Level level;
 	private RobotController robotController;
@@ -41,14 +51,12 @@ public class MainController extends AbstractController {
 		this.gui = gui;
 		this.exit = false;
 		this.level = level;
-		this.robotController = new RobotController(level);
-		this.terminalController = new RobotTerminalController(gui.getTerminalUI(), this.level.getRobotQueue(), robotController);
+		this.terminalController = new RobotTerminalController(gui.getTerminalUI(), gui, this.level.getRobotQueue());
 		this.playerController = new PlayerController(gui, terminalController);
+		this.robotController = new RobotController(level);
 		this.eventController = new EventController(level,gui);
 	}
-	/**
-	 * Main action. Runs the game loop.
-	 */
+
 	public void mainAction() {
 		initKeyBindings();
 		eventController.initAction(level.getEventQueue());
@@ -164,6 +172,112 @@ public class MainController extends AbstractController {
             }
 		    
 		});
+	}
+
+	public ActionListener getLoadListener() {
+		ActionListener listener = new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				loadLevel();
+				
+			}
+			
+		};
+		return listener;
+	}
+
+	public ActionListener getSaveListener() {
+		ActionListener listener = new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				saveLevel();
+				
+			}
+			
+		};
+		return listener;
+	}
+
+	public ActionListener getExitListener() {
+		ActionListener listener = new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				exit = true;
+				gui.dispose();
+				
+			}
+			
+		};
+		return listener;
+	}
+	
+	private void saveLevel() {
+		JFileChooser chooser = new JFileChooser();
+		String fileExtension = ".bbs";
+		String fileType = "BeepBoop Save File";
+		chooser.setApproveButtonText("Save");
+		chooser.setDialogTitle("Save your game.");
+		chooser.setFileFilter(new FileNameExtensionFilter(fileType, fileExtension));
+		int result = chooser.showOpenDialog(gui);
+		if(result == JFileChooser.APPROVE_OPTION) {
+			String path = chooser.getSelectedFile().getPath();
+			if (!path.endsWith(fileExtension)) {
+				path += fileExtension;
+			}
+			try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(path))) {
+				out.writeObject(level);
+			} catch (IOException e) {
+		         e.printStackTrace();
+		      }
+		}
+	}
+	
+	private void loadLevel() {
+		JFileChooser chooser = new JFileChooser();
+		String fileExtension = "bbs";
+		String fileType = "BeepBoop Save File";
+		chooser.setApproveButtonText("Load");
+		chooser.setDialogTitle("Load a game.");
+		chooser.setFileFilter(new FileNameExtensionFilter(fileType, fileExtension));
+		int result = chooser.showOpenDialog(gui);
+		if(result == JFileChooser.APPROVE_OPTION) {
+			String path = chooser.getSelectedFile().getPath();
+			try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(path))) {
+				
+				Level loaded = (Level) in.readObject();
+				this.level = loaded;
+				//give each thing its tile
+				for(Thing thing: this.level.getThings()) {
+					thing.setTile(thing.getTileId());
+				}		
+				level.getPlayer().setTile(level.getPlayer().getTileId());
+				this.gui.dispose();
+				this.gui = new MainFrame();
+				gui.initLevelUI(this.level);
+				gui.initInventoryUI(level.getInventory());
+				gui.initTerminalUI();
+				this.terminalController = new RobotTerminalController(gui.getTerminalUI(), gui, this.level.getRobotQueue());
+				this.playerController = new PlayerController(gui, terminalController);
+				this.robotController = new RobotController(level);
+				this.eventController = new EventController(level,gui);
+				gui.initMenuBar(getLoadListener(),
+				                getSaveListener(),
+				                getExitListener());
+				initKeyBindings();
+				gui.setSize(1200, 500);	
+				gui.setVisible(true);
+				
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 	
 }

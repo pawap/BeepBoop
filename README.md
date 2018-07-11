@@ -1,3 +1,4 @@
 # BeepBoop
 BeepBoop - the Robotgame
-I shall log
+X: "Beep?"
+Y: "Boop!"
