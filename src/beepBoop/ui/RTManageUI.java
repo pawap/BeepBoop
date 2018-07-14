@@ -30,8 +30,8 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import beepBoop.controller.RobotQueue;
 import beepBoop.model.Robot;
 
-public class RTManageUI extends AbstractRobotTerminalUI implements Observer{
-	private JComboBox<Robot> robotsDropDown;
+public class RTManageUI extends AbstractRobotTerminalUI {
+	private JComboBox<String> robotsDropDown;
 	private JComboBox<String> infoChooserDropDown;
 	private JLabel cargoLabel;
 	private JTextArea infoField;
@@ -39,8 +39,6 @@ public class RTManageUI extends AbstractRobotTerminalUI implements Observer{
 	private JButton applyButton;
 	private JButton importButton;
 	private JButton exportButton;
-	private Robot currentRobot;
-	private String currentInfoType;
 
 	public RTManageUI() {
 		super();
@@ -59,8 +57,8 @@ public class RTManageUI extends AbstractRobotTerminalUI implements Observer{
 		this.add(robotsDropDownLabel,c);
 
 		// Add robotsDropDown
-		robotsDropDown = new JComboBox<Robot>();
-		robotsDropDown.setModel(new DefaultComboBoxModel<Robot>());
+		robotsDropDown = new JComboBox<String>();
+		robotsDropDown.setModel(new DefaultComboBoxModel<String>());
 		c.gridwidth = GridBagConstraints.REMAINDER;
 		c.gridy = 1;
 		this.add(robotsDropDown,c);
@@ -89,7 +87,6 @@ public class RTManageUI extends AbstractRobotTerminalUI implements Observer{
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridwidth = 3;
         this.add(infoChooserDropDown, c);
-        this.currentInfoType = "Error Log"; 
         
         //Add Buttons
         importButton = new JButton("Import Program");
@@ -139,54 +136,6 @@ public class RTManageUI extends AbstractRobotTerminalUI implements Observer{
 			System.out.println("Tried to pass wrong Listener type to RTManageUI");
 		}
 	}
-
-	/**
-	 * 
-	 * @param robot the Robot to be managed
-	 */
-	public void setCurrentRobot(Robot robot) {
-		this.currentRobot.deleteObserver(this);
-		this.currentRobot = robot;
-		this.currentRobot.addObserver(this);
-		
-		if (currentInfoType.equals("Program")) { //if the program of the last robot is being shown, prepare to load this one's
-			currentInfoType = "Load Program";
-		}
-		update(null, null);
-		
-	}
-
-	public void setCurrentInfoType(String infoType) {
-		this.currentInfoType = infoType;
-		if (infoType.equals("Error Log")) {
-			this.infoField.setEditable(false);
-		}
-		else {
-			this.infoField.setEditable(true);
-		}
-		update(null, null);
-	}
-
-	@Override
-	public void update(Observable arg0, Object arg1) {
-		//update cargoLabel
-		String cargoString = (currentRobot.getCargo() != null)?
-				currentRobot.getCargo().getName()+": ":"No Cargo!";
-        this.cargoLabel.setText(cargoString);
-        this.cargoLabel.setIcon((currentRobot.getCargo() != null)?new ImageIcon(currentRobot.getCargo().getImage()):null);
- 
-        cargoLabel.setBackground(Color.DARK_GRAY);
-        switch(currentInfoType) {
-        case("Error Log"):		
-        	setInfoText(currentRobot.getErrorLog()); 
-            break;
-        case("Load Program"):
-        	setInfoText(currentRobot.getMemory());
-            this.setCurrentInfoType("Program");
-        }
-
-        this.repaint();
-	}
 	
 	/**
 	 * Adds the robots in a RobotQueue to this UI's robotDropDown
@@ -194,10 +143,8 @@ public class RTManageUI extends AbstractRobotTerminalUI implements Observer{
 	 */
 	public void fillRobotsDropDown(RobotQueue robots) {
 		for (Robot robot: robots) {
-			robotsDropDown.addItem(robot);
+			robotsDropDown.addItem(robot.getName());
         }
-		this.currentRobot = robotsDropDown.getItemAt(0);
-		this.currentRobot.addObserver(this);
 	}
 
 
@@ -220,12 +167,21 @@ public class RTManageUI extends AbstractRobotTerminalUI implements Observer{
 		return infoField.getText();
 	}
 	
-	public String getCurrentInfoType() {
-		return currentInfoType;
+	public JComboBox<String> getRobotsDropDown() {
+		return this.robotsDropDown;
 	}
 
-	public Robot getCurrentRobot() {
-		return currentRobot;
+	public JLabel getCargoLabel() {
+		return this.cargoLabel;
+	}
+
+	public JTextArea getInfoField() {
+		return this.infoField;
+	}
+
+	public JComboBox<String> getInfoChooserDropDown() {
+		return infoChooserDropDown;
+		
 	}
 
 }

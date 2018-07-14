@@ -218,10 +218,9 @@ public class MainController extends AbstractController {
 		JFileChooser chooser = new JFileChooser();
 		String fileExtension = ".bbs";
 		String fileType = "BeepBoop Save File";
-		chooser.setApproveButtonText("Save");
-		chooser.setDialogTitle("Save your game.");
+		chooser.setDialogTitle("Save your game");
 		chooser.setFileFilter(new FileNameExtensionFilter(fileType, fileExtension));
-		int result = chooser.showOpenDialog(gui);
+		int result = chooser.showSaveDialog(gui);
 		if(result == JFileChooser.APPROVE_OPTION) {
 			String path = chooser.getSelectedFile().getPath();
 			if (!path.endsWith(fileExtension)) {
@@ -239,10 +238,9 @@ public class MainController extends AbstractController {
 		JFileChooser chooser = new JFileChooser();
 		String fileExtension = "bbs";
 		String fileType = "BeepBoop Save File";
-		chooser.setApproveButtonText("Load");
-		chooser.setDialogTitle("Load a game.");
+		chooser.setDialogTitle("Load a game");
 		chooser.setFileFilter(new FileNameExtensionFilter(fileType, fileExtension));
-		int result = chooser.showOpenDialog(gui);
+		int result = chooser.showDialog(gui, "Load");
 		if(result == JFileChooser.APPROVE_OPTION) {
 			String path = chooser.getSelectedFile().getPath();
 			try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(path))) {

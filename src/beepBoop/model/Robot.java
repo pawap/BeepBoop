@@ -1,40 +1,42 @@
 package beepBoop.model;
 
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Image;
 import java.awt.Point;
-import java.awt.image.BufferedImage;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
-
 import beepBoop.model.resource.Resource;
 
 public class Robot extends Thing {
 
+	private static int robotCounter;
     public final static int MAX_CAPACITY = 1000;
     
 	private List<String> memory;
 	private int pc;
 	private boolean blocked;
 	private Resource cargo;
-	
-
     private List<String> errorLog;
-
     private List<String> sensors;
+	private String name;
 	
+	static {
+		robotCounter = 0;
+	}
 	
 	public Robot() {
+		this("BeepBot " + Robot.robotCounter);
+	}
+	
+	public Robot(String name) {
 		super(TileFactory.ROBOT_0);
 		this.memory = new LinkedList<String>();
 		this.errorLog = new LinkedList<String>();
 		this.sensors = new LinkedList<String>();
+		this.name = name;
 		pc = 0;
 		blocked = false;
 		sensors.add("FREE");
 		sensors.add("RESOURCE");
+		Robot.robotCounter += 1;
 	}
 	
 
@@ -118,6 +120,12 @@ public class Robot extends Thing {
     {
         return sensors.contains(name);
     }
+
+
+
+	public String getName() {
+		return this.name;
+	}
 
 
 

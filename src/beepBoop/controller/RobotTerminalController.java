@@ -13,8 +13,13 @@ import java.util.Arrays;
 import java.util.EventListener;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.JLabel;
+import javax.swing.JTextArea;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import beepBoop.model.Robot;
@@ -24,11 +29,21 @@ import beepBoop.ui.RTConstrUI;
 import beepBoop.ui.RTMainUI;
 import beepBoop.ui.RTManageUI;
 
-public class RobotTerminalController extends AbstractController {
+public class RobotTerminalController extends AbstractController implements Observer {
 
 	private RobotQueue robotQueue;
 	private AbstractRobotTerminalUI robotTerminalUI;
 	private MainFrame mainFrame;
+	private Robot currentRobot;
+	private String currentInfoType;
+
+	public String getCurrentInfoType() {
+		return currentInfoType;
+	}
+
+	public void setCurrentInfoType(String infoType) {
+		this.currentInfoType = infoType;
+	}
 
 	public RobotTerminalController(AbstractRobotTerminalUI robotTerminalUI, MainFrame mainFrame, RobotQueue robotQueue)
 	{
@@ -47,11 +62,37 @@ public class RobotTerminalController extends AbstractController {
 			this.robotTerminalUI = new RTConstrUI();
 		    break;
 		case("manage"):
-			this.robotTerminalUI = new RTManageUI();
-		    ((RTManageUI) this.robotTerminalUI).fillRobotsDropDown(robotQueue);
+			RTManageUI rtUI = new RTManageUI();
+			this.robotTerminalUI = rtUI;
+		    rtUI.fillRobotsDropDown(robotQueue);
+		    if (currentRobot == null) {
+		    	Robot robot = robotQueue.peekFirst();
+		    	robot.addObserver(this);
+		    	this.currentRobot = robot;
+		    }
+		    if (currentRobot != null) {
+		    	rtUI.getRobotsDropDown().setSelectedItem(currentRobot.getName());
+		    }
+		    if (currentInfoType == null) {
+				currentInfoType = (String) rtUI.getInfoChooserDropDown().getSelectedItem();
+			}
+		    rtUI.getInfoChooserDropDown().setSelectedItem(currentInfoType);
 		}
 		addUIListeners();
 		mainFrame.setTerminalUI(robotTerminalUI);
+	}
+
+	private void setCurrentRobot(Robot robot) {
+		if (robot != null) {
+			this.currentRobot.deleteObserver(this);
+			this.currentRobot = robot;
+			this.currentRobot.addObserver(this);
+			if (this.currentInfoType.equals("Program")) { //if the program of the last robot is being shown, prepare to load this one's
+				setCurrentInfoType("Load Program");
+			}
+			update(null, null);
+		}
+		
 	}
 
 	private void addUIListeners() {
@@ -107,9 +148,8 @@ public class RobotTerminalController extends AbstractController {
 	private List<String> importProgram() {
 		JFileChooser chooser = new JFileChooser();
 		chooser.setFileFilter(new FileNameExtensionFilter("BeepBoopProgram File", "bbp"));
-		chooser.setApproveButtonText("Import");
-		chooser.setDialogTitle("Import a BeepBoopProgram for your Robot.");
-		int result = chooser.showOpenDialog(this.robotTerminalUI);
+		chooser.setDialogTitle("Import a BeepBoopProgram for your Robot");
+		int result = chooser.showDialog(this.mainFrame, "Import");
 		List<String> imported = new ArrayList<String>();
 		if(result == JFileChooser.APPROVE_OPTION) {
 			try {
@@ -126,15 +166,14 @@ public class RobotTerminalController extends AbstractController {
 		JFileChooser chooser = new JFileChooser();
 		String fileExtension = ".bbp";
 		String fileType = "BeepBoopProgram File";
-		chooser.setApproveButtonText("Export");
-		chooser.setDialogTitle("Export the BeepBoopProgram of your Robot.");
+		chooser.setDialogTitle("Export the BeepBoopProgram of your Robot");
 		if (type.equals("Error Log")) {
-			chooser.setDialogTitle("Export the Error Log of your Robot.");
+			chooser.setDialogTitle("Export the Error Log of your Robot");
 			fileExtension = ".txt";
 			fileType = "Textfile";
 		}
 		chooser.setFileFilter(new FileNameExtensionFilter(fileType, fileExtension));
-		int result = chooser.showOpenDialog(this.robotTerminalUI);
+		int result = chooser.showDialog(this.mainFrame, "Export");
 		if(result == JFileChooser.APPROVE_OPTION) {
 			String name = chooser.getSelectedFile().getPath();
 			if (!name.endsWith(fileExtension)) {
@@ -149,6 +188,33 @@ public class RobotTerminalController extends AbstractController {
 		}
 		
 	}
+
+	@Override
+	public void update(Observable o, Object arg) {
+	   if (this.robotTerminalUI instanceof RTManageUI) {
+		   RTManageUI rtUI = (RTManageUI) this.robotTerminalUI;
+		 //update cargoLabel
+		   String cargoString = (currentRobot.getCargo() != null)?
+				   currentRobot.getCargo().getName()+": ":"No Cargo!";
+		   JLabel cargoLabel = rtUI.getCargoLabel();
+		   cargoLabel.setText(cargoString);
+	       cargoLabel.setIcon((currentRobot.getCargo() != null)?
+	    		   new ImageIcon(currentRobot.getCargo().getImage()):null);
+	       //adjust infoText if necessary
+	       switch(currentInfoType) {
+	        case("Error Log"):		
+	        	rtUI.setInfoText(currentRobot.getErrorLog()); 
+	            break;
+	        case("Load Program"):
+	        	rtUI.setInfoText(currentRobot.getMemory());
+	            setCurrentInfoType("Program");
+	        }
+
+	       rtUI.repaint();
+		   
+	   }
+		
+	}	
 
 	/*
 	 * Following are some EventListener implementations to be passed to the AbstractRobotTerminal
@@ -202,7 +268,7 @@ public class RobotTerminalController extends AbstractController {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			((RTManageUI) robotTerminalUI).setInfoText(importProgram());
-			((RTManageUI) robotTerminalUI).setCurrentInfoType("Program");
+			setCurrentInfoType("Program");
 
 		}
 
@@ -216,8 +282,7 @@ public class RobotTerminalController extends AbstractController {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			String text = ((RTManageUI) robotTerminalUI).getInfoText();
-			String type = ((RTManageUI) robotTerminalUI).getCurrentInfoType();
-			export(type, text);
+			export(currentInfoType, text);
 
 		}
 
@@ -230,17 +295,15 @@ public class RobotTerminalController extends AbstractController {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			RTManageUI ui = ((RTManageUI) robotTerminalUI);
-			if (ui.getCurrentInfoType().equals("Load Program") || ui.getCurrentInfoType().equals("Program")) {
-				Robot robot = ((RTManageUI) robotTerminalUI).getCurrentRobot();
+			if (currentInfoType.equals("Load Program") || currentInfoType.equals("Program")) {
 				//String splitRegex = "\\s*" + System.getProperty("line.separator") + "\\s*";
 				List<String> program = Arrays.asList(((RTManageUI) robotTerminalUI).getInfoText().split("\n"));
 				System.out.println("Program:"+program.get(2));
-				robot.setMemory(program);
-				robot.setPc(0);
+				currentRobot.setMemory(program);
+				currentRobot.setPc(0);
 				
 			}
-			System.out.println(Character.getName("\n".toCharArray()[0])+"RLSE"+((RTManageUI) robotTerminalUI).getCurrentInfoType());
+			System.out.println(Character.getName("\n".toCharArray()[0])+"RLSE"+getCurrentInfoType());
 		}
 
 	}
@@ -266,8 +329,9 @@ public class RobotTerminalController extends AbstractController {
 
 		@Override
 		public void itemStateChanged(ItemEvent e) {
-			((RTManageUI) robotTerminalUI).setCurrentRobot((Robot) e.getItem());
-			((RTManageUI) robotTerminalUI).update(null, null);
+			Robot robot = robotQueue.getRobot((String) e.getItem());
+			setCurrentRobot(robot);
+			robotTerminalUI.repaint();
 		}
 
 	}
@@ -279,8 +343,17 @@ public class RobotTerminalController extends AbstractController {
 
 		@Override
 		public void itemStateChanged(ItemEvent e) {
-			((RTManageUI) robotTerminalUI).setCurrentInfoType((String) e.getItem());
-			((RTManageUI) robotTerminalUI).update(null, null);
+			RTManageUI rtUI = ((RTManageUI) robotTerminalUI);
+			String infoType = (String) e.getItem();
+			setCurrentInfoType(infoType);
+			JTextArea infoField = rtUI.getInfoField();
+			if (infoType.equals("Error Log")) {
+				infoField.setEditable(false);
+			}
+			else {
+				infoField.setEditable(true);
+			}
+			update(null, null);
 		}
 
 	}
@@ -298,5 +371,6 @@ public class RobotTerminalController extends AbstractController {
 		}
 
 	}
+
 	
 }
