@@ -52,7 +52,7 @@ public class ResourceTest{
 
 		int amountTaken = someResource.takeAmount(someGreaterAmount);
 		
-		assertTrue("Took too much. Did not return as much as hab been there.", 
+		assertTrue("Took too much. Did not return as much as had been there.", 
 				amountTaken == someAmount);
 	}
 	
