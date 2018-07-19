@@ -1,11 +1,6 @@
 package beepBoop.model;
 
-import java.awt.Image;
-import java.io.File;
-import java.io.IOException;
 import java.util.HashMap;
-
-import javax.imageio.ImageIO;
 
 public class TileFactory {
 	//ground tile ids

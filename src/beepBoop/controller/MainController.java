@@ -1,6 +1,5 @@
 package beepBoop.controller;
 
-import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -20,7 +19,6 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import beepBoop.model.Event;
 import beepBoop.model.Level;
-import beepBoop.model.MsgEvent;
 import beepBoop.model.Robot;
 import beepBoop.model.Thing;
 import beepBoop.ui.MainFrame;
@@ -74,7 +72,6 @@ public class MainController extends AbstractController {
             try {
 				Thread.sleep(250);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
         }
@@ -86,6 +83,8 @@ public class MainController extends AbstractController {
 	public void initKeyBindings(){
 		Action leftAction = new AbstractAction(){
 
+			private static final long serialVersionUID = 4969451003156101086L;
+
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				playerController.leftAction();
@@ -93,6 +92,8 @@ public class MainController extends AbstractController {
 			
 		};
 		Action rightAction = new AbstractAction(){
+
+			private static final long serialVersionUID = -3168530161376412358L;
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -102,6 +103,8 @@ public class MainController extends AbstractController {
 		};
 		Action upAction = new AbstractAction(){
 
+			private static final long serialVersionUID = -5486971388403323250L;
+
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				playerController.upAction();
@@ -109,6 +112,8 @@ public class MainController extends AbstractController {
 		
 		};
 		Action downAction = new AbstractAction(){
+
+			private static final long serialVersionUID = -581806568284033528L;
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -146,14 +151,12 @@ public class MainController extends AbstractController {
             @Override
             public void mouseEntered(MouseEvent arg0)
             {
-                // TODO Auto-generated method stub
                 
             }
 
             @Override
             public void mouseExited(MouseEvent arg0)
             {
-                // TODO Auto-generated method stub
                 
             }
 
@@ -167,7 +170,6 @@ public class MainController extends AbstractController {
             @Override
             public void mouseReleased(MouseEvent arg0)
             {
-                // TODO Auto-generated method stub
                 
             }
 		    

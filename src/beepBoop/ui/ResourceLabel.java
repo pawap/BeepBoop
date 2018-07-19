@@ -9,8 +9,7 @@ import javax.swing.JPanel;
 import beepBoop.model.Resource;
 
 public class ResourceLabel extends JPanel {
-	private Resource resource;
-
+	private static final long serialVersionUID = -6940160337854773940L;
 	public ResourceLabel(Resource resource) {
 		super();
 		JLabel text = new JLabel(resource.getName()+": ");
@@ -18,7 +17,6 @@ public class ResourceLabel extends JPanel {
 		this.add(text);
 		this.add(new JLabel(new ImageIcon(resource.getImage())));
 		
-		this.resource = resource;
 		this.setBackground(Color.DARK_GRAY);
 		
 	}

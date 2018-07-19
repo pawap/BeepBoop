@@ -6,6 +6,7 @@ import java.util.concurrent.TimeUnit;
 
 public class MsgEvent extends Event {
 
+	private static final long serialVersionUID = -3645991823300567833L;
 	private String msg;
 	private int timeout;
 	private Observable notifier;

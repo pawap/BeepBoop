@@ -9,6 +9,8 @@ import java.util.HashMap;
 import javax.swing.JButton;
 
 public class RTMainUI extends AbstractRobotTerminalUI {
+
+	private static final long serialVersionUID = -6217279559652293388L;
 	private JButton constrButton;
 	private JButton manageButton;
 

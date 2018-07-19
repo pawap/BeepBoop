@@ -11,13 +11,12 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
-import beepBoop.model.Robot;
-
 public class RTConstrUI extends AbstractRobotTerminalUI{
+
+	private static final long serialVersionUID = 4276533727373179235L;
 	private JComboBox<String> robotClassDropDown;
 	private JTextArea infoField;
 	private JButton backButton;

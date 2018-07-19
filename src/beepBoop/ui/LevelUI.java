@@ -7,13 +7,14 @@ import java.util.Set;
 
 import javax.swing.JPanel;
 
-import beepBoop.model.Inventory;
 import beepBoop.model.Level;
 import beepBoop.model.Player;
 import beepBoop.model.Thing;
 import beepBoop.model.Tile;
 
 public class LevelUI extends JPanel {
+
+	private static final long serialVersionUID = 6263785454581945653L;
 	private Level level;
 	private Dimension viewSize = new Dimension(20,20);
 	private Point viewOrigin;

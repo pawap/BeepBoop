@@ -2,21 +2,13 @@ package beepBoop;
 
 import java.awt.Dimension;
 import java.awt.Point;
-import java.awt.event.ActionEvent;
 import java.util.LinkedList;
 import java.util.List;
 
-import javax.swing.AbstractAction;
-import javax.swing.Action;
-import javax.swing.JComponent;
-import javax.swing.KeyStroke;
-
 import beepBoop.controller.MainController;
-import beepBoop.controller.RobotTerminalController;
 import beepBoop.model.Inventory;
 import beepBoop.model.Landscape;
 import beepBoop.model.Level;
-import beepBoop.model.MsgEvent;
 import beepBoop.model.Player;
 import beepBoop.model.Resource;
 import beepBoop.model.Robot;
@@ -27,11 +19,10 @@ import beepBoop.ui.MainFrame;
 public class App {
 	
 	private MainFrame gui;
-	private boolean exit;
 	private MainController mainContr;
 
 	public App() {
-		TileFactory tf = TileFactory.getInstance();
+		TileFactory.getInstance();
 		Landscape landscape = new Landscape(new Dimension(50,50));
 		landscape.placeRect(0, 0, 49, 49, TileFactory.GRASS_OFFSET);
 		landscape.placeRect(0, 0, 0, 49, TileFactory.ROCK_OFFSET);
@@ -44,9 +35,7 @@ public class App {
 		player.setPosition(new Point(10,10));
 		Inventory inventory = new Inventory();
 		Level level = new Level(landscape,player,inventory);
-
 		
-		//inventory.addRessource(new Gold(0));		
 		gui = new MainFrame();
 		gui.initLevelUI(level);
 		gui.initInventoryUI(inventory);
@@ -55,7 +44,6 @@ public class App {
 		gui.initMenuBar(mainContr.getLoadListener(),
 				        mainContr.getSaveListener(),
 				        mainContr.getExitListener());
-		
 		
 		Resource copper = new Resource(200, TileFactory.COPPER, "copper");
 		copper.setPosition(new Point(3,3));
@@ -152,14 +140,12 @@ public class App {
 
 		gui.setSize(850, 510);	
 		gui.setMaximumSize(new Dimension(850,510));
-		//gui.pack();
 		gui.setVisible(true);
 		mainContr.mainAction();
 	}
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		App app = new App();
+		new App();
 		
 		
 	}

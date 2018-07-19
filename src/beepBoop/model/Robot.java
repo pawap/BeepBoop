@@ -6,6 +6,7 @@ import java.util.List;
 
 public class Robot extends Thing {
 
+	private static final long serialVersionUID = 2698956408529540093L;
 	private static int robotCounter;
     public final static int MAX_CAPACITY = 1000;
     

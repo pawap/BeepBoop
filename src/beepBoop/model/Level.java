@@ -98,7 +98,7 @@ public class Level implements Serializable{
 		return true;
 	}
 	public Set<Thing> getThings() {
-		return new HashSet(things.values());
+		return new HashSet<Thing>(things.values());
 	}
 
 	public boolean isRessource(int x, int y) {

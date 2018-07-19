@@ -1,8 +1,6 @@
 package beepBoop.controller;
 
 import java.awt.Point;
-import java.util.Arrays;
-
 import beepBoop.model.Command;
 import beepBoop.model.Level;
 import beepBoop.model.Resource;

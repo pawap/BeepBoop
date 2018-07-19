@@ -11,7 +11,6 @@ import java.awt.event.KeyEvent;
 
 import javax.swing.JDialog;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 import javax.swing.KeyStroke;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -22,6 +21,8 @@ import beepBoop.model.Inventory;
 import beepBoop.model.Level;
 
 public class MainFrame extends JFrame {
+
+	private static final long serialVersionUID = -2588683308034838956L;
 	private LevelUI levelUI;
 	private InventoryUI inventoryUI;
 	private AbstractRobotTerminalUI terminalUI;

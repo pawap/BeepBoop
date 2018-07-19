@@ -20,6 +20,8 @@ import beepBoop.model.Resource;
 import beepBoop.model.Tile;
 
 public class InventoryUI extends JPanel {
+
+	private static final long serialVersionUID = 109164110187359015L;
 	Inventory inventory;
 	List<ResourceLabel> resourceLabels;
 	
@@ -65,28 +67,8 @@ public class InventoryUI extends JPanel {
 		for (ResourceLabel resLabel : resourceLabels) {
 			add(resLabel);
 		}
-		System.out.println("XXX");
 		this.validate();
 		repaint();
 	}
-	
-//	@Override
-//	public void paintComponent(Graphics g){
-//		super.paintComponent(g);
-//		Graphics2D g2d = (Graphics2D) g;
-//		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-//		        RenderingHints.VALUE_ANTIALIAS_ON);
-//		g2d.setFont(new Font("Verdana", Font.BOLD, 15));
-//		g2d.setColor(Color.BLACK);
-//		int y = 15;
-//		g2d.drawString("Inventory",0, y);
-//		y += 20;
-//		for (Resource res: inventory.getRessources()){ 
-//				g2d.drawString(res.getName()+": "+res.getAmount(),0, y);
-//				y += 20;
-//		}
-//		
-//
-//	}
 	
 }

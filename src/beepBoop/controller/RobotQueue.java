@@ -7,6 +7,8 @@ import java.util.LinkedList;
 import beepBoop.model.Robot;
 
 public class RobotQueue implements Iterable<Robot>, Serializable {
+
+	private static final long serialVersionUID = 5512500479125148877L;
 	private HashMap<String, Integer> nameToPos;
 	private LinkedList<Robot> robots;
 

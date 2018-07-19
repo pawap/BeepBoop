@@ -7,7 +7,6 @@ import java.awt.image.BufferedImage;
 
 public class DummyTile extends Tile {
 
-	private Color color;
 	private Image img;	
 	
 	@Override
@@ -17,7 +16,6 @@ public class DummyTile extends Tile {
 
 	public DummyTile(Color color, boolean walkable) {
 		super();
-		this.color = color;
 		setWalkable(walkable);
 		img = new BufferedImage(Tile.SIZE.width,Tile.SIZE.height,BufferedImage.TYPE_INT_ARGB);
 		Graphics g = img.getGraphics();
