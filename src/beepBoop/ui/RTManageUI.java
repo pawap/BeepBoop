@@ -6,31 +6,22 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemListener;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.EventListener;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Observable;
-import java.util.Observer;
-
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
-import javax.swing.filechooser.FileNameExtensionFilter;
-
 import beepBoop.controller.RobotQueue;
 import beepBoop.model.Robot;
 
+
 public class RTManageUI extends AbstractRobotTerminalUI {
+
+	private static final long serialVersionUID = 8732469449519407942L;
 	private JComboBox<String> robotsDropDown;
 	private JComboBox<String> infoChooserDropDown;
 	private JLabel cargoLabel;
@@ -102,8 +93,6 @@ public class RTManageUI extends AbstractRobotTerminalUI {
 		this.add(applyButton, c);
 		c.gridx = 6;
 		this.add(backButton, c);
-//		this.setMinimumSize(new Dimension(300,500));
-//		this.setPreferredSize(new Dimension(300,500));
         
 	}
 
@@ -111,26 +100,14 @@ public class RTManageUI extends AbstractRobotTerminalUI {
 	 * @param listeners has to contain "robDrop" -> ItemListener, "infDrop" -> ItemListener and "back" -> ActionListener 
 	 */
 	@Override
-	public void addListeners(HashMap<String, EventListener> listeners) {
-		EventListener robDropL = listeners.get("robDrop");
-		EventListener infDropL = listeners.get("infDrop");
-		EventListener impL = listeners.get("import");
-		EventListener expL = listeners.get("export");
-		EventListener appL = listeners.get("apply");
-		EventListener backL = listeners.get("back");
-		
-		if(robDropL instanceof ItemListener &&
-		   infDropL instanceof ItemListener &&
-		   impL instanceof ActionListener &&
-		   expL instanceof ActionListener &&
-		   appL instanceof ActionListener &&
-		   backL instanceof ActionListener) {
-			robotsDropDown.addItemListener((ItemListener) robDropL);
-			infoChooserDropDown.addItemListener((ItemListener) infDropL);
-			importButton.addActionListener((ActionListener) impL);
-			exportButton.addActionListener((ActionListener) expL);
-			applyButton.addActionListener((ActionListener) appL);
-			backButton.addActionListener((ActionListener) backL);
+	public void addListeners(HashMap<String, EventListener> listeners) {		
+		if(correctListeners(listeners)) {
+			robotsDropDown.addItemListener((ItemListener) listeners.get("robDrop"));
+			infoChooserDropDown.addItemListener((ItemListener) listeners.get("infDrop"));
+			importButton.addActionListener((ActionListener) listeners.get("import"));
+			exportButton.addActionListener((ActionListener) listeners.get("export"));
+			applyButton.addActionListener((ActionListener) listeners.get("apply"));
+			backButton.addActionListener((ActionListener) listeners.get("back"));
 		}
 		else {
 			System.out.println("Tried to pass wrong Listener type to RTManageUI");
@@ -182,6 +159,22 @@ public class RTManageUI extends AbstractRobotTerminalUI {
 	public JComboBox<String> getInfoChooserDropDown() {
 		return infoChooserDropDown;
 		
+	}
+	
+	private boolean correctListeners(HashMap<String, EventListener> listeners) {
+		EventListener robDropL = listeners.get("robDrop");
+		EventListener infDropL = listeners.get("infDrop");
+		EventListener impL = listeners.get("import");
+		EventListener expL = listeners.get("export");
+		EventListener appL = listeners.get("apply");
+		EventListener backL = listeners.get("back");
+		
+		return robDropL instanceof ItemListener &&
+			   infDropL instanceof ItemListener &&
+			   impL instanceof ActionListener &&
+			   expL instanceof ActionListener &&
+			   appL instanceof ActionListener &&
+			   backL instanceof ActionListener;
 	}
 
 }
