@@ -56,7 +56,7 @@ public class InventoryUI extends JPanel {
 			remove(resLabel);
 		}
 		resourceLabels = new LinkedList<ResourceLabel>();    
-		for (Resource res: inventory.getRessources()){ 
+		for (Resource res: inventory.getResources()){ 
 			resourceLabels.add(new ResourceLabel(res));
 		}
 		for (ResourceLabel resLabel : resourceLabels) {

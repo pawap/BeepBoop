@@ -14,17 +14,17 @@ public class Inventory extends Observable implements Serializable {
 		this.resources = new HashSet<Resource>();
 	}
 
-	public Set<Resource> getRessources() {
+	public Set<Resource> getResources() {
 		return resources;
 	}
 
-	public void setRessources(HashSet<Resource> resources) {
+	public void setResources(HashSet<Resource> resources) {
 		this.resources = resources;
 	}
 
 
 
-	public void addRessource(Resource resource) {
+	public void addResource(Resource resource) {
 		for (Resource res: resources) {
 			if (res.getName().equals(resource.getName())) {		
 				res.increaseAmount(resource.getAmount());

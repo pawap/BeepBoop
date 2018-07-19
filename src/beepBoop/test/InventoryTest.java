@@ -3,7 +3,6 @@ package beepBoop.test;
 import static org.junit.Assert.*;
 
 import java.util.HashSet;
-import org.junit.Before;
 import org.junit.Test;
 
 import beepBoop.model.Inventory;
@@ -19,7 +18,7 @@ public class InventoryTest {
 		int someAmount = 40;
 		Resource someResource = new Resource(someAmount, TileFactory.IRON, someResourceType);
 				
-		inventory.addRessource(someResource);
+		inventory.addResource(someResource);
 		
 		assertTrue(containsCorrectAmountOf(inventory, someResourceType, someAmount));		
 	
@@ -35,9 +34,9 @@ public class InventoryTest {
 		resources.add(someResource);
 		int anotherAmount = 10;
 		Resource moreOfTheSame = new Resource(anotherAmount, TileFactory.IRON, someResourceType);
-		inventory.setRessources(resources);
+		inventory.setResources(resources);
 		
-		inventory.addRessource(moreOfTheSame);
+		inventory.addResource(moreOfTheSame);
 		
 		int correctAmount = someAmount + anotherAmount;
 		assertTrue(containsCorrectAmountOf(inventory, someResourceType, correctAmount));		
@@ -54,7 +53,7 @@ public class InventoryTest {
 		resources.add(someResource);
 		int lesserAmount = 10;
 		Resource lessOfTheSame = new Resource(lesserAmount, TileFactory.IRON, someResourceType);
-		inventory.setRessources(resources);
+		inventory.setResources(resources);
 		
 		inventory.subtractResource(lessOfTheSame);
 		
@@ -73,7 +72,7 @@ public class InventoryTest {
 		resources.add(someResource);
 		int greaterAmount = 42;
 		Resource moreOfTheSame = new Resource(greaterAmount, TileFactory.IRON, someResourceType);
-		inventory.setRessources(resources);
+		inventory.setResources(resources);
 		
 		boolean subtractionSuccesful = inventory.subtractResource(moreOfTheSame);
 		
@@ -85,7 +84,7 @@ public class InventoryTest {
 
 
 	private boolean containsCorrectAmountOf(Inventory inventory, String resourceType, int correctAmount) {
-		for (Resource resource : inventory.getRessources()) {
+		for (Resource resource : inventory.getResources()) {
 			if (resource.getName().equals(resourceType)) {
 				return resource.getAmount() == correctAmount;
 			}

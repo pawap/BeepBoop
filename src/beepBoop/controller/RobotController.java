@@ -160,7 +160,7 @@ public class RobotController extends AbstractController {
             return;
         }
         if (thing instanceof RobotTerminal) {
-            level.getInventory().addRessource(new Resource(robot.removeCargo(dump),
+            level.getInventory().addResource(new Resource(robot.removeCargo(dump),
             		 					TileFactory.getTileIdForResource(cargo.getName()),
                                             cargo.getName()));
             

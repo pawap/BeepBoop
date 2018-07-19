@@ -53,7 +53,7 @@ public class PlayerController extends AbstractController {
 				if (resource.getAmount() == 0) {
 					level.removeThing(resource);
 				}
-				inventoryUI.getInventory().addRessource(transfer);
+				inventoryUI.getInventory().addResource(transfer);
 				levelUI.repaint();
 				
 			}
