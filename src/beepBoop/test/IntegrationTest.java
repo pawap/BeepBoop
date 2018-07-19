@@ -3,9 +3,6 @@ package beepBoop.test;
 import static org.junit.Assert.*;
 
 import java.awt.Dimension;
-import java.awt.Point;
-import java.util.Set;
-
 import org.junit.Before;
 import org.junit.Test;
 
@@ -17,15 +14,12 @@ import beepBoop.model.Landscape;
 import beepBoop.model.Level;
 import beepBoop.model.Player;
 import beepBoop.model.RobotTerminal;
-import beepBoop.model.Thing;
 import beepBoop.model.TileFactory;
 
-import beepBoop.model.resource.Resource;
 import beepBoop.ui.AbstractRobotTerminalUI;
 import beepBoop.ui.InventoryUI;
 import beepBoop.ui.LevelUI;
 import beepBoop.ui.MainFrame;
-import beepBoop.ui.RobotTerminalUI;
 
 public class IntegrationTest {
 	private MainFrame gui;
@@ -41,7 +35,7 @@ public class IntegrationTest {
 	private AbstractRobotTerminalUI terminalUI;
 	
 	/**
-	 * initializes the objcts necessary for most tests in this class
+	 * initializes the objects necessary for most tests in this class
 	 */
 	@Before
 	public void setup() {

@@ -5,12 +5,12 @@ import java.util.Arrays;
 
 import beepBoop.model.Command;
 import beepBoop.model.Level;
+import beepBoop.model.Resource;
 import beepBoop.model.Robot;
 import beepBoop.model.RobotTerminal;
 import beepBoop.model.Sensor;
 import beepBoop.model.Thing;
 import beepBoop.model.TileFactory;
-import beepBoop.model.resource.Resource;
 
 public class RobotController extends AbstractController {
 	Level level;

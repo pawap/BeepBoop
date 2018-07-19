@@ -6,7 +6,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import beepBoop.model.resource.Resource;
+import beepBoop.model.Resource;
 
 public class ResourceLabel extends JPanel {
 	private Resource resource;

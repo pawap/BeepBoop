@@ -3,7 +3,6 @@ package beepBoop.model;
 import java.awt.Point;
 import java.util.LinkedList;
 import java.util.List;
-import beepBoop.model.resource.Resource;
 
 public class Robot extends Thing {
 

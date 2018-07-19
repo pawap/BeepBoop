@@ -2,8 +2,6 @@ package beepBoop.model;
 
 import java.awt.Point;
 
-import beepBoop.model.resource.Resource;
-
 public class ResourceSensor implements Sensor {
 
 	@Override

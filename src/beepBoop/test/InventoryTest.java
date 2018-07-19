@@ -9,8 +9,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import beepBoop.model.Inventory;
+import beepBoop.model.Resource;
 import beepBoop.model.TileFactory;
-import beepBoop.model.resource.Resource;
 
 public class InventoryTest {
 

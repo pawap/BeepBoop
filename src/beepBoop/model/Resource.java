@@ -1,4 +1,4 @@
-package beepBoop.model.resource;
+package beepBoop.model;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -7,9 +7,6 @@ import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import com.sun.xml.internal.ws.util.StringUtils;
-
-import beepBoop.model.Thing;
-import beepBoop.model.Tile;
 
 public class Resource extends Thing {
 

@@ -18,10 +18,10 @@ import beepBoop.model.Landscape;
 import beepBoop.model.Level;
 import beepBoop.model.MsgEvent;
 import beepBoop.model.Player;
+import beepBoop.model.Resource;
 import beepBoop.model.Robot;
 import beepBoop.model.RobotTerminal;
 import beepBoop.model.TileFactory;
-import beepBoop.model.resource.Resource;
 import beepBoop.ui.MainFrame;
 
 public class App {

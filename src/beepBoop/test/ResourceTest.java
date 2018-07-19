@@ -5,7 +5,7 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import beepBoop.model.resource.*;
+import beepBoop.model.Resource;
 
 public class ResourceTest {
 	private Resource copper, iron, gold, platinum, silicon;

@@ -5,8 +5,6 @@ import java.util.HashSet;
 import java.util.Observable;
 import java.util.Set;
 
-import beepBoop.model.resource.Resource;
-
 public class Inventory extends Observable implements Serializable {
 
 	private static final long serialVersionUID = -4001842018972736252L;

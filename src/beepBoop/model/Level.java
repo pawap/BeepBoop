@@ -8,7 +8,6 @@ import java.util.Set;
 
 import beepBoop.controller.EventQueue;
 import beepBoop.controller.RobotQueue;
-import beepBoop.model.resource.Resource;
 
 public class Level implements Serializable{
 

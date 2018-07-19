@@ -1,18 +1,15 @@
 package beepBoop.controller;
 
-import java.awt.Image;
 import java.awt.Point;
 
 import javax.swing.JPanel;
 
-import beepBoop.model.Inventory;
 import beepBoop.model.Level;
+import beepBoop.model.Resource;
 import beepBoop.model.TileFactory;
-import beepBoop.model.resource.Resource;
 import beepBoop.ui.InventoryUI;
 import beepBoop.ui.LevelUI;
 import beepBoop.ui.MainFrame;
-import beepBoop.ui.RobotTerminalUI;
 
 /**
  * Controller for the BeepBoop player.
