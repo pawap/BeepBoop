@@ -26,6 +26,7 @@ import beepBoop.model.Robot;
 import beepBoop.ui.AbstractRobotTerminalUI;
 import beepBoop.ui.MainFrame;
 import beepBoop.ui.RTConstrUI;
+import beepBoop.ui.RTInactiveUI;
 import beepBoop.ui.RTMainUI;
 import beepBoop.ui.RTManageUI;
 
@@ -128,19 +129,9 @@ public class RobotTerminalController extends AbstractController implements Obser
 	 * This method should be called when the player interacts with a terminal. Sets the terminalUI to active.
 	 */
 	public void openTerminal() {
-		//		robotTerminalUI.setActive(true);
-		//		robotTerminalUI.fillRobotsDropDown(robotQueue);
-
-		System.out.println("RobotTerminal Interaction");
-		for (Robot robot: robotQueue) {
-			if (robot.getCargo() != null) {
-				System.out.println("Robot Cargo:");
-				System.out.println("    "+robot.getCargo().getName()+": "+robot.getCargo().getAmount()); 
-			}
-			System.out.println("Robot ErrorLog");
-			for (String str: robot.getErrorLog()) {
-				System.out.println("    "+str); 
-			}
+		if (this.robotTerminalUI instanceof RTInactiveUI) {
+			navigateTo("main");
+			
 		}
 
 	}

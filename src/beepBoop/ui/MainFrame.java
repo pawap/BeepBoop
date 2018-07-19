@@ -102,7 +102,7 @@ public class MainFrame extends JFrame {
 	}
 	
 	public void initTerminalUI() {
-		this.terminalUI = new RTMainUI();
+		this.terminalUI = new RTInactiveUI();
 		Dimension dim = new Dimension(300,400);
 		terminalUI.setPreferredSize(dim);
 		GridBagConstraints c = new GridBagConstraints();
