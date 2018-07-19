@@ -2,51 +2,70 @@ package beepBoop.test;
 
 import static org.junit.Assert.*;
 
-import org.junit.Before;
 import org.junit.Test;
 
 import beepBoop.model.Resource;
+import beepBoop.model.TileFactory;
 
-public class ResourceTest {
-	private Resource copper, iron, gold, platinum, silicon;
+public class ResourceTest{
+
+	@Test
+	public void takeAmount_takeAll_AmountIsZero() {
+		int someAmount = 42;
+		Resource someResource = new Resource(someAmount, TileFactory.GOLD, "someName");
+
+		someResource.takeAmount(someAmount);
+		
+		assertTrue("Took everything. What was left was not 0", 
+				someResource.getAmount() == 0);
+	}
 	
-	@Before
-	public void setup() {
-//		copper = new Copper(42);
-//		iron = new Iron(42);
-//		gold = new Gold(42);
-//		platinum = new Platinum(42);
-//		silicon = new Silicon(42);
+	@Test
+	public void takeAmount_takeSome_AmountIsDifference() {
+		int someAmount = 42;
+		int someSmallerAmount = 23;
+		Resource someResource = new Resource(someAmount, TileFactory.GOLD, "someName");
+
+		someResource.takeAmount(someSmallerAmount);
+		
+		assertTrue("Took some. What was left was not equal to the difference.", 
+				someResource.getAmount() == someAmount - someSmallerAmount);
 	}
 
 	@Test
-	public void equalsTest() {
-//		assertTrue("Resource is not equal to itself.", 
-//				copper.equals(copper));
-//		assertTrue("Resources of the same type should be equal",
-//				iron.equals(new Iron(2))); 
-//		assertFalse("Different resources should not be considered equal.",
-//				iron.equals(copper));
+	public void takeAmount_takeTooMuch_AmountIsZero() {
+		int someAmount = 42;
+		int someGreaterAmount = 555;
+		Resource someResource = new Resource(someAmount, TileFactory.GOLD, "someName");
+
+		someResource.takeAmount(someGreaterAmount);
+		
+		assertTrue("Took too much. What was left was not 0.", 
+				someResource.getAmount() == 0);
 	}
 	
-	/**
-	 * Tests the methods fiddling with the amount of a resource:
-	 * takeAmount(int), getAmount(), increaseAmount(int)
-	 */
 	@Test
-	public void changeAmount() {
-		assertTrue("Incorrect amount returned by getAmount()",
-				platinum.getAmount() == 42);
-		assertTrue("Amount taken is wrong", silicon.takeAmount(42) == 42);
-		assertTrue("Wrong amount after takeAmount(int)",
-				silicon.getAmount() == 0);
-		assertTrue("If you try to take more than there is, you get should get all there is",
-				platinum.takeAmount(43) == 42);
-		assertTrue("Wrong amount after takeAmount(int)",
-				platinum.getAmount() == 0);
-		silicon.increaseAmount(17);
-		assertTrue("Wrong amount after increaseAmount(int)",
-				silicon.getAmount() == 17);
+	public void takeAmount_takeTooMuch_returnAllAvailable() {
+		int someAmount = 42;
+		int someGreaterAmount = 555;
+		Resource someResource = new Resource(someAmount, TileFactory.GOLD, "someName");
+
+		int amountTaken = someResource.takeAmount(someGreaterAmount);
+		
+		assertTrue("Took too much. Did not return as much as hab been there.", 
+				amountTaken == someAmount);
+	}
+	
+	@Test
+	public void increaseAmount_increaseALittle_AmountEqualsSum() {
+		int someAmount = 42;
+		int someOtherAmount = 24;
+		Resource someResource = new Resource(someAmount, TileFactory.GOLD, "someName");
+	
+		someResource.increaseAmount(someOtherAmount);
+		
+		assertTrue("Wrong amount after increase.",
+				someResource.getAmount() == someAmount + someOtherAmount);
 	}
 
 }
