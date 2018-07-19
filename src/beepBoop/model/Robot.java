@@ -12,7 +12,6 @@ public class Robot extends Thing {
     
 	private List<String> memory;
 	private int pc;
-	private boolean blocked;
 	private Resource cargo;
     private List<String> errorLog;
     private List<String> sensors;
@@ -33,7 +32,6 @@ public class Robot extends Thing {
 		this.sensors = new LinkedList<String>();
 		this.name = name;
 		pc = 0;
-		blocked = false;
 		sensors.add("FREE");
 		sensors.add("RESOURCE");
 		Robot.robotCounter += 1;

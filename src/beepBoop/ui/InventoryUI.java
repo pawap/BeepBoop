@@ -3,10 +3,6 @@ package beepBoop.ui;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Observable;
@@ -17,7 +13,6 @@ import javax.swing.JPanel;
 
 import beepBoop.model.Inventory;
 import beepBoop.model.Resource;
-import beepBoop.model.Tile;
 
 public class InventoryUI extends JPanel {
 
