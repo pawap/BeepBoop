@@ -11,7 +11,7 @@ public class Command
     public Command(String commandStr)
     {
        if (commandStr.isEmpty()) {
-           throw new IllegalArgumentException();
+           throw new IllegalArgumentException("empty string");
        }
        String[] strArray = commandStr.split(" ");
        this.type = strArray[0]; 
