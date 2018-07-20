@@ -32,17 +32,27 @@ public class Landscape implements Serializable{
 	}
 
 	public void placeRect(int x, int y, int x2, int y2, int type) {
-		for (int i = x; i <= x2; i++) {
-			for (int j = y; j <= y2; j++){
-				int id = (i + j) % 3 + type;
-				place(i,j, id);
+		if (insideDimensions(x,y) && insideDimensions(x2, y2)) {
+			for (int i = x; i <= x2; i++) {
+				for (int j = y; j <= y2; j++){
+					int id = (i + j) % 3 + type;
+					tiles[i][j] = id;
+				}
 			}
+		}
+		else {
+			throw new IllegalArgumentException("Tried to place tile outside of landscape.");
 		}
 	}
 
+
 	public void place(int x, int y, int tileId) {
+		if (insideDimensions(x,y)) {
 		tiles[x][y] = tileId;
-		
+		}
+		else {
+			throw new IllegalArgumentException("Tried to place tile outside of landscape.");
+		}
 	}
 	
 	public Tile getTile(int x, int y) {
@@ -50,5 +60,11 @@ public class Landscape implements Serializable{
 		return tf.get(tiles[x][y]);
 	}
 	
+
+	private boolean insideDimensions(int x, int y) {
+		boolean xIsCorrect = x >= 0 && x < size.width;
+		boolean yIsCorrect = y >= 0 && y < size.height;
+		return xIsCorrect && yIsCorrect;
+	}	
 
 }
