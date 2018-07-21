@@ -10,10 +10,12 @@ import org.junit.Test;
 import beepBoop.model.Level;
 import beepBoop.model.Resource;
 import beepBoop.model.ResourceSensor;
-import beepBoop.model.Thing;
 import beepBoop.model.TileFactory;
 import beepBoop.test.mock.MockLevel;
 
+/**
+ * @author ptp18-d06(Pawel Rasch, Tim Runge)
+ */
 public class ResourceSensorTest {
 	
 	@Test

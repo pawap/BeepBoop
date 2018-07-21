@@ -11,6 +11,9 @@ import beepBoop.model.FreeSensor;
 import beepBoop.model.Level;
 import beepBoop.test.mock.MockLevel;
 
+/**
+ * @author ptp18-d06(Pawel Rasch, Tim Runge)
+ */
 public class FreeSensorTest {
 	
 	@Test

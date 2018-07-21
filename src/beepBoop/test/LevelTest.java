@@ -17,6 +17,9 @@ import beepBoop.model.Robot;
 import beepBoop.model.Thing;
 import beepBoop.model.TileFactory;
 
+/**
+ * @author ptp18-d06(Pawel Rasch, Tim Runge)
+ */
 public class LevelTest {
 	
 	@Test

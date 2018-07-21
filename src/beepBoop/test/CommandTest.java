@@ -9,6 +9,9 @@ import org.junit.Test;
 
 import beepBoop.model.Command;
 
+/**
+ * @author ptp18-d06(Pawel Rasch, Tim Runge)
+ */
 public class CommandTest {
 
 	@SuppressWarnings("unused")
