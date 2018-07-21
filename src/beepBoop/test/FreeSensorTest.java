@@ -18,12 +18,12 @@ public class FreeSensorTest {
 		String directionToCheck = "L";
 		String[] params = new String[] {"someString", directionToCheck};
 		Point currentPosition = new Point(1,1);
-		Point freePosition = new Point(0,1);
+		Point freePositionToTheLeft = new Point(0,1);
 		@SuppressWarnings("serial")
 		Level mockLevel = new Level(null, null, null) {
 			@Override
 			public boolean isPositionFree(int x, int y) {
-				return x == freePosition.x && y == freePosition.y;
+				return x == freePositionToTheLeft.x && y == freePositionToTheLeft.y;
 			}
 		};
 		//act

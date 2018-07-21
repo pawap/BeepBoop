@@ -21,17 +21,17 @@ public class ResourceSensorTest {
 		String directionToCheck = "L";
 		String[] params = new String[] {"someString", directionToCheck};
 		Point currentPosition = new Point(1,1);
-		Point positionToCheck = new Point(0,1);
+		Point positionToTheLeft = new Point(0,1);
 		int someAmount = 10;
 		Resource someResource = new Resource(someAmount,
 				                             TileFactory.COPPER,
 				                             "copper"); 
-		someResource.setPosition(positionToCheck);
+		someResource.setPosition(positionToTheLeft);
 		@SuppressWarnings("serial")
 		Level mockLevel = new Level(null, null, null) {
 			@Override
 			public Thing getThing(int x, int y) {
-				if (x == positionToCheck.x && y == positionToCheck.y) {
+				if (x == positionToTheLeft.x && y == positionToTheLeft.y) {
 					return someResource;
 				}
 				return null;
