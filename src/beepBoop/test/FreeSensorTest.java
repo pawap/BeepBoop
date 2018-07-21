@@ -1,5 +1,6 @@
 package beepBoop.test;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.awt.Point;
@@ -8,6 +9,7 @@ import org.junit.Test;
 
 import beepBoop.model.FreeSensor;
 import beepBoop.model.Level;
+import beepBoop.test.mock.MockLevel;
 
 public class FreeSensorTest {
 	
@@ -18,18 +20,26 @@ public class FreeSensorTest {
 		String directionToCheck = "L";
 		String[] params = new String[] {"someString", directionToCheck};
 		Point currentPosition = new Point(1,1);
-		Point freePositionToTheLeft = new Point(0,1);
-		@SuppressWarnings("serial")
-		Level mockLevel = new Level(null, null, null) {
-			@Override
-			public boolean isPositionFree(int x, int y) {
-				return x == freePositionToTheLeft.x && y == freePositionToTheLeft.y;
-			}
-		};
+		Level mockLevel = new MockLevel();
 		//act
 		boolean result = freeSensor.check(params, currentPosition, mockLevel);
 		//assert
 		assertTrue(result);
+	}
+	
+	@Test
+	public void check_blockedPosition_returnFalse(){
+		//arrange
+		FreeSensor freeSensor = new FreeSensor();
+		String directionToCheck = "L";
+		String[] params = new String[] {"someString", directionToCheck};
+		Point currentPosition = new Point(1,1);
+		Point blockedPosition = new Point(0,1);
+		Level mockLevel = new MockLevel(blockedPosition);
+		//act
+		boolean result = freeSensor.check(params, currentPosition, mockLevel);
+		//assert
+		assertFalse(result);
 	}
 
 }

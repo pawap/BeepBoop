@@ -106,9 +106,11 @@ public class Level implements Serializable{
 	}
 
 	public Thing getThing(int x, int y) {
-	    if (player.getPosition().x == x && player.getPosition().y == y) {
-	        return player;
-	    }
+		if (player != null) {
+			if (player.getPosition().x == x && player.getPosition().y == y) {
+				return player;
+			}
+		}
 		return (Thing) things.get(new Point(x,y));
 	}
 

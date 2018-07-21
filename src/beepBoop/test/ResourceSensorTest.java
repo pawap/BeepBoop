@@ -1,5 +1,6 @@
 package beepBoop.test;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.awt.Point;
@@ -11,6 +12,7 @@ import beepBoop.model.Resource;
 import beepBoop.model.ResourceSensor;
 import beepBoop.model.Thing;
 import beepBoop.model.TileFactory;
+import beepBoop.test.mock.MockLevel;
 
 public class ResourceSensorTest {
 	
@@ -26,21 +28,25 @@ public class ResourceSensorTest {
 		Resource someResource = new Resource(someAmount,
 				                             TileFactory.COPPER,
 				                             "copper"); 
-		someResource.setPosition(positionToTheLeft);
-		@SuppressWarnings("serial")
-		Level mockLevel = new Level(null, null, null) {
-			@Override
-			public Thing getThing(int x, int y) {
-				if (x == positionToTheLeft.x && y == positionToTheLeft.y) {
-					return someResource;
-				}
-				return null;
-			}
-		};
+		Level mockLevel = new MockLevel(someResource, positionToTheLeft);
 		//act
 		boolean result = resourceSensor.check(params, currentPosition, mockLevel);
 		//assert
 		assertTrue(result);
+	}
+	
+	@Test
+	public void check_noResourceAtPosition_returnFalse(){
+		//arrange
+		ResourceSensor resourceSensor = new ResourceSensor();
+		String directionToCheck = "L";
+		String[] params = new String[] {"someString", directionToCheck};
+		Point currentPosition = new Point(1,1);
+		Level mockLevel = new MockLevel();
+		//act
+		boolean result = resourceSensor.check(params, currentPosition, mockLevel);
+		//assert
+		assertFalse(result);
 	}
 
 }
