@@ -281,7 +281,7 @@ public class MainController extends AbstractController {
 				                getSaveListener(),
 				                getExitListener());
 				initKeyBindings();
-				gui.setSize(1200, 500);	
+				gui.setSize(MainFrame.DEFAULT_WIDTH, MainFrame.DEFAULT_HEIGHT);	
 				gui.setVisible(true);
 				
 			} catch (FileNotFoundException e) {

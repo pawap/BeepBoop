@@ -17,7 +17,6 @@ import beepBoop.model.TileFactory;
 import beepBoop.ui.MainFrame;
 
 public class App {
-	
 	private MainFrame gui;
 	private MainController mainContr;
 
@@ -138,8 +137,8 @@ public class App {
 
 		}
 
-		gui.setSize(850, 510);	
-		gui.setMaximumSize(new Dimension(850,510));
+		gui.setSize(MainFrame.DEFAULT_WIDTH, MainFrame.DEFAULT_HEIGHT);	
+		gui.setMaximumSize(new Dimension(MainFrame.DEFAULT_WIDTH, MainFrame.DEFAULT_HEIGHT));
 		gui.setVisible(true);
 		mainContr.mainAction();
 	}

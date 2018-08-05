@@ -21,8 +21,9 @@ import beepBoop.model.Inventory;
 import beepBoop.model.Level;
 
 public class MainFrame extends JFrame {
-
 	private static final long serialVersionUID = -2588683308034838956L;
+	public final static int DEFAULT_WIDTH = 850;
+	public final static int DEFAULT_HEIGHT = 510;
 	private LevelUI levelUI;
 	private InventoryUI inventoryUI;
 	private AbstractRobotTerminalUI terminalUI;
