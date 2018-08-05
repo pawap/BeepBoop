@@ -12,6 +12,11 @@ import beepBoop.model.Player;
 import beepBoop.model.Thing;
 import beepBoop.model.Tile;
 
+/**
+ * Shows the visible part of the level.
+ * @author ptp18-d06(Pawel Rasch, Tim Runge)
+ *
+ */
 public class LevelUI extends JPanel {
 
 	private static final long serialVersionUID = 6263785454581945653L;
@@ -21,16 +26,14 @@ public class LevelUI extends JPanel {
 	private int maxViewOrgX;
 	private int maxViewOrgY;
 
+	/**
+	 * Constructor
+	 * Constructs a GUI showing hte part of the level surrounding the player.
+	 * @param level
+	 */
 	public LevelUI(Level level) {
 		super();
-		Dimension lvlSize = level.getLandscape().getSize();
 		this.setLevel(level);
-		Dimension viewPort = new Dimension(viewSize.width * Tile.SIZE.width, viewSize.height * Tile.SIZE.height);
-		this.setPreferredSize(viewPort);
-		this.setSize(viewPort);
-		this.setMinimumSize(viewPort);
-		this.maxViewOrgX = (int) Math.max(0, lvlSize.getWidth() - viewSize.getWidth());
-		this.maxViewOrgY = (int) Math.max(0, lvlSize.getHeight() - viewSize.getHeight());
 	}
 	
 	//calculate the origin point for the visible part of the map
@@ -40,11 +43,10 @@ public class LevelUI extends JPanel {
 		int viewY = (int) Math.max(0, playerPos.getY()  - (viewSize.getHeight() / 2));
 		viewX = Math.min(maxViewOrgX, viewX);
 		viewY = Math.min(maxViewOrgY, viewY);
-		this.viewOrigin = new Point(viewX, viewY);	
-		//System.out.println(viewOrigin.toString());
+		this.viewOrigin = new Point(viewX, viewY);
 	}
 	
-	
+	//maps a point from the level coordinates to the view coordinates
 	private Point mapToView(Point PosInLvl) {
 		int xPosInView = PosInLvl.x - viewOrigin.x;
 		int yPosInView = PosInLvl.y - viewOrigin.y;
@@ -62,6 +64,7 @@ public class LevelUI extends JPanel {
 
 	}
 
+	//paints all Things of the level that are in the view
 	private void paintThings(Graphics g) {
 		Set<Thing> things = getLevel().getThings();
 		
@@ -94,6 +97,7 @@ public class LevelUI extends JPanel {
 				viewPos.y * Tile.SIZE.height,null);
 	}
 	
+	//paints the visible part of the level
 	private void paintLandscape(Graphics g) {
 		for (int x = 0; x < viewSize.getWidth(); x++) {
 			for (int y = 0; y < viewSize.getHeight(); y++){
@@ -103,13 +107,25 @@ public class LevelUI extends JPanel {
 		}
 	}
 
-
+    /**
+     * @return the level belonging to the LevelUI
+     */
 	public Level getLevel() {
 		return level;
 	}
 
-
+    /**
+     * Change the level the UI works with.
+     * @param level
+     */
 	public void setLevel(Level level) {
 		this.level = level;
+		Dimension lvlSize = level.getLandscape().getSize();
+		Dimension viewPort = new Dimension(viewSize.width * Tile.SIZE.width, viewSize.height * Tile.SIZE.height);
+		this.setPreferredSize(viewPort);
+		this.setSize(viewPort);
+		this.setMinimumSize(viewPort);
+		this.maxViewOrgX = (int) Math.max(0, lvlSize.getWidth() - viewSize.getWidth());
+		this.maxViewOrgY = (int) Math.max(0, lvlSize.getHeight() - viewSize.getHeight());
 	}
 }
