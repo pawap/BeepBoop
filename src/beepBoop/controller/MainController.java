@@ -10,6 +10,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.StreamCorruptedException;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
@@ -59,10 +60,8 @@ public class MainController extends AbstractController {
 		initKeyBindings();
 		eventController.initAction(level.getEventQueue());
         while(!exit) {
-        	//System.out.print("|");
             for (Robot robot: level.getRobotQueue()) {
             	robotController.processAction(robot);
-            	//System.out.print(".");
             }
             Event event;
             while ((event = level.getEventQueue().poll()) != null) {
@@ -181,7 +180,12 @@ public class MainController extends AbstractController {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				loadLevel();
+				try {
+					loadLevel();
+				} catch (Exception e) {
+					gui.showMessage("Could not load file.");
+					e.printStackTrace();
+				}
 				
 			}
 			
@@ -232,11 +236,12 @@ public class MainController extends AbstractController {
 				out.writeObject(level);
 			} catch (IOException e) {
 		         e.printStackTrace();
+		         gui.showMessage("File could not be written.");
 		      }
 		}
 	}
 	
-	private void loadLevel() {
+	private void loadLevel() throws StreamCorruptedException {
 		JFileChooser chooser = new JFileChooser();
 		String fileExtension = "bbs";
 		String fileType = "BeepBoop Save File";
@@ -272,10 +277,13 @@ public class MainController extends AbstractController {
 				
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
+				gui.showMessage("File not found.");
 			} catch (IOException e) {
 				e.printStackTrace();
+				gui.showMessage("File could not be read.");
 			} catch (ClassNotFoundException e) {
 				e.printStackTrace();
+				gui.showMessage("Class not found.");
 			}
 		}
 	}

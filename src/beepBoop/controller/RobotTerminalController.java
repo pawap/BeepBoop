@@ -6,6 +6,7 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.charset.MalformedInputException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -119,8 +120,12 @@ public class RobotTerminalController extends AbstractController implements Obser
 			listeners.put("manage", new NavToManageListener());
 			robotTerminalUI.addListeners(listeners);
 		}
+		else if (robotTerminalUI instanceof RTInactiveUI) {
+			return;
+		}
 		else {
-			System.out.println("Tried to add Listeners to an unknown subclass of AbstractTerminalUI.");
+			System.out.println("Unsuccessfully tried to add Listeners to " + robotTerminalUI.getClass() + 
+					". Modify RobotTerminalController.addUIListeners to handle " + robotTerminalUI.getClass() + ".");
 		}
 	}
 
@@ -147,7 +152,8 @@ public class RobotTerminalController extends AbstractController implements Obser
 				imported = Files.readAllLines(Paths.get(chooser.getSelectedFile().getPath()));
 			} catch (IOException e) {
 				e.printStackTrace();
-			}
+				mainFrame.showMessage("File could not be read.");
+			} 
 			return imported;
 		}
 		return null;
@@ -175,6 +181,7 @@ public class RobotTerminalController extends AbstractController implements Obser
 				writer.flush();
 			} catch (IOException e) {
 				e.printStackTrace();
+				mainFrame.showMessage("File could not be written.");
 			}
 		}
 		
@@ -209,7 +216,7 @@ public class RobotTerminalController extends AbstractController implements Obser
 
 	/*
 	 * Following are some EventListener implementations to be passed to the AbstractRobotTerminal
-	 * implementations via the addListeners method.
+	 * subclasses via the addListeners method.
 	 */
 
 	/**
@@ -287,7 +294,6 @@ public class RobotTerminalController extends AbstractController implements Obser
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if (currentInfoType.equals("Load Program") || currentInfoType.equals("Program")) {
-				//String splitRegex = "\\s*" + System.getProperty("line.separator") + "\\s*";
 				List<String> program = Arrays.asList(((RTManageUI) robotTerminalUI).getInfoText().split("\n"));
 				System.out.println("Program:"+program.get(2));
 				currentRobot.setMemory(program);
