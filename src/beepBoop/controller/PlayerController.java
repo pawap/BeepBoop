@@ -2,8 +2,6 @@ package beepBoop.controller;
 
 import java.awt.Point;
 
-import javax.swing.JPanel;
-
 import beepBoop.model.Level;
 import beepBoop.model.Resource;
 import beepBoop.model.TileFactory;
@@ -18,9 +16,8 @@ import beepBoop.ui.MainFrame;
  *
  */
 public class PlayerController extends AbstractController {
-	LevelUI levelUI;
-	InventoryUI inventoryUI;
-	JPanel terminalUI;
+	private LevelUI levelUI;
+	private InventoryUI inventoryUI;
 	private RobotTerminalController terminalContr;
 	
 	/**
@@ -32,7 +29,6 @@ public class PlayerController extends AbstractController {
 		super();
 		this.levelUI = mf.getLevelUI();
 		this.inventoryUI = mf.getInventoryUI();
-		this.terminalUI = mf.getTerminalUI();
 		terminalContr = robotTerminalController;	
 	}
 
@@ -60,7 +56,7 @@ public class PlayerController extends AbstractController {
 			if (level.isRobotTerminal(x,y)) {
 			    
 				terminalContr.openTerminal();
-				//terminalUI.setActive(true);
+				this.levelUI.getLevel().getPlayer().setTerminalAccess(true);
 			}
 			return false;
 		}

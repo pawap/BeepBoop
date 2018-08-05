@@ -64,16 +64,18 @@ public class LevelUI extends JPanel {
 
 	}
 
-	//paints all Things of the level that are in the view
+	//paints all Things of the level that are inside the view
 	private void paintThings(Graphics g) {
 		Set<Thing> things = getLevel().getThings();
 		
 		for (Thing thing : things) {
-			Point position = thing.getPosition(); 
-			if (inView(position)) {
-				position = mapToView(position);
-			    g.drawImage(thing.getImage(),(int) position.getX() * Tile.SIZE.width, 
-			    		                     (int) position.getY() * Tile.SIZE.height, null);
+			if (thing != null) {
+			    Point position = thing.getPosition(); 
+			    if (inView(position)) {
+				    position = mapToView(position);
+			        g.drawImage(thing.getImage(),(int) position.getX() * Tile.SIZE.width, 
+			    	    	                     (int) position.getY() * Tile.SIZE.height, null);
+			    }
 			}
 		}	
 	}
@@ -115,7 +117,7 @@ public class LevelUI extends JPanel {
 	}
 
     /**
-     * Change the level the UI works with.
+     * Change the level that the LevelUI displays.
      * @param level
      */
 	public void setLevel(Level level) {

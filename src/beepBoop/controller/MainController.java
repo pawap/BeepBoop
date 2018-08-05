@@ -10,8 +10,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.StreamCorruptedException;
-
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.JFileChooser;
@@ -20,6 +18,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import beepBoop.model.Event;
 import beepBoop.model.Level;
+import beepBoop.model.Resource;
 import beepBoop.model.Robot;
 import beepBoop.model.Thing;
 import beepBoop.ui.MainFrame;
@@ -180,13 +179,7 @@ public class MainController extends AbstractController {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				try {
-					loadLevel();
-				} catch (Exception e) {
-					gui.showMessage("Could not load file.");
-					e.printStackTrace();
-				}
-				
+					loadLevel();				
 			}
 			
 		};
@@ -241,7 +234,7 @@ public class MainController extends AbstractController {
 		}
 	}
 	
-	private void loadLevel() throws StreamCorruptedException {
+	private void loadLevel() {
 		JFileChooser chooser = new JFileChooser();
 		String fileExtension = "bbs";
 		String fileType = "BeepBoop Save File";
@@ -253,18 +246,34 @@ public class MainController extends AbstractController {
 			try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(path))) {
 				
 				Level loaded = (Level) in.readObject();
-				this.level = loaded;
+				
 				//give each thing its tile
-				for(Thing thing: this.level.getThings()) {
+				for(Thing thing: loaded.getThings()) {
 					thing.setTile(thing.getTileId());
 				}		
-				level.getPlayer().setTile(level.getPlayer().getTileId());
+				//give the player their tile
+				loaded.getPlayer().setTile(loaded.getPlayer().getTileId());
+				//give each inventory item its tile
+				for (Resource resource : loaded.getInventory().getResources()) {
+					resource.setTile(resource.getTileId());
+				}
+				//give each robot's cargo its tile
+				for (Robot robot : loaded.getRobotQueue()) {
+					Resource resource = robot.getCargo();
+					if (resource != null) {
+						resource.setTile(resource.getTileId());
+					}
+				}			
+				this.level = loaded;
 				this.gui.dispose();
 				this.gui = new MainFrame();
 				gui.initLevelUI(this.level);
 				gui.initInventoryUI(level.getInventory());
 				gui.initTerminalUI();
 				this.terminalController = new RobotTerminalController(gui.getTerminalUI(), gui, this.level.getRobotQueue());
+				if (this.level.getPlayer().hasTerminalAccess()) {
+					this.terminalController.navigateTo("main");
+				}
 				this.playerController = new PlayerController(gui, terminalController);
 				this.robotController = new RobotController(level);
 				this.eventController = new EventController(level,gui);

@@ -6,7 +6,6 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.charset.MalformedInputException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -131,14 +130,10 @@ public class RobotTerminalController extends AbstractController implements Obser
 
 
 	/**
-	 * This method should be called when the player interacts with a terminal. Sets the terminalUI to active.
+	 * This method should be called when the player interacts with a terminal.
 	 */
 	public void openTerminal() {
-		if (this.robotTerminalUI instanceof RTInactiveUI) {
 			navigateTo("main");
-			
-		}
-
 	}
 	
 	private List<String> importProgram() {
