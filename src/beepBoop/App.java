@@ -11,7 +11,7 @@ import beepBoop.model.Landscape;
 import beepBoop.model.Level;
 import beepBoop.model.Player;
 import beepBoop.model.Resource;
-import beepBoop.model.Robot;
+import beepBoop.model.BasicRobot;
 import beepBoop.model.RobotTerminal;
 import beepBoop.model.TileFactory;
 import beepBoop.ui.MainFrame;
@@ -64,7 +64,7 @@ public class App {
 		silicon.setPosition(new Point(3,15));
 		level.addThing(silicon);
 		
-		Robot robot = new Robot();
+		BasicRobot robot = new BasicRobot();
 		robot.setPosition(new Point(10,12));
 		List<String> program = new LinkedList<String>();
 		program.add("IF FREE L");
@@ -87,7 +87,7 @@ public class App {
 		robot.setMemory(program);
 		level.addRobot(robot);
 		
-		Robot robot2 = new Robot();
+		BasicRobot robot2 = new BasicRobot();
 		robot2.setPosition(new Point(16,16));
 		program = new LinkedList<String>();
 		program.add("D");

@@ -4,21 +4,21 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
-import beepBoop.model.Robot;
+import beepBoop.model.BasicRobot;
 
-public class RobotQueue implements Iterable<Robot>, Serializable {
+public class RobotQueue implements Iterable<BasicRobot>, Serializable {
 
 	private static final long serialVersionUID = 5512500479125148877L;
 	private HashMap<String, Integer> nameToIndex;
-	private LinkedList<Robot> robots;
+	private LinkedList<BasicRobot> robots;
 
 	public RobotQueue() {
 		super();
 		nameToIndex = new HashMap<String, Integer>();
-		robots = new LinkedList<Robot>();
+		robots = new LinkedList<BasicRobot>();
 	}
 
-	public boolean add(Robot robot) {
+	public boolean add(BasicRobot robot) {
 		String name = robot.getName();
 		if(!nameToIndex.containsKey(name) && robots.add(robot)) {
 			nameToIndex.put(name, robots.indexOf(robot));
@@ -27,20 +27,20 @@ public class RobotQueue implements Iterable<Robot>, Serializable {
 		return false;
 	}
 	
-	public boolean contains(Robot robot) {
+	public boolean contains(BasicRobot robot) {
 		return robots.contains(robot);
 	}
 	
-	public Robot getRobot(String name) {
+	public BasicRobot getRobot(String name) {
 		return robots.get(nameToIndex.get(name));
 	}
 	
-	public Robot peekFirst() {
+	public BasicRobot peekFirst() {
 		return robots.peekFirst();
 	}
 	
 	@Override
-	public Iterator<Robot> iterator() {
+	public Iterator<BasicRobot> iterator() {
 		return robots.iterator();
 	}
 	

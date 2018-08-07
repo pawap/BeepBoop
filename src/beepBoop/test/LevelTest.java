@@ -13,7 +13,7 @@ import beepBoop.model.Landscape;
 import beepBoop.model.Level;
 import beepBoop.model.Player;
 import beepBoop.model.Resource;
-import beepBoop.model.Robot;
+import beepBoop.model.BasicRobot;
 import beepBoop.model.Thing;
 import beepBoop.model.TileFactory;
 
@@ -153,7 +153,7 @@ public class LevelTest {
 	public void addRobot_robotAlreadyPresent_returnFalse() {
 		//arrange
 		Level level = createTenByTenLevelWithPlayerAtOrigin();
-		Robot someRobot = new Robot();
+		BasicRobot someRobot = new BasicRobot();
 		level.addRobot(someRobot);
 		//act
 		boolean result = level.addRobot(someRobot);
@@ -165,7 +165,7 @@ public class LevelTest {
 	public void addRobot_robotAddable_robotIsInRobotQueue() {
 		//arrange
 		Level level = createTenByTenLevelWithPlayerAtOrigin();
-		Robot someRobot = new Robot();
+		BasicRobot someRobot = new BasicRobot();
 		//act
 		level.addRobot(someRobot);
 		//assert
@@ -176,7 +176,7 @@ public class LevelTest {
 	public void addRobot_robotAddable_robotIsInThings() {
 		//arrange
 		Level level = createTenByTenLevelWithPlayerAtOrigin();
-		Robot someRobot = new Robot();
+		BasicRobot someRobot = new BasicRobot();
 		//act
 		level.addRobot(someRobot);
 		//assert

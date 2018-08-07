@@ -5,17 +5,17 @@ import java.util.Map;
 
 import beepBoop.model.FreeSensor;
 import beepBoop.model.ResourceSensor;
-import beepBoop.model.Sensor;
+import beepBoop.model.ISensor;
 
 public class SensorService {
 
 	private static SensorService sensorService = new SensorService();
 	
-	private Map<String,Sensor> sensors;
+	private Map<String,ISensor> sensors;
 	
 	private SensorService() {
 		super();
-		sensors = new HashMap<String,Sensor>();
+		sensors = new HashMap<String,ISensor>();
 		sensors.put("FREE", new FreeSensor());
 		sensors.put("RESOURCE", new ResourceSensor());		
 	}
@@ -24,7 +24,7 @@ public class SensorService {
 		return sensorService;
 	}
 
-	public Sensor getSensor(String name) {
+	public ISensor getSensor(String name) {
 		return sensors.get(name);
 	}
 }

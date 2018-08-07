@@ -19,7 +19,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import beepBoop.model.Event;
 import beepBoop.model.Level;
 import beepBoop.model.Resource;
-import beepBoop.model.Robot;
+import beepBoop.model.BasicRobot;
 import beepBoop.model.Thing;
 import beepBoop.ui.MainFrame;
 
@@ -59,7 +59,7 @@ public class MainController extends AbstractController {
 		initKeyBindings();
 		eventController.initAction(level.getEventQueue());
         while(!exit) {
-            for (Robot robot: level.getRobotQueue()) {
+            for (BasicRobot robot: level.getRobotQueue()) {
             	robotController.processAction(robot);
             }
             Event event;
@@ -258,7 +258,7 @@ public class MainController extends AbstractController {
 					resource.setTile(resource.getTileId());
 				}
 				//give each robot's cargo its tile
-				for (Robot robot : loaded.getRobotQueue()) {
+				for (BasicRobot robot : loaded.getRobotQueue()) {
 					Resource resource = robot.getCargo();
 					if (resource != null) {
 						resource.setTile(resource.getTileId());

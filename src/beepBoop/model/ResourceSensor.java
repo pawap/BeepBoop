@@ -2,7 +2,7 @@ package beepBoop.model;
 
 import java.awt.Point;
 
-public class ResourceSensor implements Sensor {
+public class ResourceSensor implements ISensor {
 
 	@Override
 	public boolean check(String[] params, Point p, Level level) {

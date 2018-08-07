@@ -81,7 +81,7 @@ public class Level implements Serializable{
 		things.put(newPoint, things.remove(oldPoint));
 	}
 	
-	public boolean addRobot(Robot robot) {
+	public boolean addRobot(BasicRobot robot) {
 		if (robotQueue.contains(robot)) {
 			return false;
 		}

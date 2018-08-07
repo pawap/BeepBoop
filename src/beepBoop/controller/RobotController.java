@@ -4,9 +4,9 @@ import java.awt.Point;
 import beepBoop.model.Command;
 import beepBoop.model.Level;
 import beepBoop.model.Resource;
-import beepBoop.model.Robot;
+import beepBoop.model.BasicRobot;
 import beepBoop.model.RobotTerminal;
-import beepBoop.model.Sensor;
+import beepBoop.model.ISensor;
 import beepBoop.model.Thing;
 import beepBoop.model.TileFactory;
 
@@ -28,10 +28,10 @@ public class RobotController extends AbstractController {
 	 * @param position
 	 * @return
 	 */
-	public Robot newAction(String type, Point position) {
-		Robot robot;
+	public BasicRobot newAction(String type, Point position) {
+		BasicRobot robot;
 		switch (type) {
-			case "r1": robot = new Robot(); break;
+			case "r1": robot = new BasicRobot(); break;
 			default: return null;
 		}
 		robot.setPosition(position);
@@ -44,7 +44,7 @@ public class RobotController extends AbstractController {
 	 * 
 	 * @param robot
 	 */
-	public void processAction(Robot robot) {
+	public void processAction(BasicRobot robot) {
 		Command command = robot.getCurrentCommand();
 	    switch(command.getType()) {
 	    case "L": 
@@ -66,7 +66,7 @@ public class RobotController extends AbstractController {
         }	
 	}
 
-    private void jumpTo(Robot robot, Command command)
+    private void jumpTo(BasicRobot robot, Command command)
     {
         int target = robot.getPc();
         try {
@@ -79,10 +79,10 @@ public class RobotController extends AbstractController {
         robot.setPc(target);
     }
 
-    private void decideCondition(Robot robot, Command command) {
+    private void decideCondition(BasicRobot robot, Command command) {
 		String sensorStr = command.getArgs()[0];
 		SensorService sensorService = SensorService.getInstance();
-		Sensor sensor = sensorService.getSensor(sensorStr);
+		ISensor sensor = sensorService.getSensor(sensorStr);
 		robot.incrementPc();
 		if (sensor == null || !robot.hasSensor(sensorStr)) {
 			return;
@@ -99,7 +99,7 @@ public class RobotController extends AbstractController {
 		
 	}
 
-	private void moveRobot(Robot robot, Command command) {
+	private void moveRobot(BasicRobot robot, Command command) {
     	Point p = Command.getPointFromDirection(robot.getPosition(), command.getType());
     	if (level.isPositionFree(p.x, p.y)) {
 			level.moveThing(robot.getPosition(),p);
@@ -115,7 +115,7 @@ public class RobotController extends AbstractController {
 		}
 	}
 
-	private void manageResource(Robot robot, Command command)
+	private void manageResource(BasicRobot robot, Command command)
     {
         String direction = command.getArgs()[0];
         int amount = new Integer(command.getArgs()[1]);
@@ -129,7 +129,7 @@ public class RobotController extends AbstractController {
         
     }
 
-    private void dumpRessource(Robot robot, Point actOn, int amount)
+    private void dumpRessource(BasicRobot robot, Point actOn, int amount)
     {
         Thing thing = level.getThing(actOn.x, actOn.y);
         Resource cargo = robot.getCargo();
@@ -168,7 +168,7 @@ public class RobotController extends AbstractController {
         }
     }
 
-    private String loadRessource(Robot robot, Point actOn, int amount)
+    private String loadRessource(BasicRobot robot, Point actOn, int amount)
     {
         Thing thing = level.getThing(actOn.x, actOn.y);
         Resource cargo = robot.getCargo();
@@ -182,7 +182,7 @@ public class RobotController extends AbstractController {
                 							TileFactory.getTileIdForResource(resource.getName()),
                 							resource.getName()));
             } else if (cargo.getName().equals(resource.getName())) {
-                int load = Math.min(Robot.MAX_CAPACITY - cargo.getAmount(), amount) ;
+                int load = Math.min(BasicRobot.MAX_CAPACITY - cargo.getAmount(), amount) ;
                 robot.addCargo(resource.takeAmount(load));       
             } else {
                 return "Incompatible Resource loaded";
