@@ -20,7 +20,6 @@ import beepBoop.model.Event;
 import beepBoop.model.AbstractRobot;
 import beepBoop.model.Level;
 import beepBoop.model.Resource;
-import beepBoop.model.BasicRobot;
 import beepBoop.model.Thing;
 import beepBoop.ui.MainFrame;
 
@@ -50,7 +49,7 @@ public class MainController extends AbstractController {
 		this.gui = gui;
 		this.exit = false;
 		this.level = level;
-		this.terminalController = new RobotTerminalController(gui.getTerminalUI(), gui, this.level.getRobotQueue());
+		this.terminalController = new RobotTerminalController(gui.getTerminalUI(), gui, this.level);
 		this.playerController = new PlayerController(gui, terminalController);
 		this.robotController = new RobotController(level);
 		this.eventController = new EventController(level,gui);
@@ -271,7 +270,7 @@ public class MainController extends AbstractController {
 				gui.initLevelUI(this.level);
 				gui.initInventoryUI(level.getInventory());
 				gui.initTerminalUI();
-				this.terminalController = new RobotTerminalController(gui.getTerminalUI(), gui, this.level.getRobotQueue());
+				this.terminalController = new RobotTerminalController(gui.getTerminalUI(), gui, this.level);
 				if (this.level.getPlayer().hasTerminalAccess()) {
 					this.terminalController.navigateTo("main");
 				}

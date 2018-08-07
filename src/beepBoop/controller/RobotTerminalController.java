@@ -1,5 +1,6 @@
 package beepBoop.controller;
 
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
@@ -24,6 +25,8 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import beepBoop.model.AbstractRobot;
 import beepBoop.model.BasicRobot;
+import beepBoop.model.Level;
+import beepBoop.model.Resource;
 import beepBoop.ui.AbstractRobotTerminalUI;
 import beepBoop.ui.MainFrame;
 import beepBoop.ui.RTConstrUI;
@@ -38,6 +41,7 @@ public class RobotTerminalController extends AbstractController implements Obser
 	private MainFrame mainFrame;
 	private AbstractRobot currentRobot;
 	private String currentInfoType;
+	private Level level;
 
 	public String getCurrentInfoType() {
 		return currentInfoType;
@@ -47,11 +51,12 @@ public class RobotTerminalController extends AbstractController implements Obser
 		this.currentInfoType = infoType;
 	}
 
-	public RobotTerminalController(AbstractRobotTerminalUI robotTerminalUI, MainFrame mainFrame, RobotQueue robotQueue)
+	public RobotTerminalController(AbstractRobotTerminalUI robotTerminalUI, MainFrame mainFrame, Level level)
 	{
-		this.robotQueue = robotQueue;
+		this.robotQueue = level.getRobotQueue();
 		this.mainFrame = mainFrame;
 		this.robotTerminalUI = robotTerminalUI;
+		this.level = level;
 		addUIListeners();
 	}
 
@@ -223,6 +228,32 @@ public class RobotTerminalController extends AbstractController implements Obser
 			robotTerminalUI.repaint();
 		}
 	}
+	
+	//constructs a robot of the desired type next to the player if possible.
+	private boolean construct(String desiredType) {
+		AbstractRobot newBot = new BasicRobot();
+		//choose class
+		switch(desiredType) {
+		case "Basic Robot": break;
+		default: return false;
+		}
+		//find free position
+		Point playerPosition = level.getPlayer().getPosition();
+		int x = playerPosition.x - 1, 
+			y = playerPosition.y - 1;
+		for (int i = 0; i < 9; i++) {
+			if (level.isPositionFree(x, y)) {
+				List<Resource> costs = newBot.getCosts();
+				if(this.level.getInventory().pay(costs)) { //check inventory and pay if possible
+					newBot.setPosition(new Point(x, y));
+					return this.level.addRobot(newBot);
+				}
+			}
+			x = (i % 3) - 1 + playerPosition.x;
+			y = (i / 3) - 1 + playerPosition.y;
+		}		
+		return false;
+	}
 
 	/*
 	 * Following are some EventListener implementations to be passed to the AbstractRobotTerminal
@@ -321,7 +352,9 @@ public class RobotTerminalController extends AbstractController implements Obser
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			System.out.println("Robot construction is a thing of the future. Try to live in the now while we work on implementing this feature.");
+			RTConstrUI ui = (RTConstrUI) robotTerminalUI;
+			String desiredType = (String) ui.getRobotClassDropDown().getSelectedItem();
+			construct(desiredType);
 
 		}
 

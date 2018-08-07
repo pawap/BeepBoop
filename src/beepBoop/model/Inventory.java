@@ -2,6 +2,7 @@ package beepBoop.model;
 
 import java.io.Serializable;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Observable;
 import java.util.Set;
 
@@ -49,6 +50,28 @@ public class Inventory extends Observable implements Serializable {
 			}
 		}
 		return false;
+	}
+
+	/**
+	 * If the inventory contains at least as many resources as needed, subtract those
+	 * resources and return true.
+	 * @param costs the needed resources as a List
+	 * @return true if the cost could be paid
+	 */
+	public boolean pay(List<Resource> costs) {		
+		for (Resource cost : costs) {
+			for (Resource stock: resources) {
+				if (cost.getName().equals(stock.getName())) {
+					if (cost.getAmount() > stock.getAmount()) {
+						return false;
+					}
+				}
+			}
+		}
+		for (Resource cost : costs) {
+			this.subtractResource(cost);
+		}
+		return true;
 	}
 	
 }

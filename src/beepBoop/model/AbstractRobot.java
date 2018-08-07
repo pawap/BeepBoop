@@ -122,5 +122,10 @@ public abstract class AbstractRobot extends Thing{
 	public int getMaxCapacity() {
 		return this.maxCapacity;
 	}
+
+	/**
+	 * @return the cost for producing a new robot of this type.
+	 */
+	public abstract List<Resource> getCosts();
 	
 }

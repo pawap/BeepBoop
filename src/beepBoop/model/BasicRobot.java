@@ -33,6 +33,7 @@ public class BasicRobot extends AbstractRobot{
 	public BasicRobot(String name) {
 		super(TileFactory.ROBOT_0);
 		this.memory = new LinkedList<String>();
+		this.memory.add("GOTO 0");
 		this.errorLog = new LinkedList<String>();
 		this.sensors = new LinkedList<String>();
 		this.name = name;
@@ -147,6 +148,15 @@ public class BasicRobot extends AbstractRobot{
 	 */
 	public static String getInfo() {
 		return "The most basic robot type.";
+	}
+
+	@Override
+	public List<Resource> getCosts() {
+		LinkedList<Resource> costs = new LinkedList<Resource>();
+		costs.add(new Resource(100, TileFactory.IRON, "iron"));
+		costs.add(new Resource(50, TileFactory.SILICON, "silicon"));
+		costs.add(new Resource(25, TileFactory.COPPER, "copper"));
+		return costs;
 	}
 
 }

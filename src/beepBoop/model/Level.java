@@ -82,12 +82,11 @@ public class Level implements Serializable{
 	}
 	
 	public boolean addRobot(AbstractRobot robot) {
-		if (robotQueue.contains(robot)) {
-			return false;
+		if (robotQueue.add(robot)) { //false if a robot with the same name already exists in the queue
+			this.addThing(robot);	
+			return true;
 		}
-		this.addThing(robot);
-		robotQueue.add(robot);	
-		return true;
+		return false;
 	}
 	public boolean addEvent(Event event) {
 		if (eventQueue.contains(event)) {
