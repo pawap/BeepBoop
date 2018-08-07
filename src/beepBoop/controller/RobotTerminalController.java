@@ -23,6 +23,7 @@ import javax.swing.JTextArea;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import beepBoop.model.AbstractRobot;
+import beepBoop.model.BasicRobot;
 import beepBoop.ui.AbstractRobotTerminalUI;
 import beepBoop.ui.MainFrame;
 import beepBoop.ui.RTConstrUI;
@@ -61,6 +62,8 @@ public class RobotTerminalController extends AbstractController implements Obser
 		    break;
 		case("constr"):
 			this.robotTerminalUI = new RTConstrUI();
+		    RTConstrUI ui = (RTConstrUI) robotTerminalUI; 
+		    updateRTConstrUIInfoField((String) ui.getRobotClassDropDown().getSelectedItem()); 
 		    break;
 		case("manage"):
 			RTManageUI rtUI = new RTManageUI();
@@ -208,6 +211,18 @@ public class RobotTerminalController extends AbstractController implements Obser
 	   }
 		
 	}	
+	
+	//update the info field of a RTConstrUI
+	private void updateRTConstrUIInfoField(String chosenRobotClass) {
+		if (robotTerminalUI instanceof RTConstrUI) {
+			String info = "";
+			switch (chosenRobotClass) {
+			case "Basic Robot": info = BasicRobot.getInfo();
+			}
+			((RTConstrUI) robotTerminalUI).setInfoText(info);
+			robotTerminalUI.repaint();
+		}
+	}
 
 	/*
 	 * Following are some EventListener implementations to be passed to the AbstractRobotTerminal
@@ -235,7 +250,6 @@ public class RobotTerminalController extends AbstractController implements Obser
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			navigateTo("constr");
-			
 		}
 
 	}
@@ -358,8 +372,7 @@ public class RobotTerminalController extends AbstractController implements Obser
 
 		@Override
 		public void itemStateChanged(ItemEvent e) {
-			((RTConstrUI) robotTerminalUI).setInfoText((String) e.getItem());
-			robotTerminalUI.repaint();
+			updateRTConstrUIInfoField((String) e.getItem());
 		}
 
 	}

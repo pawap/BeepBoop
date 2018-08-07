@@ -142,4 +142,11 @@ public class BasicRobot extends AbstractRobot{
 		return this.name;
 	}
 
+	/**
+	 * @return information for the user about this class of robot
+	 */
+	public static String getInfo() {
+		return "The most basic robot type.";
+	}
+
 }

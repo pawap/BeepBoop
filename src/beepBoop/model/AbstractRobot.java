@@ -2,9 +2,6 @@ package beepBoop.model;
 
 import java.awt.Point;
 import java.util.List;
-import java.util.Observer;
-
-import beepBoop.controller.RobotTerminalController;
 
 /**
  * All robots should extend this class.
@@ -125,5 +122,5 @@ public abstract class AbstractRobot extends Thing{
 	public int getMaxCapacity() {
 		return this.maxCapacity;
 	}
-
+	
 }

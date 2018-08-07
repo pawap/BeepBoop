@@ -4,6 +4,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemListener;
+import java.util.ArrayList;
 import java.util.EventListener;
 import java.util.HashMap;
 
@@ -23,15 +24,20 @@ public class RTConstrUI extends AbstractRobotTerminalUI{
 
 	private static final long serialVersionUID = 4276533727373179235L;
 	private JComboBox<String> robotClassDropDown;
+
 	private JTextArea infoField;
 	private JButton backButton;
 	private JButton constructButton;
+	private ArrayList<String> robotClasses;
 	
 	/**
 	 * Constructor
 	 */
 	public RTConstrUI() {
 		super();
+		
+		initRobotClasses();
+		
 		this.setLayout(new GridBagLayout());
 		
 		//Add label
@@ -48,6 +54,9 @@ public class RTConstrUI extends AbstractRobotTerminalUI{
 		//Add robotClassDropdown
 		robotClassDropDown = new JComboBox<String>();
 		robotClassDropDown.setModel(new DefaultComboBoxModel<String>());
+		for (String robClass : robotClasses) {
+			robotClassDropDown.addItem(robClass);
+		}
 		c.gridwidth = GridBagConstraints.REMAINDER;
 		c.gridy = 1;
 		this.add(robotClassDropDown,c);
@@ -71,6 +80,13 @@ public class RTConstrUI extends AbstractRobotTerminalUI{
 		this.add(backButton);
 	}
 
+
+	private void initRobotClasses() {
+		robotClasses = new ArrayList<String>();
+		robotClasses.add("Basic Robot");
+	}
+
+
 	/**
 	 * Adds EventListeners to the gui elements. Needs to contain the following key -> value pairs:
 	 * Robot Class drop down menu: "rcDropDown" -> ItemListener
@@ -91,7 +107,6 @@ public class RTConstrUI extends AbstractRobotTerminalUI{
 			constructButton.addActionListener((ActionListener) consL);
 			backButton.addActionListener((ActionListener) backL);
 		}
-		
 	}
 
 	/**
@@ -100,6 +115,10 @@ public class RTConstrUI extends AbstractRobotTerminalUI{
 	 */
 	public void setInfoText(String text) {
 		this.infoField.setText(text);		
+	}
+	
+	public JComboBox<String> getRobotClassDropDown() {
+		return robotClassDropDown;
 	}
 
 }
