@@ -14,6 +14,11 @@ import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
+/**
+ * The GUI for the Construction submenu of the RobetTerminal. This GUI lets the user construct new Robots.
+ * @author ptp18-d06(Pawel Rasch, Tim Runge)
+ *
+ */
 public class RTConstrUI extends AbstractRobotTerminalUI{
 
 	private static final long serialVersionUID = 4276533727373179235L;
@@ -22,6 +27,9 @@ public class RTConstrUI extends AbstractRobotTerminalUI{
 	private JButton backButton;
 	private JButton constructButton;
 	
+	/**
+	 * Constructor
+	 */
 	public RTConstrUI() {
 		super();
 		this.setLayout(new GridBagLayout());
@@ -63,6 +71,13 @@ public class RTConstrUI extends AbstractRobotTerminalUI{
 		this.add(backButton);
 	}
 
+	/**
+	 * Add listeners to the GUI elements.
+	 * The keys for the Listeners of the GUI elements should be 
+	 * "rcDropDown", "constr", "back" for the
+	 *  robot class drop down menu, the construct button and the back button respectively.
+	 *  @param listeners an ItemListener for the dropdown menu and 2 ActionListeners for the buttons
+	 */
 	@Override
 	public void addListeners(HashMap<String, EventListener> listeners) {
 		EventListener rcDropDownL = listeners.get("rcDropDown");
@@ -79,6 +94,10 @@ public class RTConstrUI extends AbstractRobotTerminalUI{
 		
 	}
 
+	/**
+	 * Change the text of the info area.
+	 * @param text
+	 */
 	public void setInfoText(String text) {
 		this.infoField.setText(text);		
 	}
