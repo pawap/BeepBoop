@@ -72,11 +72,11 @@ public class RTConstrUI extends AbstractRobotTerminalUI{
 	}
 
 	/**
-	 * Add listeners to the GUI elements.
-	 * The keys for the Listeners of the GUI elements should be 
-	 * "rcDropDown", "constr", "back" for the
-	 *  robot class drop down menu, the construct button and the back button respectively.
-	 *  @param listeners an ItemListener for the dropdown menu and 2 ActionListeners for the buttons
+	 * Adds EventListeners to the gui elements. Needs to contain the following key -> value pairs:
+	 * Robot Class drop down menu: "rcDropDown" -> ItemListener
+	 * Construct button: "constr" -> ActionListener
+	 * Back button: "back" -> ActionListener
+	 * @param listeners  
 	 */
 	@Override
 	public void addListeners(HashMap<String, EventListener> listeners) {

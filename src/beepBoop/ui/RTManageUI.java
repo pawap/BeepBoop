@@ -18,7 +18,12 @@ import javax.swing.JTextArea;
 import beepBoop.controller.RobotQueue;
 import beepBoop.model.Robot;
 
-
+/**
+ * The GUI for the Robot managing submenu of the RobetTerminal. 
+ * This GUI lets the user manage the Robots.
+ * @author ptp18-d06(Pawel Rasch, Tim Runge)
+ *
+ */
 public class RTManageUI extends AbstractRobotTerminalUI {
 
 	private static final long serialVersionUID = 8732469449519407942L;
@@ -31,6 +36,9 @@ public class RTManageUI extends AbstractRobotTerminalUI {
 	private JButton importButton;
 	private JButton exportButton;
 
+	/**
+	 * Constructor
+	 */
 	public RTManageUI() {
 		super();
 		this.setLayout(new GridBagLayout());
@@ -97,7 +105,14 @@ public class RTManageUI extends AbstractRobotTerminalUI {
 	}
 
 	/**
-	 * @param listeners has to contain "robDrop" -> ItemListener, "infDrop" -> ItemListener and "back" -> ActionListener 
+	 * Adds EventListeners to the gui elements. Needs to contain the following key -> value pairs:
+	 * Robot drop down menu: "rcDropDown" -> ItemListener
+	 * Info chooser drop down menu: "infDrop" -> ItemListener
+	 * Import button: "import" -> ActionListener
+	 * Export button: "export" -> ActionListener
+	 * Apply button: "apply" -> ActionListener
+	 * Back button: "back" -> ActionListener
+	 * @param listeners  
 	 */
 	@Override
 	public void addListeners(HashMap<String, EventListener> listeners) {		
@@ -140,27 +155,44 @@ public class RTManageUI extends AbstractRobotTerminalUI {
 		
 	}
 
+	/**
+	 * @return the content of the info field
+	 */
 	public String getInfoText() {
 		return infoField.getText();
 	}
 	
+	/**
+	 * @return the robot drop down menu
+	 */
 	public JComboBox<String> getRobotsDropDown() {
 		return this.robotsDropDown;
 	}
 
+	/**
+	 * The cargo label displays the cargo of the chosen robot.
+	 * @return the cargo label
+	 */
 	public JLabel getCargoLabel() {
 		return this.cargoLabel;
 	}
 
+	/**
+	 * @return the info field
+	 */
 	public JTextArea getInfoField() {
 		return this.infoField;
 	}
 
+	/**
+	 * @return the info chooser drop down menu
+	 */
 	public JComboBox<String> getInfoChooserDropDown() {
 		return infoChooserDropDown;
 		
 	}
 	
+	//helper method for addListeners
 	private boolean correctListeners(HashMap<String, EventListener> listeners) {
 		EventListener robDropL = listeners.get("robDrop");
 		EventListener infDropL = listeners.get("infDrop");

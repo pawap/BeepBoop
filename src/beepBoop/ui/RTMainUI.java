@@ -8,12 +8,20 @@ import java.util.HashMap;
 
 import javax.swing.JButton;
 
+/**
+ * The GUI for the main submenu of the RobetTerminal. This GUI lets the navigate to the other submenus.
+ * @author ptp18-d06(Pawel Rasch, Tim Runge)
+ *
+ */
 public class RTMainUI extends AbstractRobotTerminalUI {
 
 	private static final long serialVersionUID = -6217279559652293388L;
 	private JButton constrButton;
 	private JButton manageButton;
 
+	/**
+	 * Constructor
+	 */
 	public RTMainUI() {
 		super();
 		this.setLayout(new GridBagLayout());
@@ -36,7 +44,10 @@ public class RTMainUI extends AbstractRobotTerminalUI {
 	}
 
 	/**
-	 * @param listeners the keys should be "constr" and "manage" 
+	 * Adds EventListeners to the gui elements. Needs to contain the following key -> value pairs:
+	 * Construct Robots button: "constr" -> ActionListener
+	 * Manage Robots button: "manage" -> Actionlistener
+	 * @param listeners  
 	 */
 	@Override
 	public void addListeners(HashMap<String, EventListener> listeners) {
