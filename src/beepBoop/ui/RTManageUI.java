@@ -16,7 +16,7 @@ import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import beepBoop.controller.RobotQueue;
-import beepBoop.model.BasicRobot;
+import beepBoop.model.AbstractRobot;
 
 /**
  * The GUI for the Robot managing submenu of the RobetTerminal. 
@@ -134,7 +134,7 @@ public class RTManageUI extends AbstractRobotTerminalUI {
 	 * @param robots the RobotQueue containing the robots to be added
 	 */
 	public void fillRobotsDropDown(RobotQueue robots) {
-		for (BasicRobot robot: robots) {
+		for (AbstractRobot robot: robots) {
 			robotsDropDown.addItem(robot.getName());
         }
 	}

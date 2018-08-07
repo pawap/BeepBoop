@@ -17,6 +17,7 @@ import javax.swing.KeyStroke;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import beepBoop.model.Event;
+import beepBoop.model.AbstractRobot;
 import beepBoop.model.Level;
 import beepBoop.model.Resource;
 import beepBoop.model.BasicRobot;
@@ -59,7 +60,7 @@ public class MainController extends AbstractController {
 		initKeyBindings();
 		eventController.initAction(level.getEventQueue());
         while(!exit) {
-            for (BasicRobot robot: level.getRobotQueue()) {
+            for (AbstractRobot robot: level.getRobotQueue()) {
             	robotController.processAction(robot);
             }
             Event event;
@@ -258,7 +259,7 @@ public class MainController extends AbstractController {
 					resource.setTile(resource.getTileId());
 				}
 				//give each robot's cargo its tile
-				for (BasicRobot robot : loaded.getRobotQueue()) {
+				for (AbstractRobot robot : loaded.getRobotQueue()) {
 					Resource resource = robot.getCargo();
 					if (resource != null) {
 						resource.setTile(resource.getTileId());

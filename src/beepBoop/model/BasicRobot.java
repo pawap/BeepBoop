@@ -9,33 +9,34 @@ import java.util.List;
  * @author ptp18-d06(Pawel Rasch, Tim Runge)
  *
  */
-public class BasicRobot extends Thing implements IRobot{
+public class BasicRobot extends AbstractRobot{
 
 	private static final long serialVersionUID = 2698956408529540093L;
 	private static int robotCounter;
-    public final static int MAX_CAPACITY = 1000;
-    
-	private List<String> memory;
-	private int pc;
-	private Resource cargo;
-    private List<String> errorLog;
-    private List<String> sensors;
-	private String name;
 	
 	static {
 		robotCounter = 0;
 	}
 	
+	/**
+	 * Constructor
+	 * gives the new robot a default name.
+	 */
 	public BasicRobot() {
 		this("BasicBeepBot " + BasicRobot.robotCounter);
 	}
 	
+	/**
+	 * Constructor
+	 * @param name the name for the new robot.
+	 */
 	public BasicRobot(String name) {
 		super(TileFactory.ROBOT_0);
 		this.memory = new LinkedList<String>();
 		this.errorLog = new LinkedList<String>();
 		this.sensors = new LinkedList<String>();
 		this.name = name;
+		this.maxCapacity = 1000;
 		pc = 0;
 		sensors.add("FREE");
 		sensors.add("RESOURCE");
@@ -63,11 +64,13 @@ public class BasicRobot extends Thing implements IRobot{
 		this.pc = pc;
 	}
 
+	@Override
 	public Resource getCargo()
     {
         return cargo;
     }
 	
+	@Override
     public void setCargo(Resource cargo)
     {
         this.cargo = cargo;
@@ -113,12 +116,16 @@ public class BasicRobot extends Thing implements IRobot{
         
     }
     
+    @Override
     public void addCargo(int load) {
-        this.cargo.increaseAmount(load);
-        this.setChanged();
-        this.notifyObservers();
+    	if (cargo != null) {
+    		this.cargo.increaseAmount(load);
+    		this.setChanged();
+    		this.notifyObservers();
+    	}
     }
     
+    @Override
     public int removeCargo(int load) {       
         this.setChanged();
         this.notifyObservers();

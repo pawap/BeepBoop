@@ -22,7 +22,7 @@ import javax.swing.JLabel;
 import javax.swing.JTextArea;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-import beepBoop.model.BasicRobot;
+import beepBoop.model.AbstractRobot;
 import beepBoop.ui.AbstractRobotTerminalUI;
 import beepBoop.ui.MainFrame;
 import beepBoop.ui.RTConstrUI;
@@ -35,7 +35,7 @@ public class RobotTerminalController extends AbstractController implements Obser
 	private RobotQueue robotQueue;
 	private AbstractRobotTerminalUI robotTerminalUI;
 	private MainFrame mainFrame;
-	private BasicRobot currentRobot;
+	private AbstractRobot currentRobot;
 	private String currentInfoType;
 
 	public String getCurrentInfoType() {
@@ -67,7 +67,7 @@ public class RobotTerminalController extends AbstractController implements Obser
 			this.robotTerminalUI = rtUI;
 		    rtUI.fillRobotsDropDown(robotQueue);
 		    if (currentRobot == null) {
-		    	BasicRobot robot = robotQueue.peekFirst();
+		    	AbstractRobot robot = robotQueue.peekFirst();
 		    	robot.addObserver(this);
 		    	this.currentRobot = robot;
 		    }
@@ -83,7 +83,7 @@ public class RobotTerminalController extends AbstractController implements Obser
 		mainFrame.setTerminalUI(robotTerminalUI);
 	}
 
-	private void setCurrentRobot(BasicRobot robot) {
+	private void setCurrentRobot(AbstractRobot robot) {
 		if (robot != null) {
 			this.currentRobot.deleteObserver(this);
 			this.currentRobot = robot;
@@ -321,7 +321,7 @@ public class RobotTerminalController extends AbstractController implements Obser
 
 		@Override
 		public void itemStateChanged(ItemEvent e) {
-			BasicRobot robot = robotQueue.getRobot((String) e.getItem());
+			AbstractRobot robot = robotQueue.getRobot((String) e.getItem());
 			setCurrentRobot(robot);
 			robotTerminalUI.repaint();
 		}
