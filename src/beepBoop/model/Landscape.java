@@ -3,21 +3,37 @@ package beepBoop.model;
 import java.awt.Dimension;
 import java.io.Serializable;
 
+/**
+ * A Landscape holds a grid of tiles. Each Level uses a Landscape which defines the basic terrain. 
+ * @author ptp18-d06(Pawel Rasch, Tim Runge)
+ *
+ */
 public class Landscape implements Serializable{
 
 	private static final long serialVersionUID = -4911774013421889355L;
 	private Dimension size;
 	private int[][] tiles;
 	
+	/**
+	 * Constructor
+	 * @param size the width and height of the Landscape measured in tiles
+	 */
 	public Landscape(Dimension size) {
 		this.size = size;
 		tiles = new int[size.width][size.height];
 	}
 	
+	/**
+	 * @return the width and height of the Landscape measured in tiles
+	 */
 	public Dimension getSize() {
 		return size;
 	}
 
+	/**
+	 * Set the size of the Landscape. As many of the old Tiles as fit in the new Dimension are kept.
+	 * @param size the new width and height
+	 */
 	public void setSize(Dimension size) {
 		this.size = size;
 		int[][] newTiles = new int[size.width][size.height];
@@ -31,6 +47,14 @@ public class Landscape implements Serializable{
 		tiles = newTiles;
 	}
 
+	/**
+	 * Place a rectangle of Tiles of the same type
+	 * @param x the x coordinate of the top left corner of the rectangle
+	 * @param y the y coordinate of the top left corner of the rectangle
+	 * @param x2 the x coordinate of the bottom right corner of the rectangle
+	 * @param y2 the y coordinate of the bottom right corner of the rectangle
+	 * @param type the desired Tile type. One of the static values stored in TileFactory.
+	 */
 	public void placeRect(int x, int y, int x2, int y2, int type) {
 		if (insideDimensions(x,y) && insideDimensions(x2, y2)) {
 			for (int i = x; i <= x2; i++) {
@@ -46,6 +70,12 @@ public class Landscape implements Serializable{
 	}
 
 
+	/**
+	 * Place one Tile
+	 * @param x the x coordinate of the Tile to be placed
+	 * @param y the y coordinate of the Tile to be placed
+	 * @param tileId the desired Tile type. One of the static values stored in TileFactory.
+	 */
 	public void place(int x, int y, int tileId) {
 		if (insideDimensions(x,y)) {
 		tiles[x][y] = tileId;
@@ -55,12 +85,18 @@ public class Landscape implements Serializable{
 		}
 	}
 	
+	/**
+	 * Access a specific Tile.
+	 * @param x the x coordinate of the Tile
+	 * @param y the y coordinate of the Tile
+	 * @return the Tile at the specified coordinates of the Landscape
+	 */
 	public Tile getTile(int x, int y) {
 		TileFactory tf = TileFactory.getInstance();
 		return tf.get(tiles[x][y]);
 	}
 	
-
+    //checks if a position is inside the Landscape
 	private boolean insideDimensions(int x, int y) {
 		boolean xIsCorrect = x >= 0 && x < size.width;
 		boolean yIsCorrect = y >= 0 && y < size.height;
