@@ -5,6 +5,11 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 
+/**
+ * Simple tiles intended for testing purposes. 
+ * @author ptp18-d06(Pawel Rasch, Tim Runge)
+ *
+ */
 public class DummyTile extends Tile {
 
 	private Image img;	
@@ -14,6 +19,11 @@ public class DummyTile extends Tile {
 		return img;
 	}
 
+	/**
+	 * Constructor
+	 * @param color the desired color of the tile
+	 * @param walkable true, if the player and robots can step on this tile while it is used as a ground tile
+	 */
 	public DummyTile(Color color, boolean walkable) {
 		super();
 		setWalkable(walkable);
