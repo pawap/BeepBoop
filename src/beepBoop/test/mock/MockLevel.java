@@ -55,4 +55,10 @@ public class MockLevel extends Level{
 		}
 		return true;
 	}
+	
+	@Override
+	public boolean addThing(Thing thing) {
+		things.put(thing.getPosition(), thing);
+		return true;
+	}
 }

@@ -154,6 +154,8 @@ public class LevelTest {
 		//arrange
 		Level level = createTenByTenLevelWithPlayerAtOrigin();
 		BasicRobot someRobot = new BasicRobot();
+		Point positionInsideLandscape = new Point(1,2);
+		someRobot.setPosition(positionInsideLandscape);
 		level.addRobot(someRobot);
 		//act
 		boolean result = level.addRobot(someRobot);
@@ -166,6 +168,8 @@ public class LevelTest {
 		//arrange
 		Level level = createTenByTenLevelWithPlayerAtOrigin();
 		BasicRobot someRobot = new BasicRobot();
+		Point positionInsideLandscape = new Point(1,2);
+		someRobot.setPosition(positionInsideLandscape);
 		//act
 		level.addRobot(someRobot);
 		//assert
@@ -177,6 +181,8 @@ public class LevelTest {
 		//arrange
 		Level level = createTenByTenLevelWithPlayerAtOrigin();
 		BasicRobot someRobot = new BasicRobot();
+		Point positionInsideLandscape = new Point(1,2);
+		someRobot.setPosition(positionInsideLandscape);
 		//act
 		level.addRobot(someRobot);
 		//assert
@@ -185,7 +191,7 @@ public class LevelTest {
 	
 	//helpers
 	private Landscape createTenByTenGrassLandscape() {
-		Dimension landscapeSize = new Dimension(15,5);
+		Dimension landscapeSize = new Dimension(10,10);
 		Landscape  someLandscape = new Landscape(landscapeSize);
 		someLandscape.placeRect(0, 0, 
 				                landscapeSize.width - 1, 

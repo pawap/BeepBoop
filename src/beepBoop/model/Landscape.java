@@ -56,7 +56,7 @@ public class Landscape implements Serializable{
 	 * @param type the desired Tile type. One of the static values stored in TileFactory.
 	 */
 	public void placeRect(int x, int y, int x2, int y2, int type) {
-		if (insideDimensions(x,y) && insideDimensions(x2, y2)) {
+		if (isInsideDimensions(x,y) && isInsideDimensions(x2, y2)) {
 			for (int i = x; i <= x2; i++) {
 				for (int j = y; j <= y2; j++){
 					int id = (i + j) % 3 + type;
@@ -77,7 +77,7 @@ public class Landscape implements Serializable{
 	 * @param tileId the desired Tile type. One of the static values stored in TileFactory.
 	 */
 	public void place(int x, int y, int tileId) {
-		if (insideDimensions(x,y)) {
+		if (isInsideDimensions(x,y)) {
 		tiles[x][y] = tileId;
 		}
 		else {
@@ -96,8 +96,13 @@ public class Landscape implements Serializable{
 		return tf.get(tiles[x][y]);
 	}
 	
-    //checks if a position is inside the Landscape
-	private boolean insideDimensions(int x, int y) {
+    /**
+     * checks if a position is inside the Landscape
+     * @param x the x coordinate of the position
+     * @param y the y coordinate of the position
+     * @return true if the position is inside the dimensions of the Landscape
+     */
+	public boolean isInsideDimensions(int x, int y) {
 		boolean xIsCorrect = x >= 0 && x < size.width;
 		boolean yIsCorrect = y >= 0 && y < size.height;
 		return xIsCorrect && yIsCorrect;
