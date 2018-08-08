@@ -6,25 +6,42 @@ import java.util.List;
 import java.util.Observable;
 import java.util.Set;
 
+/**
+ * The Inventory holds the Resources the player and his Robots have collected.
+ * @author ptp18-d06(Pawel Rasch, Tim Runge)
+ *
+ */
 public class Inventory extends Observable implements Serializable {
 
 	private static final long serialVersionUID = -4001842018972736252L;
 	private HashSet<Resource> resources;
 	
+	/**
+	 * Constructor
+	 */
 	public Inventory() {
 		this.resources = new HashSet<Resource>();
 	}
 
+	/**
+	 * @return the Resources stored in the Inventory
+	 */
 	public Set<Resource> getResources() {
 		return resources;
 	}
 
+	/**
+	 * Replaces the Resources in the Inventory.
+	 * @param resources a new set of Resources
+	 */
 	public void setResources(HashSet<Resource> resources) {
 		this.resources = resources;
 	}
 
-
-
+    /**
+     * Add a Resource to the Inventory.
+     * @param resource the Resource to be added
+     */
 	public void addResource(Resource resource) {
 		for (Resource res: resources) {
 			if (res.getName().equals(resource.getName())) {		
@@ -39,6 +56,11 @@ public class Inventory extends Observable implements Serializable {
 		this.notifyObservers();
 	}
 	
+	/**
+	 * Subtract an amount from a held Resource if at least as much is hold as is supposed to be subtracted. 
+	 * @param resource the type and amount of Resource that should be subtracted
+	 * @return true, if the Inventory held enough of the Resource and the subtraction was successful
+	 */
 	public boolean subtractResource(Resource resource) {
 		for (Resource res: resources) {
 			if (res.getName().equals(resource.getName()) && res.getAmount() >= resource.getAmount()) {		
