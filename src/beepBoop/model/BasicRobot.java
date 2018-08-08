@@ -6,6 +6,7 @@ import java.util.List;
 
 /**
  * The most basic robot. Can carry up to 1000 of one type of Resource.
+ * It has two sensors, a ResourceSensor and a FreeSensor.
  * @author ptp18-d06(Pawel Rasch, Tim Runge)
  *
  */
@@ -144,10 +145,11 @@ public class BasicRobot extends AbstractRobot{
 	}
 
 	/**
+	 * Info about the Robot, including its cost.
 	 * @return information for the user about this class of robot
 	 */
 	public static String getInfo() {
-		return "The most basic robot type.";
+		return "The most basic robot type. \n 100 Iron \n 50 Silicon \n 25 Copper";
 	}
 
 	@Override

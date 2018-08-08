@@ -239,9 +239,10 @@ public class RobotTerminalController extends AbstractController implements Obser
 		}
 		//find free position
 		Point playerPosition = level.getPlayer().getPosition();
-		int x = playerPosition.x - 1, 
-			y = playerPosition.y - 1;
+		int x, y;
 		for (int i = 0; i < 9; i++) {
+			x = (i % 3) - 1 + playerPosition.x;
+			y = (i / 3) - 1 + playerPosition.y;
 			if (level.isPositionFree(x, y)) {
 				List<Resource> costs = newBot.getCosts();
 				if(this.level.getInventory().pay(costs)) { //check inventory and pay if possible
@@ -249,8 +250,6 @@ public class RobotTerminalController extends AbstractController implements Obser
 					return this.level.addRobot(newBot);
 				}
 			}
-			x = (i % 3) - 1 + playerPosition.x;
-			y = (i / 3) - 1 + playerPosition.y;
 		}		
 		return false;
 	}

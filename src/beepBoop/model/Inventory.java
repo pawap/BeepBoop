@@ -58,7 +58,7 @@ public class Inventory extends Observable implements Serializable {
 	 * @param costs the needed resources as a List
 	 * @return true if the cost could be paid
 	 */
-	public boolean pay(List<Resource> costs) {		
+	public boolean pay(List<Resource> costs) {	
 		for (Resource cost : costs) {
 			for (Resource stock: resources) {
 				if (cost.getName().equals(stock.getName())) {
@@ -71,7 +71,7 @@ public class Inventory extends Observable implements Serializable {
 		for (Resource cost : costs) {
 			this.subtractResource(cost);
 		}
-		return true;
+		return !resources.isEmpty();
 	}
 	
 }
