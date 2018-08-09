@@ -2,7 +2,7 @@ package beepBoop.model;
 
 import java.awt.Point;
 /**
- * A sensro that checks if the Tile next to the Robot in a given direction is free. 
+ * A sensor that checks if the Tile next to the Robot in a given direction is free. 
  * @author ptp18-d06(Pawel Rasch, Tim Runge)
  *
  */
