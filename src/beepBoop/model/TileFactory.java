@@ -2,6 +2,13 @@ package beepBoop.model;
 
 import java.util.HashMap;
 
+/**
+ * Grants access to all Tiles used in BeepBoop. Use getInstance() to
+ * get access to the singleton instance of TileFactory.
+ * TileFactory holds each TileId as a static int.
+ * @author ptp18-d06(Pawel Rasch, Tim Runge)
+ *
+ */
 public class TileFactory {
 	//ground tile ids
 	public static final int GRASS_0 = 1;
@@ -40,7 +47,7 @@ public class TileFactory {
 	private static HashMap<Integer,Tile> tiles = new HashMap<Integer,Tile>();
 	private static TileFactory tileFactory = null;
 
-	//prevents instantiation, loads ground tiles
+	//private constructor, prevents instantiation, loads ground tiles
 	private TileFactory(){
 		loadTiles();		
 	}
@@ -56,6 +63,7 @@ public class TileFactory {
 		return TileFactory.tileFactory;
 	}	
 
+	//preloads all tiles for later use
 	private void loadTiles() {
 
 		//#######GRASS######
@@ -96,6 +104,11 @@ public class TileFactory {
 		return tiles.get(tileId);
 	}
 
+	/**
+	 * Maps a Resource name to the corresponding Tile
+	 * @param name an element of {"copper", "gold", "iron", "platinum", "silicon"}
+	 * @return the Tile ID of the Resource, or the ID of the null Tile, if the argument was invalid
+	 */
     public static int getTileIdForResource(String name)
     {
         int id = NULL_TILE; 
