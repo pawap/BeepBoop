@@ -20,15 +20,31 @@ import javax.swing.JMenuItem;
 import beepBoop.model.Inventory;
 import beepBoop.model.Level;
 
+/**
+ * The parent frame of the BeepBoop GUI.
+ * @author ptp18-d06(Pawel Rasch, Tim Runge)
+ *
+ */
 public class MainFrame extends JFrame {
 	private static final long serialVersionUID = -2588683308034838956L;
+	
+	/**
+	 * the default width of the BeepBoop GUI
+	 */
 	public final static int DEFAULT_WIDTH = 850;
+
+	/**
+	 * the default height of the BeepBoop GUI
+	 */
 	public final static int DEFAULT_HEIGHT = 510;
 	private LevelUI levelUI;
 	private InventoryUI inventoryUI;
 	private AbstractRobotTerminalUI terminalUI;
 	
 
+	/**
+	 * Constructor
+	 */
 	public MainFrame(){
 		super();
 		this.setLayout(new GridBagLayout());
@@ -36,6 +52,12 @@ public class MainFrame extends JFrame {
 	
 	}
 	
+	/**
+	 * Initialize the MenuBar with the necessary ActionListeners.
+	 * @param loadListener the ActionListener for the "Load" menu item 
+	 * @param saveListener the ActionListener for the "Save as" menu item
+	 * @param exitListener the ActionListener for the "Exit" menu item
+	 */
 	public void initMenuBar(ActionListener loadListener, ActionListener saveListener, ActionListener exitListener) {
 		//the bar
 		JMenuBar menuBar = new JMenuBar();
@@ -65,14 +87,25 @@ public class MainFrame extends JFrame {
 		this.setJMenuBar(menuBar);	
 	}
 	
+	/**
+	 * @return the Level UI of the GUI
+	 */
 	public LevelUI getLevelUI() {
 		return levelUI;
 	}
 
+	/**
+	 * Set the LevelUI of the GUI.
+	 * @param levelUI the new LevelUI
+	 */
 	public void setLevelUI(LevelUI levelUI) {
 		this.levelUI = levelUI;
 	}
 
+	/**
+	 * Initialize the LevelUI with the corresponding Level.
+	 * @param level the Level to be displayed
+	 */
 	public void initLevelUI(Level level) {
 		setLevelUI(new LevelUI(level));
 		GridBagConstraints c = new GridBagConstraints();		
@@ -87,6 +120,10 @@ public class MainFrame extends JFrame {
 		this.add(getLevelUI(),c);
 	}
 
+	/**
+	 * Initialize the InventoryUI with the corresponding Inventory.
+	 * @param level the Inventory to be displayed
+	 */	
 	public void initInventoryUI(Inventory inventory) {
 		this.inventoryUI = new InventoryUI(inventory);
 		GridBagConstraints c = new GridBagConstraints();
@@ -102,6 +139,9 @@ public class MainFrame extends JFrame {
 		
 	}
 	
+	/**
+	 * Initialize the TerminalUI.
+	 */	
 	public void initTerminalUI() {
 		this.terminalUI = new RTInactiveUI();
 		Dimension dim = new Dimension(300,400);
@@ -119,14 +159,24 @@ public class MainFrame extends JFrame {
 		
 	}
 
+	/**
+	 * @return the InventoryUI of the GUI
+	 */
 	public InventoryUI getInventoryUI() {
 		return inventoryUI;
 	}
 
+	/**
+	 * @return the TerminalUI of the GUI
+	 */
 	public AbstractRobotTerminalUI getTerminalUI() {
 		return terminalUI;
 	}
 
+	/**
+	 * Set the TerminalUI of the GUI.
+	 * @param terminalUI the new TerminalUI.
+	 */
 	public void setTerminalUI(AbstractRobotTerminalUI terminalUI) {
 		this.remove(this.terminalUI);
 		this.terminalUI = terminalUI;
@@ -144,9 +194,13 @@ public class MainFrame extends JFrame {
 		this.repaint();
 	}
 	
-	public void showMessage(String str) {
+	/**
+	 * Open a modal Dialog displaying the given String.
+	 * @param message the message to be displayed
+	 */
+	public void showMessage(String message) {
 		JDialog messageBox = new JDialog(this, "Message", Dialog.ModalityType.DOCUMENT_MODAL);
-		messageBox.add(new JLabel(str));
+		messageBox.add(new JLabel(message));
 		messageBox.setLocation(this.getWidth()/2, this.getHeight()/2);
 		messageBox.setLayout(new FlowLayout());
 		messageBox.pack();
