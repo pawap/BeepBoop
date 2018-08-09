@@ -80,7 +80,7 @@ public class RTConstrUI extends AbstractRobotTerminalUI{
 		this.add(backButton);
 	}
 
-
+    //List all available BeepBoop Robot classes
 	private void initRobotClasses() {
 		robotClasses = new ArrayList<String>();
 		robotClasses.add("Basic Robot");
@@ -117,6 +117,9 @@ public class RTConstrUI extends AbstractRobotTerminalUI{
 		this.infoField.setText(text);		
 	}
 	
+	/**
+	 * @return the RTConstrUI's robot class drop down menu
+	 */
 	public JComboBox<String> getRobotClassDropDown() {
 		return robotClassDropDown;
 	}
