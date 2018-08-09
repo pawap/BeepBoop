@@ -38,7 +38,7 @@ public class MockLevel extends Level{
 	}
 	
 	/**
-	 * Constructor for a MockLevel with a thing at a position.
+	 * Constructor for a MockLevel with a Thing at a position.
 	 * @param thing 
 	 * @param positionOfThing
 	 */

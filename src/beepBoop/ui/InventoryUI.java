@@ -14,12 +14,21 @@ import javax.swing.JPanel;
 import beepBoop.model.Inventory;
 import beepBoop.model.Resource;
 
+/**
+ * Displays the Resources the Player and their robots have collected.
+ * @author ptp18-d06(Pawel Rasch, Tim Runge)
+ *
+ */
 public class InventoryUI extends JPanel {
 
 	private static final long serialVersionUID = 109164110187359015L;
 	Inventory inventory;
 	List<ResourceLabel> resourceLabels;
 	
+	/**
+	 * Constructor
+	 * @param inventory the Inventory this is a UI for
+	 */
 	public InventoryUI (Inventory inventory) {
 		super();
 		this.inventory = inventory;
@@ -43,14 +52,22 @@ public class InventoryUI extends JPanel {
 		
 	}
 
+	/**
+	 * @return the Inventory this is a UI for
+	 */
 	public Inventory getInventory() {
 		return inventory;
 	}
 
+	/**
+	 * Set the Inventory this is a UI for.
+	 * @param inventory the new inventory
+	 */
 	public void setInventory(Inventory inventory) {
 		this.inventory = inventory;
 	}
 
+	//called whenever the inventory changes
 	private void updateResourceLabels() {
 		for (ResourceLabel resLabel : resourceLabels) {
 			remove(resLabel);
