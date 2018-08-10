@@ -45,12 +45,14 @@ public class App {
 		
 		//create main controller
 		mainContr = new MainController(gui,level);
-		mainContr.mainAction();
 		
 		//add menu bar to gui
 		gui.initMenuBar(mainContr.getLoadListener(),
-		        mainContr.getSaveListener(),
-		        mainContr.getExitListener());
+		                mainContr.getSaveListener(),
+		                mainContr.getExitListener());
+		
+		//start the game
+		mainContr.mainAction();
 	}
 
 	/**
