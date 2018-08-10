@@ -30,10 +30,10 @@ import beepBoop.ui.MainFrame;
  */
 public class MainController extends AbstractController {
 	
-	MainFrame gui;
+	private MainFrame gui;
 	private boolean exit;
 	private PlayerController playerController;
-	Level level;
+	private Level level;
 	private RobotController robotController;
 	private RobotTerminalController terminalController;
 	private EventController eventController;
