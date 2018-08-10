@@ -148,8 +148,8 @@ public class App {
 		robot2.setActivityCounter(8);
 		level.addRobot(robot2);
 		//randomly place some more Resources
-		for (int i = 0; i < 20; i++) {			
-			for (String tileName: new String[]{"silicon","platinum","iron","gold","copper"}) {
+		for (String tileName: new String[]{"silicon","platinum","iron","gold","copper"}) {			
+			for (int i = 0; i < 20; i++) {
 				int tileId = 0;
 				switch(tileName) {
 					case "silicon" :  tileId = TileFactory.SILICON; break;
