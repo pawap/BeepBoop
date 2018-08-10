@@ -61,4 +61,9 @@ public class BasicRobot extends AbstractRobot{
 		return costs;
 	}
 
+	@Override
+	public int getCriticalActivity() {
+		return 20;
+	}
+
 }

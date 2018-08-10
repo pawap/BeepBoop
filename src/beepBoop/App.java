@@ -143,6 +143,7 @@ public class App {
 		program.add("L");
 		program.add("D");	
 		robot2.setMemory(program);
+		robot2.setActivityCounter(8);
 		level.addRobot(robot2);
 		//randomly place some more Resources
 		for (int i = 0; i < 20; i++) {			

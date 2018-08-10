@@ -13,6 +13,7 @@ public abstract class AbstractRobot extends Thing{
 	protected int maxCapacity;
 	protected List<String> memory;
 	protected int pc;
+	protected int activityCounter;
 	protected Resource cargo;
 	protected List<String> errorLog;
 	protected List<String> sensors;
@@ -25,6 +26,29 @@ public abstract class AbstractRobot extends Thing{
 	public AbstractRobot(int tileId) {
 		super(tileId);
 		pc = 0;
+		activityCounter = 0;
+	}
+
+	/**
+	 * @return the current activity-counter of the robot
+	 */	
+	public int getActivityCounter() {
+		return activityCounter;
+	}
+	
+	/**
+	 * Set the current activity-counter of the robot. 
+	 * @param activityCounter the desired value of the counter
+	 */
+	public void setActivityCounter(int activityCounter) {
+		this.activityCounter = activityCounter;
+	}
+	
+	/**
+	 * Increment the activity-counter.
+	 */
+	public void incrementAvtivityCounter() {
+		activityCounter++;
 	}
 
 	/**
@@ -178,5 +202,10 @@ public abstract class AbstractRobot extends Thing{
 	 */
 	public abstract List<Resource> getCosts();
 	
+	/**
+	 * @return the value, which the activity-counter of the 
+	 * robot-type needs to reach in order for the next command to be processed.
+	 */
+	public abstract int getCriticalActivity();
 	
 }

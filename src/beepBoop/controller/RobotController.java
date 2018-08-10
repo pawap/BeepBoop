@@ -46,6 +46,10 @@ public class RobotController extends AbstractController {
 	 * @param robot
 	 */
 	public void processAction(AbstractRobot robot) {
+		robot.incrementAvtivityCounter();
+		if (robot.getActivityCounter() % robot.getCriticalActivity() != 0) {
+			return;
+		}
 		Command command = robot.getCurrentCommand();
 	    switch(command.getType()) {
 	    case "L": 
