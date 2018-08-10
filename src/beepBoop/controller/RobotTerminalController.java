@@ -258,11 +258,12 @@ public class RobotTerminalController implements Observer {
 	
 	//constructs a robot of the desired type next to the player if possible.
 	private boolean construct(String desiredType) {
-		AbstractRobot newBot = new BasicRobot();
+		AbstractRobot newBot; 
 		//choose class
 		switch(desiredType) {
-		case "Basic Robot": break;
-		default: return false;
+			case "Basic Robot": newBot = new BasicRobot();
+								break;
+			default: 			return false;
 		}
 		//find free position
 		Point playerPosition = level.getPlayer().getPosition();

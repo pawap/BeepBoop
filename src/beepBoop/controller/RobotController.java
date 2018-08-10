@@ -14,6 +14,9 @@ import beepBoop.service.TileFactory;
 
 /**
  * Controller for the BeepBoop robots
+ * 
+ * Used to modify the state of robots within the level
+ * and process
  * @author ptp18-d06(Pawel Rasch, Tim Runge)
  *
  */
@@ -21,6 +24,11 @@ public class RobotController {
 	Level level;
 
 	
+	/**
+	 * Constructor
+	 * 
+	 * @param level The level on which this controller should work.
+	 */
 	public RobotController(Level level) {
 		super();
 		this.level = level;
