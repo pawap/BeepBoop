@@ -2,9 +2,10 @@ package beepBoop.model;
 
 import java.awt.Point;
 import java.io.Serializable;
-import java.util.HashMap;
+import java.util.ConcurrentModificationException;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 import beepBoop.service.EventQueue;
 import beepBoop.service.RobotQueue;
@@ -19,7 +20,7 @@ public class Level implements Serializable{
 
 	private static final long serialVersionUID = -4156377316804061536L;
 	private Landscape landscape;
-	protected HashMap<Point,Thing> things;
+	protected ConcurrentHashMap<Point,Thing> things;
 	private Player player;
 	private RobotQueue robotQueue;
 	private Inventory inventory;
@@ -36,7 +37,7 @@ public class Level implements Serializable{
 		this.landscape = landscape;
 		this.inventory = inventory;
 		this.setPlayer(player);
-		this.things = new HashMap<Point,Thing>();
+		this.things = new ConcurrentHashMap<Point,Thing>();
 		this.robotQueue = new RobotQueue();
 		this.eventQueue = new EventQueue();
 	}
@@ -170,7 +171,15 @@ public class Level implements Serializable{
 	 * @return a Set containing the Things contained within the level
 	 */
 	public Set<Thing> getThings() {
-		return new HashSet<Thing>(things.values());
+		HashSet<Thing> thingsReturned = new HashSet<Thing>();
+		try {
+			thingsReturned.addAll(things.values());
+		} catch (ConcurrentModificationException e) {
+			System.out.println("Caught ConcurrentModificationException! Trying again...");
+			//e.printStackTrace();
+			return getThings();
+		}
+		return thingsReturned;	
 	}
 
 	/**
