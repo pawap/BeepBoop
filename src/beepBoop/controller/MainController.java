@@ -215,7 +215,7 @@ public class MainController extends AbstractController {
 	
 	private void saveLevel() {
 		JFileChooser chooser = new JFileChooser();
-		String fileExtension = ".bbs";
+		String fileExtension = "bbs";
 		String fileType = "BeepBoop Save File";
 		chooser.setDialogTitle("Save your game");
 		chooser.setFileFilter(new FileNameExtensionFilter(fileType, fileExtension));
