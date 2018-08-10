@@ -48,7 +48,7 @@ public class EventController {
 				
 	}
 	
-	//prepares an Event based on its type
+	//prepares an Event based on its type, if it needs to be prepared
 	private void prepareEvent(Event event) {
 		if (event instanceof MsgEvent) {
 			MsgEvent msgEvent = (MsgEvent) event;

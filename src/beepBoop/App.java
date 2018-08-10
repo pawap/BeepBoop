@@ -12,7 +12,9 @@ import beepBoop.model.Level;
 import beepBoop.model.MsgEvent;
 import beepBoop.model.Player;
 import beepBoop.model.Resource;
+import beepBoop.model.ResourceDropEvent;
 import beepBoop.model.BasicRobot;
+import beepBoop.model.Event;
 import beepBoop.model.RobotTerminal;
 import beepBoop.service.TileFactory;
 import beepBoop.ui.MainFrame;
@@ -29,19 +31,12 @@ public class App {
 	private MainController mainContr;
 
 	/**
-	 * Constructor
+	 * Constructor 
+	 * initialises a demo-level, sets up the gui & the main controller and finally starts the game loop 
 	 */
 	public App() {
 		Level level = initializeDemoLevel(false);
-		//create gui
-		gui = new MainFrame();
-		gui.initLevelUI(level);
-		gui.initInventoryUI(level.getInventory());
-		gui.initTerminalUI();
-
-		gui.setSize(MainFrame.DEFAULT_WIDTH, MainFrame.DEFAULT_HEIGHT);	
-		gui.setMaximumSize(new Dimension(MainFrame.DEFAULT_WIDTH, MainFrame.DEFAULT_HEIGHT));
-		gui.setVisible(true);
+		initGui(level);
 		
 		//create main controller
 		mainContr = new MainController(gui,level);
@@ -54,15 +49,22 @@ public class App {
 		//start the game
 		mainContr.mainAction();
 	}
-
-	/**
-	 * Main entry point
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		new App();		
-	}
 	
+	/*
+	 * Initializes the gui with the given level
+	 */
+	private void initGui(Level level) {
+		//create gui
+		gui = new MainFrame();
+		gui.initLevelUI(level);
+		gui.initInventoryUI(level.getInventory());
+		gui.initTerminalUI();
+
+		gui.setSize(MainFrame.DEFAULT_WIDTH, MainFrame.DEFAULT_HEIGHT);	
+		gui.setMaximumSize(new Dimension(MainFrame.DEFAULT_WIDTH, MainFrame.DEFAULT_HEIGHT));
+		gui.setVisible(true);
+	}
+
 	/*
 	 * Initializes a Demo Level showcasing the current BeepBoop features.
 	 * @param showWelcomeMessages allows disabling of the welcome messages for an enhanced testing experience
@@ -167,7 +169,7 @@ public class App {
 		}		
         //possibly set up welcome messages
 		if (showWelcomeMessages) {
-			MsgEvent msg = new MsgEvent("This is rather confusing, isn't it?");
+			Event msg = new MsgEvent("This is rather confusing, isn't it?");
 			msg.setTimeout(15);
 			level.addEvent(msg);
 			msg = new MsgEvent("Welcome!");
@@ -178,8 +180,22 @@ public class App {
 			level.addEvent(msg);
 		}
 		
+		//add a bunch of resourceDropEvents;
+		Event resourceDropEvent;
+		for (int i = 0; i< 20; i++) {
+			resourceDropEvent = new ResourceDropEvent(i + 1);
+			resourceDropEvent.setTimeout(i * 8);
+			level.addEvent(resourceDropEvent);
+		}
 		return level;
-
+	}
+	
+	/**
+	 * Main entry point
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		new App();		
 	}
 
 }
