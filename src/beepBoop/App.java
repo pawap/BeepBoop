@@ -187,6 +187,9 @@ public class App {
 			resourceDropEvent.setTimeout(i * 8);
 			level.addEvent(resourceDropEvent);
 		}
+		Event msg = new MsgEvent("Did you realize that resources seem to spawn randomly?");
+		msg.setTimeout(20);
+		level.addEvent(msg);
 		return level;
 	}
 	
