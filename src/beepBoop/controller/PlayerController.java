@@ -49,17 +49,20 @@ public class PlayerController {
 				if (resource.getAmount() == 0) {
 					level.removeThing(resource);
 				}
-				inventoryUI.getInventory().addResource(transfer);
-				levelUI.repaint();
 				
+				inventoryUI.getInventory().addResource(transfer);
+				levelUI.repaint();				
 			}
+			
 			if (level.isRobotTerminal(x,y)) {
 			    
 				terminalContr.openTerminal();
 				this.levelUI.getLevel().getPlayer().setTerminalAccess(true);
 			}
+			
 			return false;
 		}
+		
 		return true;
 	}
 
@@ -72,6 +75,7 @@ public class PlayerController {
 		Point position = level.getPlayer().getPosition();
 		int x = position.x - 1;
 		int y = position.y;
+		
 		if (moveTo(10,x,y)) {
 			position.x--;
 			levelUI.repaint();			
@@ -87,6 +91,7 @@ public class PlayerController {
 		Point position = level.getPlayer().getPosition();
 		int x = position.x + 1;
 		int y = position.y;	
+		
 		if (moveTo(10,x,y)) {
 			position.x++;
 			levelUI.repaint();
@@ -101,7 +106,8 @@ public class PlayerController {
 		Level level = levelUI.getLevel();
 		Point position = level.getPlayer().getPosition();
 		int x = position.x;
-		int y = position.y - 1;			
+		int y = position.y - 1;		
+		
 		if (moveTo(10,x,y)) {
 			position.y--;
 			levelUI.repaint();
@@ -116,7 +122,8 @@ public class PlayerController {
 		Level level = levelUI.getLevel();
 		Point position = level.getPlayer().getPosition();
 		int x = position.x;
-		int y = position.y + 1;			
+		int y = position.y + 1;		
+		
 		if (moveTo(10,x,y)) {
 			position.y++;
 			levelUI.repaint();
