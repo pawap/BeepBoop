@@ -55,6 +55,9 @@ public class MainController {
 		this.eventController = new EventController(level,gui);
 	}
 
+	/**
+	 * Starts the game loop.
+	 */
 	public void mainAction() {
 		initKeyBindings();
 		eventController.initAction(level.getEventQueue());
@@ -142,8 +145,7 @@ public class MainController {
             @Override
             public void mouseClicked(MouseEvent arg0)
             {
-                gui.getLevelUI().requestFocus();
-                
+                gui.getLevelUI().requestFocus();                
             }
 
             @Override
@@ -161,8 +163,7 @@ public class MainController {
             @Override
             public void mousePressed(MouseEvent arg0)
             {
-                gui.getLevelUI().requestFocus();
-                
+                gui.getLevelUI().requestFocus();               
             }
 
             @Override
@@ -174,6 +175,9 @@ public class MainController {
 		});
 	}
 
+	/**
+	 * @return an ActionListener that allows the loading of a saved level
+	 */
 	public ActionListener getLoadListener() {
 		ActionListener listener = new ActionListener() {
 
@@ -186,6 +190,9 @@ public class MainController {
 		return listener;
 	}
 
+	/**
+	 * @return an ActionListener that allows the saving of a level
+	 */
 	public ActionListener getSaveListener() {
 		ActionListener listener = new ActionListener() {
 
@@ -199,6 +206,9 @@ public class MainController {
 		return listener;
 	}
 
+	/**
+	 * @return an ActionListener that closes the App
+	 */
 	public ActionListener getExitListener() {
 		ActionListener listener = new ActionListener() {
 
@@ -270,13 +280,16 @@ public class MainController {
 				gui.initLevelUI(this.level);
 				gui.initInventoryUI(level.getInventory());
 				gui.initTerminalUI();
+				//initialize controllers
 				this.terminalController = new RobotTerminalController(gui.getTerminalUI(), gui, this.level);
-				if (this.level.getPlayer().hasTerminalAccess()) {
-					this.terminalController.navigateTo("main");
-				}
 				this.playerController = new PlayerController(gui, terminalController);
 				this.robotController = new RobotController(level);
 				this.eventController = new EventController(level,gui);
+				//choose the correct TerminalUI to be shown
+				if (this.level.getPlayer().hasTerminalAccess()) {
+					this.terminalController.navigateTo("main");
+				}
+				//finish gui setup
 				gui.initMenuBar(getLoadListener(),
 				                getSaveListener(),
 				                getExitListener());
