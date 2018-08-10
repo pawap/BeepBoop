@@ -12,7 +12,7 @@ import beepBoop.model.Thing;
 import beepBoop.service.SensorService;
 import beepBoop.service.TileFactory;
 
-public class RobotController extends AbstractController {
+public class RobotController {
 	Level level;
 
 	

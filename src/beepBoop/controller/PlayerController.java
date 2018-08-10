@@ -15,7 +15,7 @@ import beepBoop.ui.MainFrame;
  * @author ptp18-d06(Pawel Rasch, Tim Runge)
  *
  */
-public class PlayerController extends AbstractController {
+public class PlayerController {
 	private LevelUI levelUI;
 	private InventoryUI inventoryUI;
 	private RobotTerminalController terminalContr;

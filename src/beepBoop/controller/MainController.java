@@ -28,7 +28,7 @@ import beepBoop.ui.MainFrame;
  * @author ptp18-d06(Pawel Rasch, Tim Runge)
  *
  */
-public class MainController extends AbstractController {
+public class MainController {
 	
 	private MainFrame gui;
 	private boolean exit;

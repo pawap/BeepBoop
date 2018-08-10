@@ -9,7 +9,7 @@ import beepBoop.model.MsgEvent;
 import beepBoop.service.EventQueue;
 import beepBoop.ui.MainFrame;
 
-public class EventController extends AbstractController {
+public class EventController {
 
 	private Level level;
 	private MainFrame gui;

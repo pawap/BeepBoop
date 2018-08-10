@@ -35,7 +35,7 @@ import beepBoop.ui.RTInactiveUI;
 import beepBoop.ui.RTMainUI;
 import beepBoop.ui.RTManageUI;
 
-public class RobotTerminalController extends AbstractController implements Observer {
+public class RobotTerminalController implements Observer {
 
 	private RobotQueue robotQueue;
 	private AbstractRobotTerminalUI robotTerminalUI;
