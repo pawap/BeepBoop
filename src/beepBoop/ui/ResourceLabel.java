@@ -6,11 +6,20 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import beepBoop.model.resource.Resource;
+import beepBoop.model.Resource;
 
+/**
+ * Displays the Image of a Resource and its amount.
+ * @author ptp18-d06(Pawel Rasch, Tim Runge)
+ *
+ */
 public class ResourceLabel extends JPanel {
-	private Resource resource;
-
+	private static final long serialVersionUID = -6940160337854773940L;
+	
+	/**
+	 * Constructor
+	 * @param resource the Resource to be displayed
+	 */
 	public ResourceLabel(Resource resource) {
 		super();
 		JLabel text = new JLabel(resource.getName()+": ");
@@ -18,12 +27,8 @@ public class ResourceLabel extends JPanel {
 		this.add(text);
 		this.add(new JLabel(new ImageIcon(resource.getImage())));
 		
-		this.resource = resource;
 		this.setBackground(Color.DARK_GRAY);
 		
 	}
-	
-	
-	
 	
 }

@@ -6,32 +6,29 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemListener;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.EventListener;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Observable;
-import java.util.Observer;
-
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
-import javax.swing.filechooser.FileNameExtensionFilter;
 
-import beepBoop.controller.RobotQueue;
-import beepBoop.model.Robot;
+import beepBoop.model.AbstractRobot;
+import beepBoop.service.RobotQueue;
 
-public class RTManageUI extends AbstractRobotTerminalUI implements Observer{
-	private JComboBox<Robot> robotsDropDown;
+/**
+ * The GUI for the Robot managing submenu of the RobetTerminal. 
+ * This GUI lets the user manage the Robots.
+ * @author ptp18-d06(Pawel Rasch, Tim Runge)
+ *
+ */
+public class RTManageUI extends AbstractRobotTerminalUI {
+
+	private static final long serialVersionUID = 8732469449519407942L;
+	private JComboBox<String> robotsDropDown;
 	private JComboBox<String> infoChooserDropDown;
 	private JLabel cargoLabel;
 	private JTextArea infoField;
@@ -39,9 +36,10 @@ public class RTManageUI extends AbstractRobotTerminalUI implements Observer{
 	private JButton applyButton;
 	private JButton importButton;
 	private JButton exportButton;
-	private Robot currentRobot;
-	private String currentInfoType;
 
+	/**
+	 * Constructor
+	 */
 	public RTManageUI() {
 		super();
 		this.setLayout(new GridBagLayout());
@@ -59,8 +57,8 @@ public class RTManageUI extends AbstractRobotTerminalUI implements Observer{
 		this.add(robotsDropDownLabel,c);
 
 		// Add robotsDropDown
-		robotsDropDown = new JComboBox<Robot>();
-		robotsDropDown.setModel(new DefaultComboBoxModel<Robot>());
+		robotsDropDown = new JComboBox<String>();
+		robotsDropDown.setModel(new DefaultComboBoxModel<String>());
 		c.gridwidth = GridBagConstraints.REMAINDER;
 		c.gridy = 1;
 		this.add(robotsDropDown,c);
@@ -89,7 +87,6 @@ public class RTManageUI extends AbstractRobotTerminalUI implements Observer{
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridwidth = 3;
         this.add(infoChooserDropDown, c);
-        this.currentInfoType = "Error Log"; 
         
         //Add Buttons
         importButton = new JButton("Import Program");
@@ -105,87 +102,32 @@ public class RTManageUI extends AbstractRobotTerminalUI implements Observer{
 		this.add(applyButton, c);
 		c.gridx = 6;
 		this.add(backButton, c);
-//		this.setMinimumSize(new Dimension(300,500));
-//		this.setPreferredSize(new Dimension(300,500));
         
 	}
 
 	/**
-	 * @param listeners has to contain "robDrop" -> ItemListener, "infDrop" -> ItemListener and "back" -> ActionListener 
+	 * Adds EventListeners to the gui elements. Needs to contain the following key -> value pairs:
+	 * Robot drop down menu: "rcDropDown" -> ItemListener
+	 * Info chooser drop down menu: "infDrop" -> ItemListener
+	 * Import button: "import" -> ActionListener
+	 * Export button: "export" -> ActionListener
+	 * Apply button: "apply" -> ActionListener
+	 * Back button: "back" -> ActionListener
+	 * @param listeners  
 	 */
 	@Override
-	public void addListeners(HashMap<String, EventListener> listeners) {
-		EventListener robDropL = listeners.get("robDrop");
-		EventListener infDropL = listeners.get("infDrop");
-		EventListener impL = listeners.get("import");
-		EventListener expL = listeners.get("export");
-		EventListener appL = listeners.get("apply");
-		EventListener backL = listeners.get("back");
-		
-		if(robDropL instanceof ItemListener &&
-		   infDropL instanceof ItemListener &&
-		   impL instanceof ActionListener &&
-		   expL instanceof ActionListener &&
-		   appL instanceof ActionListener &&
-		   backL instanceof ActionListener) {
-			robotsDropDown.addItemListener((ItemListener) robDropL);
-			infoChooserDropDown.addItemListener((ItemListener) infDropL);
-			importButton.addActionListener((ActionListener) impL);
-			exportButton.addActionListener((ActionListener) expL);
-			applyButton.addActionListener((ActionListener) appL);
-			backButton.addActionListener((ActionListener) backL);
+	public void addListeners(HashMap<String, EventListener> listeners) {		
+		if(correctListeners(listeners)) {
+			robotsDropDown.addItemListener((ItemListener) listeners.get("robDrop"));
+			infoChooserDropDown.addItemListener((ItemListener) listeners.get("infDrop"));
+			importButton.addActionListener((ActionListener) listeners.get("import"));
+			exportButton.addActionListener((ActionListener) listeners.get("export"));
+			applyButton.addActionListener((ActionListener) listeners.get("apply"));
+			backButton.addActionListener((ActionListener) listeners.get("back"));
 		}
 		else {
 			System.out.println("Tried to pass wrong Listener type to RTManageUI");
 		}
-	}
-
-	/**
-	 * 
-	 * @param robot the Robot to be managed
-	 */
-	public void setCurrentRobot(Robot robot) {
-		this.currentRobot.deleteObserver(this);
-		this.currentRobot = robot;
-		this.currentRobot.addObserver(this);
-		
-		if (currentInfoType.equals("Program")) { //if the program of the last robot is being shown, prepare to load this one's
-			currentInfoType = "Load Program";
-		}
-		update(null, null);
-		
-	}
-
-	public void setCurrentInfoType(String infoType) {
-		this.currentInfoType = infoType;
-		if (infoType.equals("Error Log")) {
-			this.infoField.setEditable(false);
-		}
-		else {
-			this.infoField.setEditable(true);
-		}
-		update(null, null);
-	}
-
-	@Override
-	public void update(Observable arg0, Object arg1) {
-		//update cargoLabel
-		String cargoString = (currentRobot.getCargo() != null)?
-				currentRobot.getCargo().getName()+": ":"No Cargo!";
-        this.cargoLabel.setText(cargoString);
-        this.cargoLabel.setIcon((currentRobot.getCargo() != null)?new ImageIcon(currentRobot.getCargo().getImage()):null);
- 
-        cargoLabel.setBackground(Color.DARK_GRAY);
-        switch(currentInfoType) {
-        case("Error Log"):		
-        	setInfoText(currentRobot.getErrorLog()); 
-            break;
-        case("Load Program"):
-        	setInfoText(currentRobot.getMemory());
-            this.setCurrentInfoType("Program");
-        }
-
-        this.repaint();
 	}
 	
 	/**
@@ -193,11 +135,9 @@ public class RTManageUI extends AbstractRobotTerminalUI implements Observer{
 	 * @param robots the RobotQueue containing the robots to be added
 	 */
 	public void fillRobotsDropDown(RobotQueue robots) {
-		for (Robot robot: robots) {
-			robotsDropDown.addItem(robot);
+		for (AbstractRobot robot: robots) {
+			robotsDropDown.addItem(robot.getName());
         }
-		this.currentRobot = robotsDropDown.getItemAt(0);
-		this.currentRobot.addObserver(this);
 	}
 
 
@@ -216,16 +156,58 @@ public class RTManageUI extends AbstractRobotTerminalUI implements Observer{
 		
 	}
 
+	/**
+	 * @return the content of the info field
+	 */
 	public String getInfoText() {
 		return infoField.getText();
 	}
 	
-	public String getCurrentInfoType() {
-		return currentInfoType;
+	/**
+	 * @return the robot drop down menu
+	 */
+	public JComboBox<String> getRobotsDropDown() {
+		return this.robotsDropDown;
 	}
 
-	public Robot getCurrentRobot() {
-		return currentRobot;
+	/**
+	 * The cargo label displays the cargo of the chosen robot.
+	 * @return the cargo label
+	 */
+	public JLabel getCargoLabel() {
+		return this.cargoLabel;
+	}
+
+	/**
+	 * @return the info field
+	 */
+	public JTextArea getInfoField() {
+		return this.infoField;
+	}
+
+	/**
+	 * @return the info chooser drop down menu
+	 */
+	public JComboBox<String> getInfoChooserDropDown() {
+		return infoChooserDropDown;
+		
+	}
+	
+	//helper method for addListeners
+	private boolean correctListeners(HashMap<String, EventListener> listeners) {
+		EventListener robDropL = listeners.get("robDrop");
+		EventListener infDropL = listeners.get("infDrop");
+		EventListener impL = listeners.get("import");
+		EventListener expL = listeners.get("export");
+		EventListener appL = listeners.get("apply");
+		EventListener backL = listeners.get("back");
+		
+		return robDropL instanceof ItemListener &&
+			   infDropL instanceof ItemListener &&
+			   impL instanceof ActionListener &&
+			   expL instanceof ActionListener &&
+			   appL instanceof ActionListener &&
+			   backL instanceof ActionListener;
 	}
 
 }

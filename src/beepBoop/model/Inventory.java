@@ -2,31 +2,47 @@ package beepBoop.model;
 
 import java.io.Serializable;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Observable;
 import java.util.Set;
 
-import beepBoop.model.resource.Resource;
-
+/**
+ * The Inventory holds the Resources the player and his Robots have collected.
+ * @author ptp18-d06(Pawel Rasch, Tim Runge)
+ *
+ */
 public class Inventory extends Observable implements Serializable {
 
 	private static final long serialVersionUID = -4001842018972736252L;
 	private HashSet<Resource> resources;
 	
+	/**
+	 * Constructor
+	 */
 	public Inventory() {
 		this.resources = new HashSet<Resource>();
 	}
 
-	public Set<Resource> getRessources() {
+	/**
+	 * @return the Resources stored in the Inventory
+	 */
+	public Set<Resource> getResources() {
 		return resources;
 	}
 
-	public void setRessources(HashSet<Resource> resources) {
+	/**
+	 * Replaces the Resources in the Inventory.
+	 * @param resources a new set of Resources
+	 */
+	public void setResources(HashSet<Resource> resources) {
 		this.resources = resources;
 	}
 
-
-
-	public void addRessource(Resource resource) {
+    /**
+     * Add a Resource to the Inventory.
+     * @param resource the Resource to be added
+     */
+	public void addResource(Resource resource) {
 		for (Resource res: resources) {
 			if (res.getName().equals(resource.getName())) {		
 				res.increaseAmount(resource.getAmount());
@@ -40,6 +56,11 @@ public class Inventory extends Observable implements Serializable {
 		this.notifyObservers();
 	}
 	
+	/**
+	 * Subtract an amount from a held Resource if at least as much is hold as is supposed to be subtracted. 
+	 * @param resource the type and amount of Resource that should be subtracted
+	 * @return true, if the Inventory held enough of the Resource and the subtraction was successful
+	 */
 	public boolean subtractResource(Resource resource) {
 		for (Resource res: resources) {
 			if (res.getName().equals(resource.getName()) && res.getAmount() >= resource.getAmount()) {		
@@ -51,6 +72,28 @@ public class Inventory extends Observable implements Serializable {
 			}
 		}
 		return false;
+	}
+
+	/**
+	 * If the inventory contains at least as many resources as needed, subtract those
+	 * resources and return true.
+	 * @param costs the needed resources as a List
+	 * @return true if the cost could be paid
+	 */
+	public boolean pay(List<Resource> costs) {	
+		for (Resource cost : costs) {
+			for (Resource stock: resources) {
+				if (cost.getName().equals(stock.getName())) {
+					if (cost.getAmount() > stock.getAmount()) {
+						return false;
+					}
+				}
+			}
+		}
+		for (Resource cost : costs) {
+			this.subtractResource(cost);
+		}
+		return !resources.isEmpty();
 	}
 	
 }

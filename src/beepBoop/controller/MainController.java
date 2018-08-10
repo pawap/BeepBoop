@@ -1,6 +1,5 @@
 package beepBoop.controller;
 
-import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -11,7 +10,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.JFileChooser;
@@ -19,9 +17,9 @@ import javax.swing.KeyStroke;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import beepBoop.model.Event;
+import beepBoop.model.AbstractRobot;
 import beepBoop.model.Level;
-import beepBoop.model.MsgEvent;
-import beepBoop.model.Robot;
+import beepBoop.model.Resource;
 import beepBoop.model.Thing;
 import beepBoop.ui.MainFrame;
 
@@ -30,12 +28,12 @@ import beepBoop.ui.MainFrame;
  * @author ptp18-d06(Pawel Rasch, Tim Runge)
  *
  */
-public class MainController extends AbstractController {
+public class MainController {
 	
-	MainFrame gui;
+	private MainFrame gui;
 	private boolean exit;
 	private PlayerController playerController;
-	Level level;
+	private Level level;
 	private RobotController robotController;
 	private RobotTerminalController terminalController;
 	private EventController eventController;
@@ -51,20 +49,21 @@ public class MainController extends AbstractController {
 		this.gui = gui;
 		this.exit = false;
 		this.level = level;
-		this.terminalController = new RobotTerminalController(gui.getTerminalUI(), gui, this.level.getRobotQueue());
+		this.terminalController = new RobotTerminalController(gui.getTerminalUI(), gui, this.level);
 		this.playerController = new PlayerController(gui, terminalController);
 		this.robotController = new RobotController(level);
 		this.eventController = new EventController(level,gui);
 	}
 
+	/**
+	 * Starts the game loop.
+	 */
 	public void mainAction() {
 		initKeyBindings();
 		eventController.initAction(level.getEventQueue());
         while(!exit) {
-        	//System.out.print("|");
-            for (Robot robot: level.getRobotQueue()) {
+            for (AbstractRobot robot: level.getRobotQueue()) {
             	robotController.processAction(robot);
-            	//System.out.print(".");
             }
             Event event;
             while ((event = level.getEventQueue().poll()) != null) {
@@ -72,9 +71,8 @@ public class MainController extends AbstractController {
             }
             gui.getLevelUI().repaint();
             try {
-				Thread.sleep(250);
+				Thread.sleep(25);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
         }
@@ -86,6 +84,8 @@ public class MainController extends AbstractController {
 	public void initKeyBindings(){
 		Action leftAction = new AbstractAction(){
 
+			private static final long serialVersionUID = 4969451003156101086L;
+
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				playerController.leftAction();
@@ -93,6 +93,8 @@ public class MainController extends AbstractController {
 			
 		};
 		Action rightAction = new AbstractAction(){
+
+			private static final long serialVersionUID = -3168530161376412358L;
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -102,6 +104,8 @@ public class MainController extends AbstractController {
 		};
 		Action upAction = new AbstractAction(){
 
+			private static final long serialVersionUID = -5486971388403323250L;
+
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				playerController.upAction();
@@ -109,6 +113,8 @@ public class MainController extends AbstractController {
 		
 		};
 		Action downAction = new AbstractAction(){
+
+			private static final long serialVersionUID = -581806568284033528L;
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -139,54 +145,54 @@ public class MainController extends AbstractController {
             @Override
             public void mouseClicked(MouseEvent arg0)
             {
-                gui.getLevelUI().requestFocus();
-                
+                gui.getLevelUI().requestFocus();                
             }
 
             @Override
             public void mouseEntered(MouseEvent arg0)
             {
-                // TODO Auto-generated method stub
                 
             }
 
             @Override
             public void mouseExited(MouseEvent arg0)
             {
-                // TODO Auto-generated method stub
                 
             }
 
             @Override
             public void mousePressed(MouseEvent arg0)
             {
-                gui.getLevelUI().requestFocus();
-                
+                gui.getLevelUI().requestFocus();               
             }
 
             @Override
             public void mouseReleased(MouseEvent arg0)
             {
-                // TODO Auto-generated method stub
                 
             }
 		    
 		});
 	}
 
+	/**
+	 * @return an ActionListener that allows the loading of a saved level
+	 */
 	public ActionListener getLoadListener() {
 		ActionListener listener = new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				loadLevel();
-				
+					loadLevel();				
 			}
 			
 		};
 		return listener;
 	}
 
+	/**
+	 * @return an ActionListener that allows the saving of a level
+	 */
 	public ActionListener getSaveListener() {
 		ActionListener listener = new ActionListener() {
 
@@ -200,6 +206,9 @@ public class MainController extends AbstractController {
 		return listener;
 	}
 
+	/**
+	 * @return an ActionListener that closes the App
+	 */
 	public ActionListener getExitListener() {
 		ActionListener listener = new ActionListener() {
 
@@ -216,12 +225,11 @@ public class MainController extends AbstractController {
 	
 	private void saveLevel() {
 		JFileChooser chooser = new JFileChooser();
-		String fileExtension = ".bbs";
+		String fileExtension = "bbs";
 		String fileType = "BeepBoop Save File";
-		chooser.setApproveButtonText("Save");
-		chooser.setDialogTitle("Save your game.");
+		chooser.setDialogTitle("Save your game");
 		chooser.setFileFilter(new FileNameExtensionFilter(fileType, fileExtension));
-		int result = chooser.showOpenDialog(gui);
+		int result = chooser.showSaveDialog(gui);
 		if(result == JFileChooser.APPROVE_OPTION) {
 			String path = chooser.getSelectedFile().getPath();
 			if (!path.endsWith(fileExtension)) {
@@ -231,6 +239,7 @@ public class MainController extends AbstractController {
 				out.writeObject(level);
 			} catch (IOException e) {
 		         e.printStackTrace();
+		         gui.showMessage("File could not be written.");
 		      }
 		}
 	}
@@ -239,43 +248,64 @@ public class MainController extends AbstractController {
 		JFileChooser chooser = new JFileChooser();
 		String fileExtension = "bbs";
 		String fileType = "BeepBoop Save File";
-		chooser.setApproveButtonText("Load");
-		chooser.setDialogTitle("Load a game.");
+		chooser.setDialogTitle("Load a game");
 		chooser.setFileFilter(new FileNameExtensionFilter(fileType, fileExtension));
-		int result = chooser.showOpenDialog(gui);
+		int result = chooser.showDialog(gui, "Load");
 		if(result == JFileChooser.APPROVE_OPTION) {
 			String path = chooser.getSelectedFile().getPath();
 			try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(path))) {
 				
 				Level loaded = (Level) in.readObject();
-				this.level = loaded;
+				
 				//give each thing its tile
-				for(Thing thing: this.level.getThings()) {
+				for(Thing thing: loaded.getThings()) {
 					thing.setTile(thing.getTileId());
 				}		
-				level.getPlayer().setTile(level.getPlayer().getTileId());
+				//give the player their tile
+				loaded.getPlayer().setTile(loaded.getPlayer().getTileId());
+				//give each inventory item its tile
+				for (Resource resource : loaded.getInventory().getResources()) {
+					resource.setTile(resource.getTileId());
+				}
+				//give each robot's cargo its tile
+				for (AbstractRobot robot : loaded.getRobotQueue()) {
+					Resource resource = robot.getCargo();
+					if (resource != null) {
+						resource.setTile(resource.getTileId());
+					}
+				}			
+				this.level = loaded;
 				this.gui.dispose();
 				this.gui = new MainFrame();
 				gui.initLevelUI(this.level);
 				gui.initInventoryUI(level.getInventory());
 				gui.initTerminalUI();
-				this.terminalController = new RobotTerminalController(gui.getTerminalUI(), gui, this.level.getRobotQueue());
+				//initialize controllers
+				this.terminalController = new RobotTerminalController(gui.getTerminalUI(), gui, this.level);
 				this.playerController = new PlayerController(gui, terminalController);
 				this.robotController = new RobotController(level);
 				this.eventController = new EventController(level,gui);
+				//choose the correct TerminalUI to be shown
+				if (this.level.getPlayer().hasTerminalAccess()) {
+					this.terminalController.navigateTo("main");
+				}
+				//finish gui setup
 				gui.initMenuBar(getLoadListener(),
 				                getSaveListener(),
 				                getExitListener());
 				initKeyBindings();
-				gui.setSize(1200, 500);	
+				gui.setSize(MainFrame.DEFAULT_WIDTH, MainFrame.DEFAULT_HEIGHT);	
 				gui.setVisible(true);
 				
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
+				gui.showMessage("File not found.");
 			} catch (IOException e) {
 				e.printStackTrace();
+				gui.showMessage("File could not be read.");
 			} catch (ClassNotFoundException e) {
 				e.printStackTrace();
+				gui.showMessage("Class not found.");
 			}
 		}
 	}

@@ -3,10 +3,6 @@ package beepBoop.ui;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Observable;
@@ -16,13 +12,23 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import beepBoop.model.Inventory;
-import beepBoop.model.Tile;
-import beepBoop.model.resource.Resource;
+import beepBoop.model.Resource;
 
+/**
+ * Displays the Resources the Player and their robots have collected.
+ * @author ptp18-d06(Pawel Rasch, Tim Runge)
+ *
+ */
 public class InventoryUI extends JPanel {
+
+	private static final long serialVersionUID = 109164110187359015L;
 	Inventory inventory;
 	List<ResourceLabel> resourceLabels;
 	
+	/**
+	 * Constructor
+	 * @param inventory the Inventory this is a UI for
+	 */
 	public InventoryUI (Inventory inventory) {
 		super();
 		this.inventory = inventory;
@@ -46,47 +52,35 @@ public class InventoryUI extends JPanel {
 		
 	}
 
+	/**
+	 * @return the Inventory this is a UI for
+	 */
 	public Inventory getInventory() {
 		return inventory;
 	}
 
+	/**
+	 * Set the Inventory this is a UI for.
+	 * @param inventory the new inventory
+	 */
 	public void setInventory(Inventory inventory) {
 		this.inventory = inventory;
 	}
 
+	//called whenever the inventory changes
 	private void updateResourceLabels() {
 		for (ResourceLabel resLabel : resourceLabels) {
 			remove(resLabel);
 		}
 		resourceLabels = new LinkedList<ResourceLabel>();    
-		for (Resource res: inventory.getRessources()){ 
+		for (Resource res: inventory.getResources()){ 
 			resourceLabels.add(new ResourceLabel(res));
 		}
 		for (ResourceLabel resLabel : resourceLabels) {
 			add(resLabel);
 		}
-		System.out.println("XXX");
 		this.validate();
 		repaint();
 	}
-	
-//	@Override
-//	public void paintComponent(Graphics g){
-//		super.paintComponent(g);
-//		Graphics2D g2d = (Graphics2D) g;
-//		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-//		        RenderingHints.VALUE_ANTIALIAS_ON);
-//		g2d.setFont(new Font("Verdana", Font.BOLD, 15));
-//		g2d.setColor(Color.BLACK);
-//		int y = 15;
-//		g2d.drawString("Inventory",0, y);
-//		y += 20;
-//		for (Resource res: inventory.getRessources()){ 
-//				g2d.drawString(res.getName()+": "+res.getAmount(),0, y);
-//				y += 20;
-//		}
-//		
-//
-//	}
 	
 }

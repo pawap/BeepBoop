@@ -1,21 +1,34 @@
 package beepBoop.controller;
 
 import java.awt.Point;
-import java.util.Arrays;
-
 import beepBoop.model.Command;
 import beepBoop.model.Level;
-import beepBoop.model.Robot;
+import beepBoop.model.Resource;
+import beepBoop.model.AbstractRobot;
+import beepBoop.model.BasicRobot;
 import beepBoop.model.RobotTerminal;
-import beepBoop.model.Sensor;
+import beepBoop.model.ISensor;
 import beepBoop.model.Thing;
-import beepBoop.model.TileFactory;
-import beepBoop.model.resource.Resource;
+import beepBoop.service.SensorService;
+import beepBoop.service.TileFactory;
 
-public class RobotController extends AbstractController {
+/**
+ * Controller for the BeepBoop robots
+ * 
+ * Used to modify the state of robots within the level
+ * and process
+ * @author ptp18-d06(Pawel Rasch, Tim Runge)
+ *
+ */
+public class RobotController {
 	Level level;
 
 	
+	/**
+	 * Constructor
+	 * 
+	 * @param level The level on which this controller should work.
+	 */
 	public RobotController(Level level) {
 		super();
 		this.level = level;
@@ -26,14 +39,14 @@ public class RobotController extends AbstractController {
 	 * Adds new Robot of the requested type at the specified position to the level
 	 * and returns a reference to the new robot.
 	 * 
-	 * @param type
-	 * @param position
-	 * @return
+	 * @param type element of {"r1"}
+	 * @param position the position in the level for the new robot
+	 * @return the newly placed robot
 	 */
-	public Robot newAction(String type, Point position) {
-		Robot robot;
+	public AbstractRobot newAction(String type, Point position) {
+		AbstractRobot robot;
 		switch (type) {
-			case "r1": robot = new Robot(); break;
+			case "r1": robot = new BasicRobot(); break;
 			default: return null;
 		}
 		robot.setPosition(position);
@@ -42,11 +55,15 @@ public class RobotController extends AbstractController {
 	}
 	
 	/**
-	 * Takes care of processing a robot 
+	 * Takes care of processing a robot's program 
 	 * 
 	 * @param robot
 	 */
-	public void processAction(Robot robot) {
+	public void processAction(AbstractRobot robot) {
+		robot.incrementAvtivityCounter();
+		if (robot.getActivityCounter() % robot.getCriticalActivity() != 0) {
+			return;
+		}
 		Command command = robot.getCurrentCommand();
 	    switch(command.getType()) {
 	    case "L": 
@@ -68,7 +85,8 @@ public class RobotController extends AbstractController {
         }	
 	}
 
-    private void jumpTo(Robot robot, Command command)
+	//helper method for gooto commands
+    private void jumpTo(AbstractRobot robot, Command command)
     {
         int target = robot.getPc();
         try {
@@ -81,10 +99,11 @@ public class RobotController extends AbstractController {
         robot.setPc(target);
     }
 
-    private void decideCondition(Robot robot, Command command) {
+    //helper method for if commands
+    private void decideCondition(AbstractRobot robot, Command command) {
 		String sensorStr = command.getArgs()[0];
 		SensorService sensorService = SensorService.getInstance();
-		Sensor sensor = sensorService.getSensor(sensorStr);
+		ISensor sensor = sensorService.getSensor(sensorStr);
 		robot.incrementPc();
 		if (sensor == null || !robot.hasSensor(sensorStr)) {
 			return;
@@ -101,7 +120,8 @@ public class RobotController extends AbstractController {
 		
 	}
 
-	private void moveRobot(Robot robot, Command command) {
+    //helper method for move commands
+	private void moveRobot(AbstractRobot robot, Command command) {
     	Point p = Command.getPointFromDirection(robot.getPosition(), command.getType());
     	if (level.isPositionFree(p.x, p.y)) {
 			level.moveThing(robot.getPosition(),p);
@@ -117,7 +137,8 @@ public class RobotController extends AbstractController {
 		}
 	}
 
-	private void manageResource(Robot robot, Command command)
+	//helper method for dumping and loading resources
+	private void manageResource(AbstractRobot robot, Command command)
     {
         String direction = command.getArgs()[0];
         int amount = new Integer(command.getArgs()[1]);
@@ -131,16 +152,17 @@ public class RobotController extends AbstractController {
         
     }
 
-    private void dumpRessource(Robot robot, Point actOn, int amount)
+    private void dumpRessource(AbstractRobot robot, Point actOn, int amount)
     {
         Thing thing = level.getThing(actOn.x, actOn.y);
         Resource cargo = robot.getCargo();
         int dump = Math.min(cargo.getAmount(), amount);
         if (cargo == null || cargo.getAmount() <= 0) {
-            robot.setError("No Cargo to DUMP");
+            robot.setError("No Cargo to DUMP");            
             
             return;
         }
+        
         if (thing == null) {
             Resource resource = new Resource(robot.removeCargo(dump),
                     TileFactory.getTileIdForResource(cargo.getName()),
@@ -151,49 +173,60 @@ public class RobotController extends AbstractController {
             
             return;
         }
+        
         if (thing instanceof Resource) {
             Resource resource = (Resource) thing;
+            
             if (!resource.getName().equals(cargo.getName())) {
                 robot.setError("Resource mismatch");
-            } else {
+            } 
+            else {
                 resource.increaseAmount(robot.removeCargo(dump));
             }
             
             return;
         }
+        
         if (thing instanceof RobotTerminal) {
-            level.getInventory().addRessource(new Resource(robot.removeCargo(dump),
+            level.getInventory().addResource(new Resource(robot.removeCargo(dump),
             		 					TileFactory.getTileIdForResource(cargo.getName()),
                                             cargo.getName()));
-            
-         
+             
         }
+        
     }
 
-    private String loadRessource(Robot robot, Point actOn, int amount)
-    {
+    private String loadRessource(AbstractRobot robot, Point actOn, int amount) {
         Thing thing = level.getThing(actOn.x, actOn.y);
         Resource cargo = robot.getCargo();
+        
         if (thing instanceof Resource) {
             Resource resource = (Resource) thing;
+        
             if (resource.getAmount() == 0) {
             	return "Resource depleted";
             }
+            
             if (cargo == null) {
                 robot.setCargo(new Resource(resource.takeAmount(amount),
                 							TileFactory.getTileIdForResource(resource.getName()),
                 							resource.getName()));
-            } else if (cargo.getName().equals(resource.getName())) {
-                int load = Math.min(Robot.MAX_CAPACITY - cargo.getAmount(), amount) ;
+            } 
+            else if (cargo.getName().equals(resource.getName())) {
+                int load = Math.min(robot.getMaxCapacity() - cargo.getAmount(), amount) ;
                 robot.addCargo(resource.takeAmount(load));       
-            } else {
+            }
+            else {
                 return "Incompatible Resource loaded";
             }
+            
 			if (resource.getAmount() == 0) {
 				level.removeThing(resource);
 			}
+			
             return "NoError";
-        } else {
+        } 
+        else {
             return "No Resource";
         }
     }

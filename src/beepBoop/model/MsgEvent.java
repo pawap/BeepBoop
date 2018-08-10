@@ -1,27 +1,38 @@
 package beepBoop.model;
 
-import java.util.Observable;
-import java.util.concurrent.Delayed;
-import java.util.concurrent.TimeUnit;
-
+/**
+ * An Event class that issues a message.
+ * 
+ * @author ptp18-d06(Pawel Rasch, Tim Runge)
+ *
+ */
 public class MsgEvent extends Event {
 
+	private static final long serialVersionUID = -3645991823300567833L;
 	private String msg;
-	private int timeout;
-	private Observable notifier;
+
 	
+	/**
+	 * Constructs a MsgEvent with the given message
+	 * 
+	 * @param msg the message as String
+	 */
 	public MsgEvent(String msg) {
 		super();
 		this.msg = msg;
 	}
 
 	@Override
-	public boolean performChanges(Level level) {
+	public void performChanges(Level level) {
 		setChanged();
 		notifyObservers();
-		return true;
 	}
 
+	/**
+	 * Returns the message of this MsgEvent
+	 * 
+	 * @return message as String
+	 */
 	public String getMsg() {
 		return msg;
 	}

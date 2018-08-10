@@ -1,18 +1,13 @@
 package beepBoop.controller;
 
-import java.awt.Image;
 import java.awt.Point;
 
-import javax.swing.JPanel;
-
-import beepBoop.model.Inventory;
 import beepBoop.model.Level;
-import beepBoop.model.TileFactory;
-import beepBoop.model.resource.Resource;
+import beepBoop.model.Resource;
+import beepBoop.service.TileFactory;
 import beepBoop.ui.InventoryUI;
 import beepBoop.ui.LevelUI;
 import beepBoop.ui.MainFrame;
-import beepBoop.ui.RobotTerminalUI;
 
 /**
  * Controller for the BeepBoop player.
@@ -20,10 +15,9 @@ import beepBoop.ui.RobotTerminalUI;
  * @author ptp18-d06(Pawel Rasch, Tim Runge)
  *
  */
-public class PlayerController extends AbstractController {
-	LevelUI levelUI;
-	InventoryUI inventoryUI;
-	JPanel terminalUI;
+public class PlayerController {
+	private LevelUI levelUI;
+	private InventoryUI inventoryUI;
 	private RobotTerminalController terminalContr;
 	
 	/**
@@ -35,7 +29,6 @@ public class PlayerController extends AbstractController {
 		super();
 		this.levelUI = mf.getLevelUI();
 		this.inventoryUI = mf.getInventoryUI();
-		this.terminalUI = mf.getTerminalUI();
 		terminalContr = robotTerminalController;	
 	}
 
@@ -56,17 +49,20 @@ public class PlayerController extends AbstractController {
 				if (resource.getAmount() == 0) {
 					level.removeThing(resource);
 				}
-				inventoryUI.getInventory().addRessource(transfer);
-				levelUI.repaint();
 				
+				inventoryUI.getInventory().addResource(transfer);
+				levelUI.repaint();				
 			}
+			
 			if (level.isRobotTerminal(x,y)) {
 			    
 				terminalContr.openTerminal();
-				//terminalUI.setActive(true);
+				this.levelUI.getLevel().getPlayer().setTerminalAccess(true);
 			}
+			
 			return false;
 		}
+		
 		return true;
 	}
 
@@ -79,6 +75,7 @@ public class PlayerController extends AbstractController {
 		Point position = level.getPlayer().getPosition();
 		int x = position.x - 1;
 		int y = position.y;
+		
 		if (moveTo(10,x,y)) {
 			position.x--;
 			levelUI.repaint();			
@@ -94,6 +91,7 @@ public class PlayerController extends AbstractController {
 		Point position = level.getPlayer().getPosition();
 		int x = position.x + 1;
 		int y = position.y;	
+		
 		if (moveTo(10,x,y)) {
 			position.x++;
 			levelUI.repaint();
@@ -108,7 +106,8 @@ public class PlayerController extends AbstractController {
 		Level level = levelUI.getLevel();
 		Point position = level.getPlayer().getPosition();
 		int x = position.x;
-		int y = position.y - 1;			
+		int y = position.y - 1;		
+		
 		if (moveTo(10,x,y)) {
 			position.y--;
 			levelUI.repaint();
@@ -123,7 +122,8 @@ public class PlayerController extends AbstractController {
 		Level level = levelUI.getLevel();
 		Point position = level.getPlayer().getPosition();
 		int x = position.x;
-		int y = position.y + 1;			
+		int y = position.y + 1;		
+		
 		if (moveTo(10,x,y)) {
 			position.y++;
 			levelUI.repaint();

@@ -4,6 +4,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemListener;
+import java.util.ArrayList;
 import java.util.EventListener;
 import java.util.HashMap;
 
@@ -11,20 +12,32 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
-import beepBoop.model.Robot;
-
+/**
+ * The GUI for the Construction submenu of the RobetTerminal. This GUI lets the user construct new Robots.
+ * @author ptp18-d06(Pawel Rasch, Tim Runge)
+ *
+ */
 public class RTConstrUI extends AbstractRobotTerminalUI{
+
+	private static final long serialVersionUID = 4276533727373179235L;
 	private JComboBox<String> robotClassDropDown;
+
 	private JTextArea infoField;
 	private JButton backButton;
 	private JButton constructButton;
+	private ArrayList<String> robotClasses;
 	
+	/**
+	 * Constructor
+	 */
 	public RTConstrUI() {
 		super();
+		
+		initRobotClasses();
+		
 		this.setLayout(new GridBagLayout());
 		
 		//Add label
@@ -41,6 +54,9 @@ public class RTConstrUI extends AbstractRobotTerminalUI{
 		//Add robotClassDropdown
 		robotClassDropDown = new JComboBox<String>();
 		robotClassDropDown.setModel(new DefaultComboBoxModel<String>());
+		for (String robClass : robotClasses) {
+			robotClassDropDown.addItem(robClass);
+		}
 		c.gridwidth = GridBagConstraints.REMAINDER;
 		c.gridy = 1;
 		this.add(robotClassDropDown,c);
@@ -64,6 +80,20 @@ public class RTConstrUI extends AbstractRobotTerminalUI{
 		this.add(backButton);
 	}
 
+    //List all available BeepBoop Robot classes
+	private void initRobotClasses() {
+		robotClasses = new ArrayList<String>();
+		robotClasses.add("Basic Robot");
+	}
+
+
+	/**
+	 * Adds EventListeners to the gui elements. Needs to contain the following key -> value pairs:
+	 * Robot Class drop down menu: "rcDropDown" -> ItemListener
+	 * Construct button: "constr" -> ActionListener
+	 * Back button: "back" -> ActionListener
+	 * @param listeners  
+	 */
 	@Override
 	public void addListeners(HashMap<String, EventListener> listeners) {
 		EventListener rcDropDownL = listeners.get("rcDropDown");
@@ -77,11 +107,21 @@ public class RTConstrUI extends AbstractRobotTerminalUI{
 			constructButton.addActionListener((ActionListener) consL);
 			backButton.addActionListener((ActionListener) backL);
 		}
-		
 	}
 
+	/**
+	 * Change the text of the info area.
+	 * @param text
+	 */
 	public void setInfoText(String text) {
 		this.infoField.setText(text);		
+	}
+	
+	/**
+	 * @return the RTConstrUI's robot class drop down menu
+	 */
+	public JComboBox<String> getRobotClassDropDown() {
+		return robotClassDropDown;
 	}
 
 }

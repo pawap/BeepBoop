@@ -1,30 +1,23 @@
 package beepBoop.model;
 
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Image;
-import java.awt.image.BufferedImage;
+import beepBoop.service.TileFactory;
 
+/**
+ * The in-Landscape representation of the Robot Terminal. 
+ * The Player has to interact with this to access the RobotTerminal 
+ * Menu and thus the Robot Terminal functions.
+ * @author ptp18-d06(Pawel Rasch, Tim Runge)
+ *
+ */
 public class RobotTerminal extends Thing {
 	
-//	private BufferedImage img;
-	
+	private static final long serialVersionUID = 2497148692695664144L;
+
+	/**
+	 * Constructor
+	 */
 	public RobotTerminal() {
 		super(TileFactory.TERMINAL);
-//		img = new BufferedImage(Tile.SIZE.width,Tile.SIZE.height,BufferedImage.TYPE_INT_ARGB);
-//		Graphics g = img.getGraphics();
-//		g.setColor(Color.BLACK);
-//		g.fillRect(0,0,Tile.SIZE.width, Tile.SIZE.height);
-//		g.setColor(Color.WHITE);
-//		g.drawRect(3,3,13,13);
-//		g.drawLine(5, 5, 15, 5);
-//		g.drawLine(5, 7, 10, 7);
 	}
-//	@Override
-//	public Image getImage() {
-//		
-//		return img;
-//	}
-
 	
 }

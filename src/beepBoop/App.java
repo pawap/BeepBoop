@@ -2,36 +2,76 @@ package beepBoop;
 
 import java.awt.Dimension;
 import java.awt.Point;
-import java.awt.event.ActionEvent;
 import java.util.LinkedList;
 import java.util.List;
 
-import javax.swing.AbstractAction;
-import javax.swing.Action;
-import javax.swing.JComponent;
-import javax.swing.KeyStroke;
-
 import beepBoop.controller.MainController;
-import beepBoop.controller.RobotTerminalController;
 import beepBoop.model.Inventory;
 import beepBoop.model.Landscape;
 import beepBoop.model.Level;
 import beepBoop.model.MsgEvent;
 import beepBoop.model.Player;
-import beepBoop.model.Robot;
+import beepBoop.model.Resource;
+import beepBoop.model.ResourceDropEvent;
+import beepBoop.model.BasicRobot;
+import beepBoop.model.Event;
 import beepBoop.model.RobotTerminal;
-import beepBoop.model.TileFactory;
-import beepBoop.model.resource.Resource;
+import beepBoop.service.TileFactory;
 import beepBoop.ui.MainFrame;
 
+/**
+ * App offers the main entry point to BeepBoop. 
+ * Creates a Demo level that lets a user experience  
+ * all available BeepBoop features.
+ * @author ptp18-d06(Pawel Rasch, Tim Runge)
+ *
+ */
 public class App {
-	
 	private MainFrame gui;
-	private boolean exit;
 	private MainController mainContr;
 
+	/**
+	 * Constructor 
+	 * initialises a demo-level, sets up the gui & the main controller and finally starts the game loop 
+	 */
 	public App() {
-		TileFactory tf = TileFactory.getInstance();
+		Level level = initializeDemoLevel(true);
+		initGui(level);
+		
+		//create main controller
+		mainContr = new MainController(gui,level);
+		
+		//add menu bar to gui
+		gui.initMenuBar(mainContr.getLoadListener(),
+		                mainContr.getSaveListener(),
+		                mainContr.getExitListener());
+		
+		//start the game
+		mainContr.mainAction();
+	}
+	
+	/*
+	 * Initializes the gui with the given level
+	 */
+	private void initGui(Level level) {
+		//create gui
+		gui = new MainFrame();
+		gui.initLevelUI(level);
+		gui.initInventoryUI(level.getInventory());
+		gui.initTerminalUI();
+
+		gui.setSize(MainFrame.DEFAULT_WIDTH, MainFrame.DEFAULT_HEIGHT);	
+		gui.setMaximumSize(new Dimension(MainFrame.DEFAULT_WIDTH, MainFrame.DEFAULT_HEIGHT));
+		gui.setVisible(true);
+	}
+
+	/*
+	 * Initializes a Demo Level showcasing the current BeepBoop features.
+	 * @param showWelcomeMessages allows disabling of the welcome messages for an enhanced testing experience
+	 * (We do not recommend to disable WelcomeMessages though, if feeling welcomed is an essential objective)
+	 */
+	private Level initializeDemoLevel(boolean showWelcomeMessages) {
+		//create Landscape
 		Landscape landscape = new Landscape(new Dimension(50,50));
 		landscape.placeRect(0, 0, 49, 49, TileFactory.GRASS_OFFSET);
 		landscape.placeRect(0, 0, 0, 49, TileFactory.ROCK_OFFSET);
@@ -42,42 +82,37 @@ public class App {
 		
 		Player player = new Player();
 		player.setPosition(new Point(10,10));
+		
 		Inventory inventory = new Inventory();
+		
 		Level level = new Level(landscape,player,inventory);
-
 		
-		//inventory.addRessource(new Gold(0));		
-		gui = new MainFrame();
-		gui.initLevelUI(level);
-		gui.initInventoryUI(inventory);
-		gui.initTerminalUI();
-		mainContr = new MainController(gui,level);
-		gui.initMenuBar(mainContr.getLoadListener(),
-				        mainContr.getSaveListener(),
-				        mainContr.getExitListener());
+		//add Terminal
+		RobotTerminal terminal = new RobotTerminal();
+		terminal.setPosition(new Point(10, 7));
+		level.addThing(terminal);
 		
-		
+		//add Resources
 		Resource copper = new Resource(200, TileFactory.COPPER, "copper");
 		copper.setPosition(new Point(3,3));
-		level.addThing(copper);
-		
+		level.addThing(copper);		
 		Resource gold = new Resource(200, TileFactory.GOLD, "gold");
 		gold.setPosition(new Point(3,6));
-		level.addThing(gold);
-		
+		level.addThing(gold);		
 		Resource iron = new Resource(200, TileFactory.IRON, "iron");
 		iron.setPosition(new Point(3,9));
-		level.addThing(iron);
-		
+		level.addThing(iron);		
 		Resource platinum = new Resource(200, TileFactory.PLATINUM, "platinum");
 		platinum.setPosition(new Point(3,12));
-		level.addThing(platinum);
-		
+		level.addThing(platinum);		
 		Resource silicon = new Resource(200, TileFactory.SILICON, "silicon");
 		silicon.setPosition(new Point(3,15));
 		level.addThing(silicon);
 		
-		Robot robot = new Robot();
+		
+
+		//add a robot
+		BasicRobot robot = new BasicRobot();
 		robot.setPosition(new Point(10,12));
 		List<String> program = new LinkedList<String>();
 		program.add("IF FREE L");
@@ -95,12 +130,12 @@ public class App {
         program.add("R");
         program.add("GOTO 10");
         program.add("END");
-        program.add("DP R 50");
-        
+        program.add("DP R 50");      
 		robot.setMemory(program);
 		level.addRobot(robot);
 		
-		Robot robot2 = new Robot();
+		//add another robot
+		BasicRobot robot2 = new BasicRobot();
 		robot2.setPosition(new Point(16,16));
 		program = new LinkedList<String>();
 		program.add("D");
@@ -112,24 +147,11 @@ public class App {
 		program.add("L");
 		program.add("D");	
 		robot2.setMemory(program);
+		robot2.setActivityCounter(8);
 		level.addRobot(robot2);
-		
-		RobotTerminal terminal = new RobotTerminal();
-		terminal.setPosition(new Point(10, 7));
-		level.addThing(terminal);
-//		MsgEvent msg = new MsgEvent("This is rather confusing, isn't it?");
-//		msg.setTimeout(15);
-//		level.addEvent(msg);
-//		msg = new MsgEvent("Welcome!");
-//		msg.setTimeout(3);
-//		level.addEvent(msg);
-//		msg = new MsgEvent("Get to work! Those robots are going beserk!");
-//		msg.setTimeout(8);		
-//		level.addEvent(msg);
-		
-		for (int i = 0; i < 20; i++) {
-			
-			for (String tileName: new String[]{"silicon","platinum","iron","gold","copper"}) {
+		//randomly place some more Resources
+		for (String tileName: new String[]{"silicon","platinum","iron","gold","copper"}) {			
+			for (int i = 0; i < 20; i++) {
 				int tileId = 0;
 				switch(tileName) {
 					case "silicon" :  tileId = TileFactory.SILICON; break;
@@ -142,26 +164,41 @@ public class App {
 				resource.setPosition(new Point((int) Math.round(Math.random() * 50), (int) Math.round(Math.random() * 50)));
 				if (!level.addThing(resource)) {
 					i--;
-				}
-			
-			}
-				
-				
-
+				}		
+			}				
+		}		
+        //possibly set up welcome messages
+		if (showWelcomeMessages) {
+			Event msg = new MsgEvent("This is rather confusing, isn't it?");
+			msg.setTimeout(15);
+			level.addEvent(msg);
+			msg = new MsgEvent("Welcome!");
+			msg.setTimeout(3);
+			level.addEvent(msg);
+			msg = new MsgEvent("Get to work! Those robots are going beserk!");
+			msg.setTimeout(8);		
+			level.addEvent(msg);
 		}
-
-		gui.setSize(850, 510);	
-		gui.setMaximumSize(new Dimension(850,510));
-		//gui.pack();
-		gui.setVisible(true);
-		mainContr.mainAction();
+		
+		//add a bunch of resourceDropEvents;
+		Event resourceDropEvent;
+		for (int i = 0; i< 20; i++) {
+			resourceDropEvent = new ResourceDropEvent(i + 1);
+			resourceDropEvent.setTimeout(i * 8);
+			level.addEvent(resourceDropEvent);
+		}
+		Event msg = new MsgEvent("Did you realize that resources seem to spawn randomly?");
+		msg.setTimeout(20);
+		level.addEvent(msg);
+		return level;
 	}
-
+	
+	/**
+	 * Main entry point
+	 * @param args
+	 */
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		App app = new App();
-		
-		
+		new App();		
 	}
 
 }

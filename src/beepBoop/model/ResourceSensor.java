@@ -2,9 +2,12 @@ package beepBoop.model;
 
 import java.awt.Point;
 
-import beepBoop.model.resource.Resource;
-
-public class ResourceSensor implements Sensor {
+/**
+ * A sensor that checks if the Tile next to the Robot in a given direction contains a Resource.  
+ * @author ptp18-d06(Pawel Rasch, Tim Runge)
+ *
+ */
+public class ResourceSensor implements ISensor {
 
 	@Override
 	public boolean check(String[] params, Point p, Level level) {

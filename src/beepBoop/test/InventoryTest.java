@@ -3,79 +3,100 @@ package beepBoop.test;
 import static org.junit.Assert.*;
 
 import java.util.HashSet;
-import java.util.Set;
-
-import org.junit.Before;
 import org.junit.Test;
 
 import beepBoop.model.Inventory;
-import beepBoop.model.TileFactory;
-import beepBoop.model.resource.Resource;
+import beepBoop.model.Resource;
+import beepBoop.service.TileFactory;
 
-public class InventoryTest {
-
-	private Inventory inv;
-	private HashSet<Resource> ressources;
+/**
+ * @author ptp18-d06(Pawel Rasch, Tim Runge)
+ */
+public class InventoryTest {	
 	
+	@Test
+	public void addResource_addNewResource_containsCorrectAmount() {
+		//arrange
+		Inventory inventory = new Inventory();
+		String someResourceType = "iron";
+		int someAmount = 40;
+		Resource someResource = new Resource(someAmount, TileFactory.IRON, someResourceType);
+		//act
+		inventory.addResource(someResource);
+		//assert
+		assertTrue(containsCorrectAmountOf(inventory, someResourceType, someAmount));		
 	
-	@Before
-	public void setup() {
-		inv = new Inventory();
-		ressources = new HashSet<Resource>();
-		ressources.add(new Resource(100, TileFactory.COPPER, "copper"));
-		ressources.add(new Resource(40, TileFactory.IRON, "iron"));
-		
 	}
 	
-	/**
-	 * Tests getRessources() and setRessources(Set<Ressource>)
-	 */
 	@Test
-	public void getAndSetRessourcesTest() {
-		HashSet<Resource> noRessources = new HashSet<Resource>();
-		
-		assertTrue(inv.getRessources().isEmpty());
-		inv.setRessources(ressources);
-		assertFalse(inv.getRessources().isEmpty());
-		assertEquals(ressources, inv.getRessources());
-		inv.setRessources(noRessources);
-		assertTrue(inv.getRessources().isEmpty());
+	public void addResource_addExistingResource_containsSum() {
+		//arrange
+		Inventory inventory = new Inventory();
+		HashSet<Resource> resources = new HashSet<Resource>();
+		String someResourceType = "iron";
+		int someAmount = 40;
+		Resource someResource = new Resource(someAmount, TileFactory.IRON, someResourceType);
+		resources.add(someResource);
+		int anotherAmount = 10;
+		Resource moreOfTheSame = new Resource(anotherAmount, TileFactory.IRON, someResourceType);
+		inventory.setResources(resources);
+		//act
+		inventory.addResource(moreOfTheSame);
+		//assert
+		int correctAmount = someAmount + anotherAmount;
+		assertTrue(containsCorrectAmountOf(inventory, someResourceType, correctAmount));		
+	
 	}
-	/**
-	 * Test method for addRessource(Ressource) and substractRessource(Ressource)
-	 */
+	
 	@Test
-	public void addAndSubstractRessourceTest() {
-//		inv.setRessources(ressources);
-//		assertFalse(inv.subtractRessource(new Copper(101))); //don't substract too much
-//		assertFalse(inv.subtractRessource(new Gold(100))); //don't substract what isn't there
-//		assertTrue(inv.subtractRessource(new Copper(100)));
-//		inv.addRessource(new Iron(2));
-//		inv.addRessource(new Silicon(314159));
-//		Set<Resource> currRess = inv.getRessources();
-//		Boolean containsCu = false, containsFe = false, containsSi = false;
-//		for (Resource r : currRess) {
-//			String resType = r.getName().toLowerCase();
-//			switch(resType) {
-//			case("copper"):
-//				assertTrue(r.getAmount() == 0);
-//			    containsCu = true;
-//			    break;
-//			case("iron"):
-//				assertTrue(r.getAmount() == 42);
-//			    containsFe = true;
-//			    break;
-//			case("silicon"):
-//				assertTrue(r.getAmount() == 314159);
-//			    containsSi = true;
-//			    break;
-//			default:
-//				fail("The Ressources should not contain " + resType + " at this point.");
-//			}
-//		}
-//		assertTrue(containsCu);
-//		assertTrue(containsFe);
-//		assertTrue(containsSi);
+	public void subtractResource_subtractSome_containsCorrectAmount() {
+		//arrange
+		Inventory inventory = new Inventory();
+		HashSet<Resource> resources = new HashSet<Resource>();
+		String someResourceType = "iron";
+		int someAmount = 40;
+		Resource someResource = new Resource(someAmount, TileFactory.IRON, someResourceType);
+		resources.add(someResource);
+		int lesserAmount = 10;
+		Resource lessOfTheSame = new Resource(lesserAmount, TileFactory.IRON, someResourceType);
+		inventory.setResources(resources);
+		//act
+		inventory.subtractResource(lessOfTheSame);
+		//assert
+		int correctAmount = someAmount - lesserAmount;
+		assertTrue(containsCorrectAmountOf(inventory, someResourceType, correctAmount));		
+	
+	}
+	
+	@Test
+	public void subtractResource_tryToSubtractTooMuch_returnFalse() {
+		//arrange
+		Inventory inventory = new Inventory();
+		HashSet<Resource> resources = new HashSet<Resource>();
+		String someResourceType = "iron";
+		int someAmount = 41;
+		Resource someResource = new Resource(someAmount, TileFactory.IRON, someResourceType);
+		resources.add(someResource);
+		int greaterAmount = 42;
+		Resource moreOfTheSame = new Resource(greaterAmount, TileFactory.IRON, someResourceType);
+		inventory.setResources(resources);
+		//act
+		boolean subtractionSuccesful = inventory.subtractResource(moreOfTheSame);
+		//assert
+		assertFalse(subtractionSuccesful);		
+	
+	}
+	
+
+
+	private boolean containsCorrectAmountOf(Inventory inventory, String resourceType, int correctAmount) {
+		for (Resource resource : inventory.getResources()) {
+			if (resource.getName().equals(resourceType)) {
+				return resource.getAmount() == correctAmount;
+			}
+		}
+		System.out.println("Inventory test did not find the resource it was looking for.");
+		return false;
 	}
 
 }
