@@ -5,6 +5,8 @@ import java.awt.Point;
 import java.io.Serializable;
 import java.util.Observable;
 
+import beepBoop.service.TileFactory;
+
 /**
  * Everything but Landscape Tiles in BeepBoop is a Thing.
  * Thing is the superclass for the Player, Resources, Terminals and Robots.

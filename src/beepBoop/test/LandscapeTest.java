@@ -9,7 +9,7 @@ import org.junit.Test;
 
 import beepBoop.model.Landscape;
 import beepBoop.model.Tile;
-import beepBoop.model.TileFactory;
+import beepBoop.service.TileFactory;
 
 /**
  * @author ptp18-d06(Pawel Rasch, Tim Runge)

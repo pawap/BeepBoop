@@ -9,7 +9,8 @@ import beepBoop.model.BasicRobot;
 import beepBoop.model.RobotTerminal;
 import beepBoop.model.ISensor;
 import beepBoop.model.Thing;
-import beepBoop.model.TileFactory;
+import beepBoop.service.SensorService;
+import beepBoop.service.TileFactory;
 
 public class RobotController extends AbstractController {
 	Level level;

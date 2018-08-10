@@ -6,6 +6,7 @@ import java.util.Observer;
 import beepBoop.model.Event;
 import beepBoop.model.Level;
 import beepBoop.model.MsgEvent;
+import beepBoop.service.EventQueue;
 import beepBoop.ui.MainFrame;
 
 public class EventController extends AbstractController {

@@ -1,5 +1,7 @@
 package beepBoop.model;
 
+import beepBoop.service.TileFactory;
+
 /**
  * The Player is the Thing representing the user in BeepBoop. 
  * @author ptp18-d06(Pawel Rasch, Tim Runge)

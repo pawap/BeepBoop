@@ -27,6 +27,7 @@ import beepBoop.model.AbstractRobot;
 import beepBoop.model.BasicRobot;
 import beepBoop.model.Level;
 import beepBoop.model.Resource;
+import beepBoop.service.RobotQueue;
 import beepBoop.ui.AbstractRobotTerminalUI;
 import beepBoop.ui.MainFrame;
 import beepBoop.ui.RTConstrUI;

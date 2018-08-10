@@ -14,7 +14,7 @@ import beepBoop.model.Player;
 import beepBoop.model.Resource;
 import beepBoop.model.BasicRobot;
 import beepBoop.model.RobotTerminal;
-import beepBoop.model.TileFactory;
+import beepBoop.service.TileFactory;
 import beepBoop.ui.MainFrame;
 
 /**

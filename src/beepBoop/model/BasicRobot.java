@@ -4,6 +4,8 @@ import java.awt.Point;
 import java.util.LinkedList;
 import java.util.List;
 
+import beepBoop.service.TileFactory;
+
 /**
  * The most basic robot. Can carry up to 1000 of one type of Resource.
  * It has two sensors, a ResourceSensor and a FreeSensor.

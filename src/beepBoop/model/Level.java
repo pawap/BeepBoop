@@ -6,8 +6,8 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
-import beepBoop.controller.EventQueue;
-import beepBoop.controller.RobotQueue;
+import beepBoop.service.EventQueue;
+import beepBoop.service.RobotQueue;
 
 /**
  * A Level holds a Landscape, a Player, Robot- and EventQueue, an Inventory and a collection of Things.

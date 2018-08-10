@@ -4,7 +4,7 @@ import java.awt.Point;
 
 import beepBoop.model.Level;
 import beepBoop.model.Resource;
-import beepBoop.model.TileFactory;
+import beepBoop.service.TileFactory;
 import beepBoop.ui.InventoryUI;
 import beepBoop.ui.LevelUI;
 import beepBoop.ui.MainFrame;

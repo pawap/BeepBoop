@@ -1,5 +1,7 @@
 package beepBoop.model;
 
+import beepBoop.service.TileFactory;
+
 /**
  * The in-Landscape representation of the Robot Terminal. 
  * The Player has to interact with this to access the RobotTerminal 

@@ -1,4 +1,4 @@
-package beepBoop.controller;
+package beepBoop.service;
 
 import java.util.HashMap;
 import java.util.Map;

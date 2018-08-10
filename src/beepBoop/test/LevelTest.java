@@ -15,7 +15,7 @@ import beepBoop.model.Player;
 import beepBoop.model.Resource;
 import beepBoop.model.BasicRobot;
 import beepBoop.model.Thing;
-import beepBoop.model.TileFactory;
+import beepBoop.service.TileFactory;
 
 /**
  * @author ptp18-d06(Pawel Rasch, Tim Runge)

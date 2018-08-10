@@ -10,7 +10,7 @@ import org.junit.Test;
 import beepBoop.model.Level;
 import beepBoop.model.Resource;
 import beepBoop.model.ResourceSensor;
-import beepBoop.model.TileFactory;
+import beepBoop.service.TileFactory;
 import beepBoop.test.mock.MockLevel;
 
 /**

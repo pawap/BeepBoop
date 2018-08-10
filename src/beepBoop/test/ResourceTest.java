@@ -5,7 +5,7 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 import beepBoop.model.Resource;
-import beepBoop.model.TileFactory;
+import beepBoop.service.TileFactory;
 
 /**
  * @author ptp18-d06(Pawel Rasch, Tim Runge)

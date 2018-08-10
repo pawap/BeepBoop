@@ -15,8 +15,9 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
-import beepBoop.controller.RobotQueue;
+
 import beepBoop.model.AbstractRobot;
+import beepBoop.service.RobotQueue;
 
 /**
  * The GUI for the Robot managing submenu of the RobetTerminal. 

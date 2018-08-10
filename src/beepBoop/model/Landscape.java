@@ -3,6 +3,8 @@ package beepBoop.model;
 import java.awt.Dimension;
 import java.io.Serializable;
 
+import beepBoop.service.TileFactory;
+
 /**
  * A Landscape holds a grid of tiles. Each Level uses a Landscape which defines the basic terrain. 
  * @author ptp18-d06(Pawel Rasch, Tim Runge)
