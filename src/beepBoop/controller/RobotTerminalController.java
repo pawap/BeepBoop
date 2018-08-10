@@ -35,6 +35,11 @@ import beepBoop.ui.RTInactiveUI;
 import beepBoop.ui.RTMainUI;
 import beepBoop.ui.RTManageUI;
 
+/**
+ * Controller for the RobotTerminal
+ * @author ptp18-d06(Pawel Rasch, Tim Runge)
+ *
+ */
 public class RobotTerminalController implements Observer {
 
 	private RobotQueue robotQueue;
@@ -44,14 +49,12 @@ public class RobotTerminalController implements Observer {
 	private String currentInfoType;
 	private Level level;
 
-	public String getCurrentInfoType() {
-		return currentInfoType;
-	}
-
-	public void setCurrentInfoType(String infoType) {
-		this.currentInfoType = infoType;
-	}
-
+	/**
+	 * Constructor
+	 * @param robotTerminalUI the current robot terminal ui
+	 * @param mainFrame the main gui
+	 * @param level the current Level
+	 */
 	public RobotTerminalController(AbstractRobotTerminalUI robotTerminalUI, MainFrame mainFrame, Level level)
 	{
 		this.robotQueue = level.getRobotQueue();
@@ -61,6 +64,10 @@ public class RobotTerminalController implements Observer {
 		addUIListeners();
 	}
 
+	/**
+	 * Navigates through the Terminal UI menu
+	 * @param destination id of the submenu to display, element of {"main", "constr", "manage"}
+	 */
 	public void navigateTo(String destination) {
 		switch(destination) {
 		case("main"):
@@ -91,7 +98,23 @@ public class RobotTerminalController implements Observer {
 		addUIListeners();
 		mainFrame.setTerminalUI(robotTerminalUI);
 	}
+	
+	/**
+	 * @return the last info type set for the info field of a RTManageUI
+	 */
+	public String getCurrentInfoType() {
+		return currentInfoType;
+	}
 
+	/**
+	 * set the info type for the RTManageUI info field
+	 * @param infoType element of {"Error Log", "Program", "Load Program"}
+	 */
+	public void setCurrentInfoType(String infoType) {
+		this.currentInfoType = infoType;
+	}
+
+	//set the robot to be managed with RTManageUI
 	private void setCurrentRobot(AbstractRobot robot) {
 		if (robot != null) {
 			this.currentRobot.deleteObserver(this);
@@ -105,6 +128,7 @@ public class RobotTerminalController implements Observer {
 		
 	}
 
+	//adds EventListeners based on the current terminal ui
 	private void addUIListeners() {
 		HashMap<String, EventListener> listeners = new HashMap<String, EventListener>();
 
@@ -145,6 +169,7 @@ public class RobotTerminalController implements Observer {
 			navigateTo("main");
 	}
 	
+	//import a program from disk
 	private List<String> importProgram() {
 		JFileChooser chooser = new JFileChooser();
 		chooser.setFileFilter(new FileNameExtensionFilter("BeepBoopProgram File", "bbp"));
@@ -163,6 +188,7 @@ public class RobotTerminalController implements Observer {
 		return null;
 	}
 	
+	//export a program to disk
 	private void export(String type, String text) {
 		JFileChooser chooser = new JFileChooser();
 		String fileExtension = ".bbp";
