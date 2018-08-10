@@ -11,11 +11,16 @@ import beepBoop.service.TileFactory;
  */
 public class ResourceDropEvent extends Event {
 
-	private int dropsPerResource;
+	private int dropsPerType;
 	
-	public ResourceDropEvent(int dropsPerResource) {
+	/**
+	 * Constructor
+	 * 
+	 * @param dropsPerType number of resources to drop per type
+	 */
+	public ResourceDropEvent(int dropsPerType) {
 		super();
-		this.dropsPerResource = dropsPerResource;
+		this.dropsPerType = dropsPerType;
 	}
 
 
@@ -23,7 +28,7 @@ public class ResourceDropEvent extends Event {
 	@Override
 	public void performChanges(Level level) {
 		for (String tileName: new String[]{"silicon","platinum","iron","gold","copper"}) {			
-			for (int i = 0; i < dropsPerResource; i++) {
+			for (int i = 0; i < dropsPerType; i++) {
 				int tileId = 0;
 				switch(tileName) {
 					case "silicon" :  tileId = TileFactory.SILICON; break;

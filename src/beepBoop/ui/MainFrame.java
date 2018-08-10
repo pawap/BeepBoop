@@ -197,6 +197,7 @@ public class MainFrame extends JFrame {
 	
 	/**
 	 * Open a modal Dialog displaying the given String.
+	 * Auto-closes the message after 2 seconds 
 	 * @param message the message to be displayed
 	 */
 	public void showMessage(String message) {
@@ -205,7 +206,7 @@ public class MainFrame extends JFrame {
 		messageBox.setLocation(this.getWidth()/2, this.getHeight()/2);
 		messageBox.setLayout(new FlowLayout());
 		messageBox.pack();
-		
+		// use swing timer, which works on eventDispatchThread, to avoid complication, bugs and frustration
 		Timer timer = new Timer(2000, new ActionListener() {
             public void actionPerformed(ActionEvent e) {
             	messageBox.setVisible(false);
