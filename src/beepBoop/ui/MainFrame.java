@@ -12,6 +12,7 @@ import java.awt.event.KeyEvent;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.KeyStroke;
+import javax.swing.Timer;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -204,7 +205,16 @@ public class MainFrame extends JFrame {
 		messageBox.setLocation(this.getWidth()/2, this.getHeight()/2);
 		messageBox.setLayout(new FlowLayout());
 		messageBox.pack();
-		messageBox.setVisible(true);
+		
+		Timer timer = new Timer(2000, new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	messageBox.setVisible(false);
+            	messageBox.dispose();
+            }
+        });
+        timer.setRepeats(false);
+        timer.start();
+        messageBox.setVisible(true);
 	}
 	
 }

@@ -23,7 +23,7 @@ import beepBoop.ui.MainFrame;
  * App offers the main entry point to BeepBoop. 
  * Creates a Demo level that lets a user experience  
  * all available BeepBoop features.
- * @author t
+ * @author ptp18-d06(Pawel Rasch, Tim Runge)
  *
  */
 public class App {
@@ -35,7 +35,7 @@ public class App {
 	 * initialises a demo-level, sets up the gui & the main controller and finally starts the game loop 
 	 */
 	public App() {
-		Level level = initializeDemoLevel(false);
+		Level level = initializeDemoLevel(true);
 		initGui(level);
 		
 		//create main controller
