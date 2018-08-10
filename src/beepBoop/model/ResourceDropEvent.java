@@ -39,6 +39,7 @@ public class ResourceDropEvent extends Event {
 				}
 				Resource resource = new Resource((int) Math.round(Math.random() * 100) + 1, tileId, tileName);
 				resource.setPosition(new Point((int) Math.round(Math.random() * 50), (int) Math.round(Math.random() * 50)));
+				//decrease counter if resource could not be placed, i.e.: try again
 				if (!level.addThing(resource)) {
 					i--;
 				}		

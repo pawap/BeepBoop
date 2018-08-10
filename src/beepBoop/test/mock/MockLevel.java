@@ -2,12 +2,14 @@ package beepBoop.test.mock;
 
 import java.awt.Point;
 
-import beepBoop.model.Inventory;
-import beepBoop.model.Landscape;
 import beepBoop.model.Level;
-import beepBoop.model.Player;
 import beepBoop.model.Thing;
 
+/**
+ * a MockUp Class for a level to facilitate testing
+ * 
+ * @author ptp18-d06(Pawel Rasch, Tim Runge)
+ */
 @SuppressWarnings("serial")
 public class MockLevel extends Level{
 	private Point blockedPosition;
@@ -20,7 +22,7 @@ public class MockLevel extends Level{
 	 * @param blockedPosition the position to be handled as if it was blocked
 	 */
 	public MockLevel(Point blockedPosition) {
-		this(null, null, null);
+		this();
 		this.blockedPosition = blockedPosition;
 	}
 	
@@ -30,11 +32,7 @@ public class MockLevel extends Level{
 	 * called with any parameter.
 	 */
 	public MockLevel() {
-		this(null, null, null);
-	}
-
-	public MockLevel(Landscape landscape, Player player, Inventory inventory) {
-		super(landscape, player, inventory);
+		super(null, null, null);
 	}
 	
 	/**
