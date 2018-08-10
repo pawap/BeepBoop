@@ -32,7 +32,25 @@ public class App {
 	 * Constructor
 	 */
 	public App() {
-		initializeDemoLevel(false);
+		Level level = initializeDemoLevel(false);
+		//create gui
+		gui = new MainFrame();
+		gui.initLevelUI(level);
+		gui.initInventoryUI(level.getInventory());
+		gui.initTerminalUI();
+
+		gui.setSize(MainFrame.DEFAULT_WIDTH, MainFrame.DEFAULT_HEIGHT);	
+		gui.setMaximumSize(new Dimension(MainFrame.DEFAULT_WIDTH, MainFrame.DEFAULT_HEIGHT));
+		gui.setVisible(true);
+		
+		//create main controller
+		mainContr = new MainController(gui,level);
+		mainContr.mainAction();
+		
+		//add menu bar to gui
+		gui.initMenuBar(mainContr.getLoadListener(),
+		        mainContr.getSaveListener(),
+		        mainContr.getExitListener());
 	}
 
 	/**
@@ -46,8 +64,9 @@ public class App {
 	/*
 	 * Initializes a Demo Level showcasing the current BeepBoop features.
 	 * @param showWelcomeMessages allows disabling of the welcome messages for an enhanced testing experience
+	 * (We do not recommend to disable WelcomeMessages though, if feeling welcomed is an essential objective)
 	 */
-	private void initializeDemoLevel(boolean showWelcomeMessages) {
+	private Level initializeDemoLevel(boolean showWelcomeMessages) {
 		//create Landscape
 		Landscape landscape = new Landscape(new Dimension(50,50));
 		landscape.placeRect(0, 0, 49, 49, TileFactory.GRASS_OFFSET);
@@ -86,24 +105,7 @@ public class App {
 		silicon.setPosition(new Point(3,15));
 		level.addThing(silicon);
 		
-		//randomly place some more Resources
-		for (int i = 0; i < 20; i++) {			
-			for (String tileName: new String[]{"silicon","platinum","iron","gold","copper"}) {
-				int tileId = 0;
-				switch(tileName) {
-					case "silicon" :  tileId = TileFactory.SILICON; break;
-					case "platinum": tileId = TileFactory.PLATINUM; break;
-					case "iron": tileId = TileFactory.IRON; break;
-					case "gold": tileId = TileFactory.GOLD; break;
-					case "copper": tileId = TileFactory.COPPER; break;
-				}
-				Resource resource = new Resource((int) Math.round(Math.random() * 100) + 1, tileId, tileName);
-				resource.setPosition(new Point((int) Math.round(Math.random() * 50), (int) Math.round(Math.random() * 50)));
-				if (!level.addThing(resource)) {
-					i--;
-				}		
-			}				
-		}		
+		
 
 		//add a robot
 		BasicRobot robot = new BasicRobot();
@@ -142,7 +144,24 @@ public class App {
 		program.add("D");	
 		robot2.setMemory(program);
 		level.addRobot(robot2);
-		
+		//randomly place some more Resources
+		for (int i = 0; i < 20; i++) {			
+			for (String tileName: new String[]{"silicon","platinum","iron","gold","copper"}) {
+				int tileId = 0;
+				switch(tileName) {
+					case "silicon" :  tileId = TileFactory.SILICON; break;
+					case "platinum": tileId = TileFactory.PLATINUM; break;
+					case "iron": tileId = TileFactory.IRON; break;
+					case "gold": tileId = TileFactory.GOLD; break;
+					case "copper": tileId = TileFactory.COPPER; break;
+				}
+				Resource resource = new Resource((int) Math.round(Math.random() * 100) + 1, tileId, tileName);
+				resource.setPosition(new Point((int) Math.round(Math.random() * 50), (int) Math.round(Math.random() * 50)));
+				if (!level.addThing(resource)) {
+					i--;
+				}		
+			}				
+		}		
         //possibly set up welcome messages
 		if (showWelcomeMessages) {
 			MsgEvent msg = new MsgEvent("This is rather confusing, isn't it?");
@@ -156,24 +175,8 @@ public class App {
 			level.addEvent(msg);
 		}
 		
-		//create gui
-		gui = new MainFrame();
-		gui.initLevelUI(level);
-		gui.initInventoryUI(inventory);
-		gui.initTerminalUI();
+		return level;
 
-		gui.setSize(MainFrame.DEFAULT_WIDTH, MainFrame.DEFAULT_HEIGHT);	
-		gui.setMaximumSize(new Dimension(MainFrame.DEFAULT_WIDTH, MainFrame.DEFAULT_HEIGHT));
-		gui.setVisible(true);
-		
-		//create main controller
-		mainContr = new MainController(gui,level);
-		mainContr.mainAction();
-		
-		//add menu bar to gui
-		gui.initMenuBar(mainContr.getLoadListener(),
-		        mainContr.getSaveListener(),
-		        mainContr.getExitListener());
 	}
 
 }

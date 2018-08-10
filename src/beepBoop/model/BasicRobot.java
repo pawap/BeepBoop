@@ -38,8 +38,7 @@ public class BasicRobot extends AbstractRobot{
 		this.errorLog = new LinkedList<String>();
 		this.sensors = new LinkedList<String>();
 		this.name = name;
-		this.maxCapacity = 1000;
-		pc = 0;
+		this.maxCapacity = 1000;		
 		sensors.add("FREE");
 		sensors.add("RESOURCE");
 		BasicRobot.robotCounter++;

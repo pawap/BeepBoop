@@ -24,6 +24,7 @@ public abstract class AbstractRobot extends Thing{
 	 */
 	public AbstractRobot(int tileId) {
 		super(tileId);
+		pc = 0;
 	}
 
 	/**
