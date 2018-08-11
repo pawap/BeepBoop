@@ -31,13 +31,13 @@ import beepBoop.ui.MainFrame;
 public class MainController {
 	
 	private MainFrame gui;
-	private boolean exit;
 	private PlayerController playerController;
-	private Level level;
 	private RobotController robotController;
 	private RobotTerminalController terminalController;
 	private EventController eventController;
-	
+	private Level level;
+	private boolean exit;
+	private boolean paused;	
 	
 	/**
 	 * Constructor
@@ -47,16 +47,18 @@ public class MainController {
 	public MainController(MainFrame gui, Level level) {
 		super();
 		this.gui = gui;
-		this.exit = false;
-		this.level = level;
-		this.terminalController = new RobotTerminalController(gui.getTerminalUI(), gui, this.level);
+		this.terminalController = new RobotTerminalController(gui.getTerminalUI(), gui, level);
 		this.playerController = new PlayerController(gui, terminalController);
 		this.robotController = new RobotController(level);
 		this.eventController = new EventController(level,gui);
+		this.level = level;
+		this.exit = false;
+		this.paused = false;
 	}
 
 	/**
-	 * Starts the game loop.
+	 * Initializes necessary keybindingd and controllers. 
+	 * Starts the game loop and dispatches Actions to other controllers.
 	 */
 	public void mainAction() {
 		initKeyBindings();
@@ -75,6 +77,13 @@ public class MainController {
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
+            while(paused) {
+                try {
+    				Thread.sleep(25);
+    			} catch (InterruptedException e) {
+    				e.printStackTrace();
+    			}           	
+            }
         }
 	}
 	
@@ -183,7 +192,7 @@ public class MainController {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-					loadLevel();				
+				loadLevel();				
 			}
 			
 		};
@@ -199,7 +208,6 @@ public class MainController {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				saveLevel();
-				
 			}
 			
 		};
@@ -223,7 +231,9 @@ public class MainController {
 		return listener;
 	}
 	
+	// Method which saves the current Level to disk via a JFileChooser dialog
 	private void saveLevel() {
+		paused = true;
 		JFileChooser chooser = new JFileChooser();
 		String fileExtension = "bbs";
 		String fileType = "BeepBoop Save File";
@@ -233,18 +243,22 @@ public class MainController {
 		if(result == JFileChooser.APPROVE_OPTION) {
 			String path = chooser.getSelectedFile().getPath();
 			if (!path.endsWith(fileExtension)) {
-				path += fileExtension;
+				path += "." + fileExtension;
 			}
 			try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(path))) {
 				out.writeObject(level);
 			} catch (IOException e) {
 		         e.printStackTrace();
 		         gui.showMessage("File could not be written.");
-		      }
+		    }	
 		}
+		paused = false;
+		gui.getLevelUI().requestFocus();
 	}
 	
+	// Method which loads a Level from disk via a JFileChooser dialog	
 	private void loadLevel() {
+		paused = true;
 		JFileChooser chooser = new JFileChooser();
 		String fileExtension = "bbs";
 		String fileType = "BeepBoop Save File";
@@ -253,61 +267,90 @@ public class MainController {
 		int result = chooser.showDialog(gui, "Load");
 		if(result == JFileChooser.APPROVE_OPTION) {
 			String path = chooser.getSelectedFile().getPath();
+			Level loaded;
 			try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(path))) {
 				
-				Level loaded = (Level) in.readObject();
-				
-				//give each thing its tile
-				for(Thing thing: loaded.getThings()) {
-					thing.setTile(thing.getTileId());
-				}		
-				//give the player their tile
-				loaded.getPlayer().setTile(loaded.getPlayer().getTileId());
-				//give each inventory item its tile
-				for (Resource resource : loaded.getInventory().getResources()) {
-					resource.setTile(resource.getTileId());
-				}
-				//give each robot's cargo its tile
-				for (AbstractRobot robot : loaded.getRobotQueue()) {
-					Resource resource = robot.getCargo();
-					if (resource != null) {
-						resource.setTile(resource.getTileId());
-					}
-				}			
-				this.level = loaded;
-				this.gui.dispose();
-				this.gui = new MainFrame();
-				gui.initLevelUI(this.level);
-				gui.initInventoryUI(level.getInventory());
-				gui.initTerminalUI();
-				//initialize controllers
-				this.terminalController = new RobotTerminalController(gui.getTerminalUI(), gui, this.level);
-				this.playerController = new PlayerController(gui, terminalController);
-				this.robotController = new RobotController(level);
-				this.eventController = new EventController(level,gui);
-				//choose the correct TerminalUI to be shown
-				if (this.level.getPlayer().hasTerminalAccess()) {
-					this.terminalController.navigateTo("main");
-				}
-				//finish gui setup
-				gui.initMenuBar(getLoadListener(),
-				                getSaveListener(),
-				                getExitListener());
-				initKeyBindings();
-				gui.setSize(MainFrame.DEFAULT_WIDTH, MainFrame.DEFAULT_HEIGHT);	
-				gui.setVisible(true);
-				
+				loaded = loadLevelFromStream(in);
+			
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
 				gui.showMessage("File not found.");
+				paused = false;
+				return;
 			} catch (IOException e) {
 				e.printStackTrace();
 				gui.showMessage("File could not be read.");
+				paused = false;
+				return;
 			} catch (ClassNotFoundException e) {
 				e.printStackTrace();
 				gui.showMessage("Class not found.");
+				paused = false;
+				return;
+			}
+
+			this.level = loaded;
+			//initialise new gui to avoid side-effects
+			initNewGui();
+			//initialise new controllers with the loaded level
+			initNewSubcontrollers();
+			
+			//choose the correct TerminalUI to be shown
+			if (this.level.getPlayer().hasTerminalAccess()) {
+				this.terminalController.navigateTo("main");
 			}
 		}
+		paused = false;
+		gui.getLevelUI().requestFocus();
+	}
+	
+	//initialises a fresh new gui
+	private void initNewGui() {
+		this.gui.dispose();
+		this.gui = new MainFrame();
+		gui.initLevelUI(this.level);
+		gui.initInventoryUI(level.getInventory());
+		gui.initTerminalUI();
+		
+		//finish gui setup
+		gui.initMenuBar(getLoadListener(),
+                getSaveListener(),
+                getExitListener());
+		initKeyBindings();
+		gui.setSize(MainFrame.DEFAULT_WIDTH, MainFrame.DEFAULT_HEIGHT);	
+		gui.setVisible(true);
+	}
+	
+	//creates new subcontrollers and initialises them with the loaded level
+	private void initNewSubcontrollers() {
+		this.terminalController = new RobotTerminalController(gui.getTerminalUI(), gui, this.level);
+		this.playerController = new PlayerController(gui, terminalController);
+		this.robotController = new RobotController(level);
+		this.eventController = new EventController(level,gui);
+	}
+	
+	
+	// returns a level created from the given ObjectInputStream
+	private Level loadLevelFromStream(ObjectInputStream in) throws FileNotFoundException, IOException, ClassNotFoundException {
+		Level loaded = (Level) in.readObject();
+		//give each thing its tile
+		for(Thing thing: loaded.getThings()) {
+			thing.setTile(thing.getTileId());
+		}		
+		//give the player their tile
+		loaded.getPlayer().setTile(loaded.getPlayer().getTileId());
+		//give each inventory item its tile
+		for (Resource resource : loaded.getInventory().getResources()) {
+			resource.setTile(resource.getTileId());
+		}
+		//give each robot's cargo its tile
+		for (AbstractRobot robot : loaded.getRobotQueue()) {
+			Resource resource = robot.getCargo();
+			if (resource != null) {
+				resource.setTile(resource.getTileId());
+			}
+		}					
+		return loaded;
 	}
 	
 }
