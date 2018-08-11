@@ -2,7 +2,9 @@ package beepBoop.controller;
 
 import java.awt.Point;
 import beepBoop.model.Command;
+import beepBoop.model.Event;
 import beepBoop.model.Level;
+import beepBoop.model.MsgEvent;
 import beepBoop.model.Resource;
 import beepBoop.model.AbstractRobot;
 import beepBoop.model.BasicRobot;
@@ -21,17 +23,21 @@ import beepBoop.service.TileFactory;
  *
  */
 public class RobotController {
-	Level level;
-
+	private Level level;
+	private boolean firstTerminalDump;
+	private EventController eventController;
 	
 	/**
 	 * Constructor
 	 * 
 	 * @param level The level on which this controller should work.
+	 * @param eventController EventController controlling the events of the level
 	 */
-	public RobotController(Level level) {
+	public RobotController(Level level, EventController eventController) {
 		super();
 		this.level = level;
+		firstTerminalDump = true;
+		this.eventController = eventController;
 	}
 
 	/**
@@ -198,6 +204,11 @@ public class RobotController {
             level.getInventory().addResource(new Resource(robot.removeCargo(dump),
             		 					TileFactory.getTileIdForResource(cargo.getName()),
                                             cargo.getName()));
+            if (firstTerminalDump) {
+            	Event event = new MsgEvent("A Robot just dumped some cargo on the terminal. It was added to your inventory. Cool...");
+            	event.setTimeout(1);
+            	eventController.addAction(event);
+            }
              
         }
         

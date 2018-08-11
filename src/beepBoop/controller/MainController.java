@@ -50,8 +50,9 @@ public class MainController {
 		this.gui = gui;
 		this.terminalController = new RobotTerminalController(gui.getTerminalUI(), gui, level);
 		this.playerController = new PlayerController(gui, terminalController);
-		this.robotController = new RobotController(level);
 		this.eventController = new EventController(level,gui);
+		this.robotController = new RobotController(level, eventController);
+		
 		this.level = level;
 		this.exit = false;
 		this.paused = false;
@@ -326,8 +327,9 @@ public class MainController {
 	private void initNewSubcontrollers() {
 		this.terminalController = new RobotTerminalController(gui.getTerminalUI(), gui, this.level);
 		this.playerController = new PlayerController(gui, terminalController);
-		this.robotController = new RobotController(level);
 		this.eventController = new EventController(level,gui);
+		this.robotController = new RobotController(level, eventController);
+		
 	}
 	
 	
