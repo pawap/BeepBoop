@@ -25,6 +25,7 @@ import beepBoop.ui.MainFrame;
 
 /**
  * The BeepBoop MainController propagates input to all relevant controllers.
+ * Takes care of loading and saving a level.
  * @author ptp18-d06(Pawel Rasch, Tim Runge)
  *
  */

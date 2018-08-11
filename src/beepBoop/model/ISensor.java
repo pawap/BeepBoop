@@ -3,7 +3,7 @@ package beepBoop.model;
 import java.awt.Point;
 
 /**
- * BeepBoop Robot sensors should implement this interface.
+ * BeepBoop Robot sensors must implement this interface.
  * @author ptp18-d06(Pawel Rasch, Tim Runge)
  *
  */

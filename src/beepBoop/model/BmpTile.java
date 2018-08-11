@@ -24,7 +24,8 @@ public class BmpTile extends Tile {
 	
 	/**
 	 * Constructor
-	 * The tile name should match a .bmp file located in the assets folder.
+	 * The tile name should match a .bmp file located in the assets folder. If it doesn't or the file cannot be accessed,
+	 * a red "error-tile" is created instead. 
 	 * @param tileName
 	 * @param walkable true, if the player and robots can step on this tile while it is used as a ground tile
 	 */
@@ -32,7 +33,8 @@ public class BmpTile extends Tile {
 		super();
 		this.setWalkable(walkable);
 		String filename = "assets" + File.separator + tileName.toLowerCase() + ".bmp";
-        try {
+        //try to load the image from the corresponding bmp-file, create a red errorTile if this fails.
+		try {
 			image = ImageIO.read(new File(filename));
 		} catch (IOException e) {
 			System.out.println("File " + filename + " could not be read.");

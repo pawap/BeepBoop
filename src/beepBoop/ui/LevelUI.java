@@ -80,7 +80,7 @@ public class LevelUI extends JPanel {
 		}	
 	}
 
-
+	//returns true iff the given point is visible on the current viewport
 	private boolean inView(Point position) {
 		double x = position.getX();
 		double y = position.getY();
@@ -90,7 +90,8 @@ public class LevelUI extends JPanel {
 		double maxY = minY + viewSize.getHeight();
 		return x >= minX && x < maxX && y >= minY && y < maxY;
 	}
-
+	
+	//paints the player at the right position
 	private void paintPlayer(Graphics g) {
 		Player p = getLevel().getPlayer();
 		Point viewPos = mapToView(p.getPosition());
@@ -99,7 +100,7 @@ public class LevelUI extends JPanel {
 				viewPos.y * Tile.SIZE.height,null);
 	}
 	
-	//paints the visible part of the level
+	//paints the visible part of the level-landscape
 	private void paintLandscape(Graphics g) {
 		for (int x = 0; x < viewSize.getWidth(); x++) {
 			for (int y = 0; y < viewSize.getHeight(); y++){

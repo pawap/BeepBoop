@@ -35,34 +35,30 @@ public class PlayerController {
 	/*
 	 * Moves the player avatar to the specified new position if it is free or interacts with
 	 * the thing at the specified position
-	 * @param amount the amount to be mined if the thing at x,y is a ressource
 	 * @param x x coordinate of the desired position
 	 * @param y y coordinate of the desired position
 	 * @return true if the player avatar moved
 	 */
-	private boolean moveTo(int amount, int x, int y) {
+	private boolean moveTo(int x, int y) {
 		Level level = levelUI.getLevel();
 		if (!level.isPositionFree(x,y)) {
+			//if player tries to step on a resource, take a little amount instead.
 			if (level.isRessource(x,y)) {
 				Resource resource = (Resource) level.getThing(x,y);
 				Resource transfer = new Resource(resource.takeAmount(10),TileFactory.getTileIdForResource(resource.getName()), resource.getName());
 				if (resource.getAmount() == 0) {
 					level.removeThing(resource);
 				}
-				
 				inventoryUI.getInventory().addResource(transfer);
 				levelUI.repaint();				
 			}
-			
-			if (level.isRobotTerminal(x,y)) {
-			    
+			//if player tries to step on a robotTerminal, interact instead.
+			if (level.isRobotTerminal(x,y)) { 
 				terminalContr.openTerminal();
 				this.levelUI.getLevel().getPlayer().setTerminalAccess(true);
 			}
-			
 			return false;
-		}
-		
+		}	
 		return true;
 	}
 
@@ -76,7 +72,7 @@ public class PlayerController {
 		int x = position.x - 1;
 		int y = position.y;
 		
-		if (moveTo(10,x,y)) {
+		if (moveTo(x,y)) {
 			position.x--;
 			levelUI.repaint();			
 		}
@@ -92,7 +88,7 @@ public class PlayerController {
 		int x = position.x + 1;
 		int y = position.y;	
 		
-		if (moveTo(10,x,y)) {
+		if (moveTo(x,y)) {
 			position.x++;
 			levelUI.repaint();
 		}
@@ -108,7 +104,7 @@ public class PlayerController {
 		int x = position.x;
 		int y = position.y - 1;		
 		
-		if (moveTo(10,x,y)) {
+		if (moveTo(x,y)) {
 			position.y--;
 			levelUI.repaint();
 		}
@@ -124,7 +120,7 @@ public class PlayerController {
 		int x = position.x;
 		int y = position.y + 1;		
 		
-		if (moveTo(10,x,y)) {
+		if (moveTo(x,y)) {
 			position.y++;
 			levelUI.repaint();
 		}

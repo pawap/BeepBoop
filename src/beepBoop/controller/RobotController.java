@@ -55,7 +55,8 @@ public class RobotController {
 	}
 	
 	/**
-	 * Takes care of processing a robot's program 
+	 * Takes care of processing a robot's program by dispatching the robot and it's current command 
+	 * to helper methods, if the critical activity level of the robot is reached.
 	 * 
 	 * @param robot
 	 */
@@ -85,7 +86,7 @@ public class RobotController {
         }	
 	}
 
-	//helper method for gooto commands
+	//helper method for goto commands
     private void jumpTo(AbstractRobot robot, Command command)
     {
         int target = robot.getPc();
@@ -99,7 +100,7 @@ public class RobotController {
         robot.setPc(target);
     }
 
-    //helper method for if commands
+    //helper method for if commands, makes use of the robots sensors
     private void decideCondition(AbstractRobot robot, Command command) {
 		String sensorStr = command.getArgs()[0];
 		SensorService sensorService = SensorService.getInstance();
@@ -137,7 +138,7 @@ public class RobotController {
 		}
 	}
 
-	//helper method for dumping and loading resources
+	//helper method for managing resources
 	private void manageResource(AbstractRobot robot, Command command)
     {
         String direction = command.getArgs()[0];
@@ -152,6 +153,7 @@ public class RobotController {
         
     }
 
+	//helper method for dumping resources
     private void dumpRessource(AbstractRobot robot, Point actOn, int amount)
     {
         Thing thing = level.getThing(actOn.x, actOn.y);
@@ -196,6 +198,7 @@ public class RobotController {
         
     }
 
+	//helper method for loading resources
     private String loadRessource(AbstractRobot robot, Point actOn, int amount) {
         Thing thing = level.getThing(actOn.x, actOn.y);
         Resource cargo = robot.getCargo();
