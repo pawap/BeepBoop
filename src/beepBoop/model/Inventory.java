@@ -7,7 +7,7 @@ import java.util.Observable;
 import java.util.Set;
 
 /**
- * The Inventory holds the Resources the player and his Robots have collected.
+ * The Inventory holds the Resources the player and their robots have collected.
  * @author ptp18-d06(Pawel Rasch, Tim Runge)
  *
  */
@@ -57,7 +57,7 @@ public class Inventory extends Observable implements Serializable {
 	}
 	
 	/**
-	 * Subtract an amount from a held Resource if at least as much is hold as is supposed to be subtracted. 
+	 * Subtract an amount from a held Resource if at least as much is held as is supposed to be subtracted. 
 	 * @param resource the type and amount of Resource that should be subtracted
 	 * @return true, if the Inventory held enough of the Resource and the subtraction was successful
 	 */
@@ -75,10 +75,10 @@ public class Inventory extends Observable implements Serializable {
 	}
 
 	/**
-	 * If the inventory contains at least as many resources as needed, subtract those
-	 * resources and return true.
-	 * @param costs the needed resources as a List
-	 * @return true if the cost could be paid
+	 * If the inventory contains at least as many Resources as needed, subtract
+	 * the needed Resources and return true.
+	 * @param costs the needed Resources as a List
+	 * @return true, if the cost could be paid
 	 */
 	public boolean pay(List<Resource> costs) {	
 		for (Resource cost : costs) {

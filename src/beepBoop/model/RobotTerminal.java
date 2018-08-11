@@ -4,8 +4,8 @@ import beepBoop.service.TileFactory;
 
 /**
  * The in-Landscape representation of the Robot Terminal. 
- * The Player has to interact with this to access the RobotTerminal 
- * Menu and thus the Robot Terminal functions.
+ * The Player has to interact with this to access the  
+ * RobotTerminal Menu and thus the Robot Terminal functions.
  * @author ptp18-d06(Pawel Rasch, Tim Runge)
  *
  */

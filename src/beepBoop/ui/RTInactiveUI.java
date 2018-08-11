@@ -8,7 +8,7 @@ import java.util.HashMap;
 import javax.swing.JTextArea;
 
 /**
- * This UI is shown in playe of the RobotTerminalUI as long as the player has no access to the Terminal.
+ * This UI is shown in place of the RobotTerminalUI as long as the Player has no access to the Terminal.
  * @author ptp18-d06(Pawel Rasch, Tim Runge)
  *
  */
