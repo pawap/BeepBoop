@@ -204,10 +204,12 @@ public class RobotController {
             level.getInventory().addResource(new Resource(robot.removeCargo(dump),
             		 					TileFactory.getTileIdForResource(cargo.getName()),
                                             cargo.getName()));
+            //show a message if this is the first dump
             if (firstTerminalDump) {
             	Event event = new MsgEvent("A Robot just dumped some cargo on the terminal. It was added to your inventory. Cool...");
             	event.setTimeout(1);
             	eventController.addAction(event);
+            	firstTerminalDump = false;
             }
              
         }
