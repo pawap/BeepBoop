@@ -14,7 +14,7 @@ import beepBoop.model.Thing;
 import beepBoop.model.Tile;
 
 /**
- * Shows the visible part of the level.
+ * Shows the visible part of the Level.
  * @author ptp18-d06(Pawel Rasch, Tim Runge)
  *
  */
@@ -29,7 +29,7 @@ public class LevelUI extends JPanel {
 
 	/**
 	 * Constructor
-	 * Constructs a GUI showing hte part of the level surrounding the player.
+	 * Constructs a GUI showing hte part of the level surrounding the Player.
 	 * @param level
 	 */
 	public LevelUI(Level level) {
@@ -54,7 +54,6 @@ public class LevelUI extends JPanel {
 		int yPosInView = PosInLvl.y - viewOrigin.y;
 		return new Point (xPosInView, yPosInView);
 	}
-
 
 	@Override
 	public void paintComponent(Graphics g){
@@ -113,14 +112,14 @@ public class LevelUI extends JPanel {
 	}
 
     /**
-     * @return the level belonging to the LevelUI
+     * @return the Level belonging to the LevelUI
      */
 	public Level getLevel() {
 		return level;
 	}
 
     /**
-     * Change the level that the LevelUI displays.
+     * Change the Level that the LevelUI displays.
      * @param level
      */
 	public void setLevel(Level level) {

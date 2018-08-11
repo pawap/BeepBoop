@@ -8,7 +8,7 @@ import beepBoop.model.Tile;
 /**
  * Grants access to all Tiles used in BeepBoop. Use getInstance() to
  * get access to the singleton instance of TileFactory.
- * TileFactory holds each TileId as a static int.
+ * TileFactory holds each TileId as a public static int.
  * @author ptp18-d06(Pawel Rasch, Tim Runge)
  *
  */

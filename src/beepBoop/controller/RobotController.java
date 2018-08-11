@@ -16,7 +16,7 @@ import beepBoop.service.TileFactory;
  * Controller for the BeepBoop robots
  * 
  * Used to modify the state of robots within the level
- * and process
+ * and process robots' programs.
  * @author ptp18-d06(Pawel Rasch, Tim Runge)
  *
  */

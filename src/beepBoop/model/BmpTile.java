@@ -10,7 +10,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 /**
- * Tiles holding bitmap graphics.
+ *  A Tile holding a bitmap graphic.
  * @author ptp18-d06(Pawel Rasch, Tim Runge)
  *
  */

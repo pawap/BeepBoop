@@ -5,13 +5,14 @@ import java.awt.Point;
 import beepBoop.service.TileFactory;
 
 /**
- * This event drops a certain number of each resource with random amounts (less than 100) in random places
+ * This event drops a certain number of each Resource with random amounts (less than 100) in random places
  * within the rectangle bounded by the two given Points 
  * @author ptp18-d06(Pawel Rasch, Tim Runge)
  *
  */
 public class ResourceDropEvent extends Event {
 
+	private static final long serialVersionUID = -8505408445298690314L;
 	private int dropsPerType;
 	private Point upperLeft;
 	private Point lowerRight;
@@ -19,7 +20,7 @@ public class ResourceDropEvent extends Event {
 	/**
 	 * Constructor
 	 * 
-	 * @param dropsPerType number of resources to drop per type
+	 * @param dropsPerType number of Resources to drop per type
 	 */
 	public ResourceDropEvent(int dropsPerType, Point upperLeft, Point lowerRight) {
 		super();
@@ -27,8 +28,6 @@ public class ResourceDropEvent extends Event {
 		this.upperLeft = upperLeft;
 		this.lowerRight = lowerRight;
 	}
-
-
 
 	@Override
 	public void performChanges(Level level) {

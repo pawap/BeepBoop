@@ -29,7 +29,7 @@ public class Level implements Serializable{
 	/**
 	 * Constructor
 	 * @param landscape The Landscape for the Level
-	 * @param player the player for the Level
+	 * @param player the Player for the Level
 	 * @param inventory the Inventory for the Level
 	 */
 	public Level(Landscape landscape, Player player, Inventory inventory) {
@@ -104,7 +104,8 @@ public class Level implements Serializable{
 	}
 	
 	/**
-	 * A position in the Level is considered free if its Tile is walkable and there is neither the Player nor another Thing
+	 * A position in the Level is considered free if its Tile is walkable and there is neither
+	 * the Player nor another Thing in the same position.
 	 * @param x the x coordinate of the position to check
 	 * @param y the y coordinate of the position to check
 	 * @return true if the position is free
@@ -148,7 +149,7 @@ public class Level implements Serializable{
 	 * @return true if the Robot has been added
 	 */
 	public boolean addRobot(AbstractRobot robot) {
-		if (robotQueue.add(robot)) { //false if a robot with the same name already exists in the queue
+		if (robotQueue.add(robot)) { 
 			return addThing(robot);	
 		}
 		return false;
@@ -176,14 +177,13 @@ public class Level implements Serializable{
 			thingsReturned.addAll(things.values());
 		} catch (ConcurrentModificationException e) {
 			System.out.println("Caught ConcurrentModificationException! Trying again...");
-			//e.printStackTrace();
 			return getThings();
 		}
 		return thingsReturned;	
 	}
 
 	/**
-	 * Checks if a position in the Level contains a Resource
+	 * Checks if a position in the Level contains a Resource.
 	 * @param x the x coordinate of the position to check
 	 * @param y the y coordinate of the position to check
 	 * @return true if there is a Resource at the position
@@ -208,7 +208,7 @@ public class Level implements Serializable{
 	}
 
 	/**
-	 * Checks if a position in the Level contains a RobotTerminal
+	 * Checks if a position in the Level contains a RobotTerminal.
 	 * @param x the x coordinate of the position to check
 	 * @param y the y coordinate of the position to check
 	 * @return true if there is a RobotTerminal at the position
@@ -218,7 +218,7 @@ public class Level implements Serializable{
 	}
 
 	/**
-	 * Removes the Thing from the Level 
+	 * Removes a Thing from the Level.
 	 * @param thing the Thing to be removed
 	 */
 	public void removeThing(Thing thing) {

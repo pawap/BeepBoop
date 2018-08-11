@@ -6,7 +6,7 @@ import java.io.Serializable;
 import beepBoop.service.TileFactory;
 
 /**
- * A Landscape holds a grid of tiles. Each Level uses a Landscape which defines the basic terrain. 
+ * A Landscape holds a grid of tiles. Each BeepBoop Level uses a Landscape which defines the basic terrain. 
  * @author ptp18-d06(Pawel Rasch, Tim Runge)
  *
  */
@@ -99,7 +99,7 @@ public class Landscape implements Serializable{
 	}
 	
     /**
-     * checks if a position is inside the Landscape
+     * Check if a position is inside the Landscape.
      * @param x the x coordinate of the position
      * @param y the y coordinate of the position
      * @return true if the position is inside the dimensions of the Landscape

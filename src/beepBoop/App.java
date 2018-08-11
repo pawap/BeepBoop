@@ -45,6 +45,7 @@ public class App {
 		gui.initMenuBar(mainContr.getLoadListener(),
 		                mainContr.getSaveListener(),
 		                mainContr.getExitListener());
+		
 		gui.setVisible(true);
 		
 		//start the game

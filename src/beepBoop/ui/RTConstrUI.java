@@ -25,7 +25,6 @@ public class RTConstrUI extends AbstractRobotTerminalUI{
 
 	private static final long serialVersionUID = 4276533727373179235L;
 	private JComboBox<String> robotClassDropDown;
-
 	private JTextArea infoField;
 	private JButton backButton;
 	private JButton constructButton;

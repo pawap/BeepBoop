@@ -6,7 +6,7 @@ import java.awt.Image;
 import java.awt.image.BufferedImage;
 
 /**
- * Simple tiles intended for testing purposes. 
+ * Simple monocolored tiles intended for testing purposes. 
  * @author ptp18-d06(Pawel Rasch, Tim Runge)
  *
  */
