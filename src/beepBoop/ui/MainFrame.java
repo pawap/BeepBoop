@@ -1,5 +1,6 @@
 package beepBoop.ui;
 
+import java.awt.Color;
 import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -49,6 +50,7 @@ public class MainFrame extends JFrame {
 	public MainFrame(){
 		super();
 		this.setLayout(new GridBagLayout());
+		this.setBackground(Color.DARK_GRAY);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 	
 	}
@@ -63,8 +65,11 @@ public class MainFrame extends JFrame {
 		//the bar
 		JMenuBar menuBar = new JMenuBar();
 		//the file menu
+		menuBar.setBackground(Color.DARK_GRAY);
+		menuBar.setForeground(Color.LIGHT_GRAY);
 		JMenu fileMenu= new JMenu("File");
 		fileMenu.setMnemonic(KeyEvent.VK_F);
+		fileMenu.setForeground(Color.LIGHT_GRAY);
 		//the load item
 		JMenuItem loadMI = new JMenuItem("Load...");
 		loadMI.setMnemonic(KeyEvent.VK_O);

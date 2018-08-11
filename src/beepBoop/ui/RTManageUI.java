@@ -43,9 +43,11 @@ public class RTManageUI extends AbstractRobotTerminalUI {
 	public RTManageUI() {
 		super();
 		this.setLayout(new GridBagLayout());
-
+		this.setBackground(Color.DARK_GRAY);
+		this.setForeground(Color.LIGHT_GRAY);
 		// Add robotsDropDownLabel
 		JLabel robotsDropDownLabel = new JLabel("Choose a robot!");
+		robotsDropDownLabel.setForeground(Color.LIGHT_GRAY);
 		GridBagConstraints c = new GridBagConstraints();        
 		c.weighty = 0;
 		c.weightx = 1;
@@ -67,6 +69,7 @@ public class RTManageUI extends AbstractRobotTerminalUI {
 		cargoLabel = new JLabel();
 		c.gridy = 2;
 		cargoLabel.setBackground(Color.DARK_GRAY);
+		cargoLabel.setForeground(Color.LIGHT_GRAY);
 		this.add(cargoLabel);
 		
 		// Add infoField and its scrollPane

@@ -156,19 +156,24 @@ public class RobotController {
 	//helper method for dumping resources
     private void dumpRessource(AbstractRobot robot, Point actOn, int amount)
     {
+    	
         Thing thing = level.getThing(actOn.x, actOn.y);
         Resource cargo = robot.getCargo();
-        int dump = Math.min(cargo.getAmount(), amount);
         if (cargo == null || cargo.getAmount() <= 0) {
             robot.setError("No Cargo to DUMP");            
             
             return;
         }
-        
+        int dump = Math.min(cargo.getAmount(), amount);
         if (thing == null) {
+        	if (!level.isPositionFree(actOn.x, actOn.y)) {
+                robot.setError("Can't drop on non-walkable spot");            
+                return;       		
+        	}
             Resource resource = new Resource(robot.removeCargo(dump),
                     TileFactory.getTileIdForResource(cargo.getName()),
                     cargo.getName());
+            
             resource.setPosition(actOn);
             
             level.addThing(resource);

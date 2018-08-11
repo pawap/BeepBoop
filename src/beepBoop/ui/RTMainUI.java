@@ -1,5 +1,6 @@
 package beepBoop.ui;
 
+import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionListener;
@@ -25,7 +26,7 @@ public class RTMainUI extends AbstractRobotTerminalUI {
 	public RTMainUI() {
 		super();
 		this.setLayout(new GridBagLayout());
-
+		this.setBackground(Color.DARK_GRAY);
 		//set layout constraints
 		GridBagConstraints constraints = new GridBagConstraints();        		
 		constraints.weighty = 0;

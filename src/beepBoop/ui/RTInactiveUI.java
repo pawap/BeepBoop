@@ -1,5 +1,6 @@
 package beepBoop.ui;
 
+import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.util.EventListener;
@@ -22,7 +23,7 @@ public class RTInactiveUI extends AbstractRobotTerminalUI {
 	public RTInactiveUI() {
 		super();
 		this.setLayout(new GridBagLayout());
-
+		this.setBackground(Color.DARK_GRAY);
 		String text = "Access the nearest Robot Terminal. "
 				    + "A WiFi connection to your brain implant will be established automatically.";
 		JTextArea textArea = new JTextArea();

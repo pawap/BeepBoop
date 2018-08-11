@@ -1,5 +1,6 @@
 package beepBoop.ui;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Point;
@@ -34,6 +35,7 @@ public class LevelUI extends JPanel {
 	public LevelUI(Level level) {
 		super();
 		this.setLevel(level);
+		this.setBackground(Color.DARK_GRAY);
 	}
 	
 	//calculate the origin point for the visible part of the map

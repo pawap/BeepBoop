@@ -80,6 +80,8 @@ public class App {
 		landscape.placeRect(0, 49, 49, 49, TileFactory.ROCK_OFFSET);
 		landscape.placeRect(49, 0, 49, 49, TileFactory.ROCK_OFFSET);
 		landscape.placeRect(8, 8, 12, 12, TileFactory.EARTH_OFFSET);
+		landscape.placeRect(5, 15, 15, 15, TileFactory.ROCK_OFFSET);
+		landscape.placeRect(11, 1, 11, 3, TileFactory.ROCK_OFFSET);
 		
 		Player player = new Player();
 		player.setPosition(new Point(10,10));
@@ -114,24 +116,24 @@ public class App {
 
 		//add a robot
 		BasicRobot robot = new BasicRobot();
-		robot.setPosition(new Point(10,12));
+		robot.setPosition(new Point(15,5));
 		List<String> program = new LinkedList<String>();
-		program.add("IF FREE L");
-		program.add("L");
+		program.add("IF FREE R");
+		program.add("R");
 		program.add("GOTO 0");
 		program.add("END");
-		program.add("LD L 50");
+		program.add("LD R 50");
         program.add("U");
         program.add("U");
         program.add("U");
         program.add("U");
         program.add("U");        
-        program.add("IF FREE R");
-        program.add("DP L 1"); 
-        program.add("R");
+        program.add("IF FREE L");
+        program.add("DP R 1"); 
+        program.add("L");
         program.add("GOTO 10");
         program.add("END");
-        program.add("DP R 50");      
+        program.add("DP L 50");      
 		robot.setMemory(program);
 		level.addRobot(robot);
 		
@@ -148,8 +150,53 @@ public class App {
 		program.add("L");
 		program.add("D");	
 		robot2.setMemory(program);
-		robot2.setActivityCounter(8);
+		robot2.setActivityCounter(5);
 		level.addRobot(robot2);
+		
+		BasicRobot robot3 = new BasicRobot();
+		robot3.setPosition(new Point(6,5));
+		program = new LinkedList<String>();		
+		
+		
+		program.add("IF FREE D");
+		program.add("D");
+		program.add("GOTO 0");
+		program.add("END");
+		program.add("IF RESOURCE D");
+		program.add("LD D 50");
+		program.add("GOTO 0");
+		program.add("END");
+		program.add("DP D 100");
+		program.add("IF FREE R");
+		program.add("R");
+		program.add("GOTO 17");
+		program.add("END");
+		program.add("IF RESOURCE R");
+		program.add("LD R 50");
+		program.add("GOTO 9");
+		program.add("END");
+		program.add("IF FREE U");
+		program.add("U");
+		program.add("GOTO 17");
+		program.add("END");
+		program.add("IF RESOURCE U");
+		program.add("LD U 50");
+		program.add("GOTO 17");
+		program.add("END");
+		program.add("DP U 100");
+		program.add("IF FREE R");
+		program.add("R");
+		program.add("GOTO 34");
+		program.add("END");
+		program.add("IF RESOURCE R");
+		program.add("LD R 50");
+		program.add("GOTO 26");
+		program.add("END");		
+		program.add("GOTO 0");
+		robot3.setMemory(program);
+		robot3.setActivityCounter(10);
+		level.addRobot(robot3);		
+		
 		//randomly place some more Resources
 		for (String tileName: new String[]{"silicon","platinum","iron","gold","copper"}) {			
 			for (int i = 0; i < 20; i++) {
@@ -162,12 +209,20 @@ public class App {
 					case "copper": tileId = TileFactory.COPPER; break;
 				}
 				Resource resource = new Resource((int) Math.round(Math.random() * 100) + 1, tileId, tileName);
-				resource.setPosition(new Point((int) Math.round(Math.random() * 50), (int) Math.round(Math.random() * 50)));
+				resource.setPosition(new Point((int) Math.round(Math.random() * 40)+11, (int) Math.round(Math.random() * 40)+10));
 				if (!level.addThing(resource)) {
 					i--;
 				}		
 			}				
-		}		
+		}	
+		// place some gold left of terminal for demo purposes;
+		for (int i = 0; i < 30; i++) {
+			Resource resource = new Resource((int) Math.round(Math.random() * 100) + 1, TileFactory.GOLD, "gold");
+			resource.setPosition(new Point((int) Math.round(Math.random() * 10), (int) Math.round(Math.random() * 20)));
+			if (!level.addThing(resource)) {
+				i--;
+			}		
+		}			
         //possibly set up welcome messages
 		if (showWelcomeMessages) {
 			Event msg = new MsgEvent("This is rather confusing, isn't it?");
@@ -181,15 +236,18 @@ public class App {
 			level.addEvent(msg);
 		}
 		
-		//add a bunch of resourceDropEvents;
+		//add a bunch of resourceDropEvents on the right side of the terminal;
 		Event resourceDropEvent;
 		for (int i = 0; i< 20; i++) {
-			resourceDropEvent = new ResourceDropEvent(i + 1);
+			resourceDropEvent = new ResourceDropEvent(i + 1, new Point(11,1), new Point(49,49));
 			resourceDropEvent.setTimeout(i * 8);
 			level.addEvent(resourceDropEvent);
 		}
-		Event msg = new MsgEvent("Did you realize that resources seem to spawn randomly?");
+		Event msg = new MsgEvent("Did you realize that resources seem to spawn randomly to the right of the robot terminal?");
 		msg.setTimeout(20);
+		level.addEvent(msg);
+		msg = new MsgEvent("Oh... the random drops seem to have stopped. So sad. Looser!");
+		msg.setTimeout(200);
 		level.addEvent(msg);
 		return level;
 	}

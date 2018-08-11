@@ -1,5 +1,6 @@
 package beepBoop.ui;
 
+import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionListener;
@@ -39,7 +40,7 @@ public class RTConstrUI extends AbstractRobotTerminalUI{
 		initRobotClasses();
 		
 		this.setLayout(new GridBagLayout());
-		
+		this.setBackground(Color.DARK_GRAY);
 		//Add label
 		JLabel classDropDownLabel = new JLabel("Choose a robot class to construct!");
 		GridBagConstraints c = new GridBagConstraints();        
