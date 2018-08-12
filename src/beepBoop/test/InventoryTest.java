@@ -10,27 +10,29 @@ import beepBoop.model.Resource;
 import beepBoop.service.TileFactory;
 
 /**
+ * PTP 2018 BeepBoop - the RobotGame
+ * 
  * @author ptp18-d06(Pawel Rasch, Tim Runge)
  */
-public class InventoryTest {	
-	
+public class InventoryTest {
+
 	@Test
 	public void addResource_addNewResource_containsCorrectAmount() {
-		//arrange
+		// arrange
 		Inventory inventory = new Inventory();
 		String someResourceType = "iron";
 		int someAmount = 40;
 		Resource someResource = new Resource(someAmount, TileFactory.IRON, someResourceType);
-		//act
+		// act
 		inventory.addResource(someResource);
-		//assert
-		assertTrue(containsCorrectAmountOf(inventory, someResourceType, someAmount));		
-	
+		// assert
+		assertTrue(containsCorrectAmountOf(inventory, someResourceType, someAmount));
+
 	}
-	
+
 	@Test
 	public void addResource_addExistingResource_containsSum() {
-		//arrange
+		// arrange
 		Inventory inventory = new Inventory();
 		HashSet<Resource> resources = new HashSet<Resource>();
 		String someResourceType = "iron";
@@ -40,17 +42,17 @@ public class InventoryTest {
 		int anotherAmount = 10;
 		Resource moreOfTheSame = new Resource(anotherAmount, TileFactory.IRON, someResourceType);
 		inventory.setResources(resources);
-		//act
+		// act
 		inventory.addResource(moreOfTheSame);
-		//assert
+		// assert
 		int correctAmount = someAmount + anotherAmount;
-		assertTrue(containsCorrectAmountOf(inventory, someResourceType, correctAmount));		
-	
+		assertTrue(containsCorrectAmountOf(inventory, someResourceType, correctAmount));
+
 	}
-	
+
 	@Test
 	public void subtractResource_subtractSome_containsCorrectAmount() {
-		//arrange
+		// arrange
 		Inventory inventory = new Inventory();
 		HashSet<Resource> resources = new HashSet<Resource>();
 		String someResourceType = "iron";
@@ -60,17 +62,17 @@ public class InventoryTest {
 		int lesserAmount = 10;
 		Resource lessOfTheSame = new Resource(lesserAmount, TileFactory.IRON, someResourceType);
 		inventory.setResources(resources);
-		//act
+		// act
 		inventory.subtractResource(lessOfTheSame);
-		//assert
+		// assert
 		int correctAmount = someAmount - lesserAmount;
-		assertTrue(containsCorrectAmountOf(inventory, someResourceType, correctAmount));		
-	
+		assertTrue(containsCorrectAmountOf(inventory, someResourceType, correctAmount));
+
 	}
-	
+
 	@Test
 	public void subtractResource_tryToSubtractTooMuch_returnFalse() {
-		//arrange
+		// arrange
 		Inventory inventory = new Inventory();
 		HashSet<Resource> resources = new HashSet<Resource>();
 		String someResourceType = "iron";
@@ -80,14 +82,12 @@ public class InventoryTest {
 		int greaterAmount = 42;
 		Resource moreOfTheSame = new Resource(greaterAmount, TileFactory.IRON, someResourceType);
 		inventory.setResources(resources);
-		//act
+		// act
 		boolean subtractionSuccesful = inventory.subtractResource(moreOfTheSame);
-		//assert
-		assertFalse(subtractionSuccesful);		
-	
-	}
-	
+		// assert
+		assertFalse(subtractionSuccesful);
 
+	}
 
 	private boolean containsCorrectAmountOf(Inventory inventory, String resourceType, int correctAmount) {
 		for (Resource resource : inventory.getResources()) {

@@ -1,5 +1,6 @@
 package beepBoop.ui;
 
+import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionListener;
@@ -9,7 +10,11 @@ import java.util.HashMap;
 import javax.swing.JButton;
 
 /**
- * The GUI for the main submenu of the RobetTerminal. This GUI lets the navigate to the other submenus.
+ * PTP 2018 BeepBoop - the RobotGame
+ * 
+ * The GUI for the main submenu of the RobetTerminal. This GUI lets the navigate
+ * to the other submenus.
+ * 
  * @author ptp18-d06(Pawel Rasch, Tim Runge)
  *
  */
@@ -25,9 +30,9 @@ public class RTMainUI extends AbstractRobotTerminalUI {
 	public RTMainUI() {
 		super();
 		this.setLayout(new GridBagLayout());
-
-		//set layout constraints
-		GridBagConstraints constraints = new GridBagConstraints();        		
+		this.setBackground(Color.DARK_GRAY);
+		// set layout constraints
+		GridBagConstraints constraints = new GridBagConstraints();
 		constraints.weighty = 0;
 		constraints.weightx = 1;
 		constraints.gridx = 0;
@@ -35,7 +40,7 @@ public class RTMainUI extends AbstractRobotTerminalUI {
 		constraints.fill = GridBagConstraints.HORIZONTAL;
 		constraints.anchor = GridBagConstraints.PAGE_START;
 
-		//create and add buttons
+		// create and add buttons
 		constrButton = new JButton("Construct Robots");
 		manageButton = new JButton("Manage Robots");
 		this.add(constrButton, constraints);
@@ -44,25 +49,24 @@ public class RTMainUI extends AbstractRobotTerminalUI {
 	}
 
 	/**
-	 * Adds EventListeners to the gui elements. Needs to contain the following key -> value pairs:
+	 * Adds EventListeners to the gui elements.
+	 * Needs to contain the following key -> value pairs: 
 	 * Construct Robots button: "constr" -> ActionListener
 	 * Manage Robots button: "manage" -> Actionlistener
-	 * @param listeners  
+	 * 
+	 * @param listeners
 	 */
 	@Override
 	public void addListeners(HashMap<String, EventListener> listeners) {
 		EventListener constrL = listeners.get("constr");
 		EventListener manageL = listeners.get("manage");
-		
-		if(constrL instanceof ActionListener &&
-		   manageL instanceof ActionListener) {
+
+		if (constrL instanceof ActionListener && manageL instanceof ActionListener) {
 			constrButton.addActionListener((ActionListener) constrL);
-			manageButton.addActionListener((ActionListener) manageL);		
-		}
-		else {
+			manageButton.addActionListener((ActionListener) manageL);
+		} else {
 			System.out.println("Tried to pass wrong Listener type to RTMainUI");
 		}
 	}
-
 
 }

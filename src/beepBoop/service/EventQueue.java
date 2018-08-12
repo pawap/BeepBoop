@@ -6,6 +6,8 @@ import java.util.concurrent.DelayQueue;
 import beepBoop.model.Event;
 
 /**
+ * PTP 2018 BeepBoop - the RobotGame
+ * 
  * A DelayedQueue holding events
  * 
  * @author ptp18-d06(Pawel Rasch, Tim Runge)
