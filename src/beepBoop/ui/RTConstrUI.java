@@ -91,10 +91,11 @@ public class RTConstrUI extends AbstractRobotTerminalUI {
 	}
 
 	/**
-	 * Adds EventListeners to the gui elements. Needs to contain the following
-	 * key -> value pairs: Robot Class drop down menu: "rcDropDown" ->
-	 * ItemListener Construct button: "constr" -> ActionListener Back button:
-	 * "back" -> ActionListener
+	 * Adds EventListeners to the gui elements. 
+	 * Needs to contain the following key -> value pairs: 
+	 * Robot Class drop down menu: "rcDropDown" -> ItemListener 
+	 * Construct button: "constr" -> ActionListener 
+	 * Back button: "back" -> ActionListener
 	 * 
 	 * @param listeners
 	 */
@@ -104,7 +105,9 @@ public class RTConstrUI extends AbstractRobotTerminalUI {
 		EventListener consL = listeners.get("constr");
 		EventListener backL = listeners.get("back");
 
-		if (rcDropDownL instanceof ItemListener && consL instanceof ActionListener && backL instanceof ActionListener) {
+		if (rcDropDownL instanceof ItemListener 
+			&& consL instanceof ActionListener 
+			&& backL instanceof ActionListener) {
 			robotClassDropDown.addItemListener((ItemListener) rcDropDownL);
 			constructButton.addActionListener((ActionListener) consL);
 			backButton.addActionListener((ActionListener) backL);

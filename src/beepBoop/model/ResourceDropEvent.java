@@ -63,8 +63,7 @@ public class ResourceDropEvent extends Event {
 				int x = (int) Math.round(Math.random() * width) + upperLeft.x;
 				int y = (int) Math.round(Math.random() * height) + upperLeft.y;
 				resource.setPosition(new Point(x, y));
-				// decrease counter if resource could not be placed, i.e.: try
-				// again
+				// decrease counter if resource could not be placed, i.e.: try again
 				if (!level.addThing(resource)) {
 					i--;
 				}

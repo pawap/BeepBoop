@@ -48,7 +48,8 @@ public class Landscape implements Serializable {
 	public void setSize(Dimension size) {
 		this.size = size;
 		int[][] newTiles = new int[size.width][size.height];
-		int transX = Math.min(tiles.length, newTiles.length), transY = Math.min(tiles[0].length, newTiles[0].length);
+		int transX = Math.min(tiles.length, newTiles.length), 
+			transY = Math.min(tiles[0].length, newTiles[0].length);
 		for (int x = 0; x < transX; x++) {
 			for (int y = 0; y < transY; y++) {
 				newTiles[x][y] = tiles[x][y];

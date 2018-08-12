@@ -49,8 +49,9 @@ public class RTMainUI extends AbstractRobotTerminalUI {
 	}
 
 	/**
-	 * Adds EventListeners to the gui elements. Needs to contain the following
-	 * key -> value pairs: Construct Robots button: "constr" -> ActionListener
+	 * Adds EventListeners to the gui elements.
+	 * Needs to contain the following key -> value pairs: 
+	 * Construct Robots button: "constr" -> ActionListener
 	 * Manage Robots button: "manage" -> Actionlistener
 	 * 
 	 * @param listeners

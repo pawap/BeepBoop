@@ -51,8 +51,7 @@ public class PlayerController {
 	private boolean moveTo(int x, int y) {
 		Level level = levelUI.getLevel();
 		if (!level.isPositionFree(x, y)) {
-			// if player tries to step on a resource, take a little amount
-			// instead.
+			// if player tries to step on a resource, take a little amount instead.
 			if (level.isRessource(x, y)) {
 				Resource resource = (Resource) level.getThing(x, y);
 				Resource transfer = new Resource(resource.takeAmount(10),

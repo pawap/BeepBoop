@@ -30,13 +30,16 @@ public class LandscapeTest {
 		Dimension landscapeDimensions = new Dimension(someWidth, someHeight);
 		Landscape landscape = new Landscape(landscapeDimensions);
 		// act
-		landscape.placeRect(topLeftRectCornerX, topLeftRectCornerY, bottomRightRectCornerX, bottomRightRectCornerY,
-				TileFactory.EARTH_0);
+		landscape.placeRect(topLeftRectCornerX, 
+				            topLeftRectCornerY, 
+				            bottomRightRectCornerX, 
+				            bottomRightRectCornerY,
+				            TileFactory.EARTH_0);
 		// assert
 		Tile justPlaced = landscape.getTile(topLeftRectCornerX, topLeftRectCornerY);
 		TileFactory tf = TileFactory.getInstance();
-		assertEquals("wrong tile at " + topLeftRectCornerX + ", " + topLeftRectCornerY, justPlaced,
-				tf.get(TileFactory.EARTH_0));
+		assertEquals("wrong tile at " + topLeftRectCornerX + ", " + topLeftRectCornerY, 
+				     justPlaced, tf.get(TileFactory.EARTH_0));
 	}
 
 	@Test
@@ -52,8 +55,11 @@ public class LandscapeTest {
 		Landscape landscape = new Landscape(landscapeDimensions);
 		// act & assert
 		try {
-			landscape.placeRect(topLeftRectCornerX, topLeftRectCornerY, illegalBottomRightRectCornerX,
-					bottomRightRectCornerY, TileFactory.EARTH_0);
+			landscape.placeRect(topLeftRectCornerX, 
+					            topLeftRectCornerY, 
+					            illegalBottomRightRectCornerX,
+					            bottomRightRectCornerY, 
+					            TileFactory.EARTH_0);
 			fail("No Exception thrown.");
 		} catch (IllegalArgumentException e) {
 
@@ -77,7 +83,8 @@ public class LandscapeTest {
 		// assert
 		Tile justPlaced = landscape.getTile(someX, someY);
 		TileFactory tf = TileFactory.getInstance();
-		assertEquals("wrong tile at " + someX + ", " + someY, justPlaced, tf.get(TileFactory.EARTH_0));
+		assertEquals("wrong tile at " + someX + ", " + someY, 
+				     justPlaced, tf.get(TileFactory.EARTH_0));
 	}
 
 	@Test
@@ -119,7 +126,9 @@ public class LandscapeTest {
 		// assert
 		Tile tileInQuestion = landscape.getTile(someX, someY);
 		TileFactory tf = TileFactory.getInstance();
-		assertEquals("wrong tile at " + someX + ", " + someY, tileInQuestion, tf.get(TileFactory.GRASS_1));
+		assertEquals("wrong tile at " + someX + ", " + someY, 
+				     tileInQuestion, 
+				     tf.get(TileFactory.GRASS_1));
 
 	}
 

@@ -133,7 +133,8 @@ public class RobotController {
 		} else {
 			if (!sensor.check(command.getArgs(), robot.getPosition(), level)) {
 				int i = robot.getPc();
-				while (!robot.getCurrentCommand().getType().equals("END") && i < robot.getMemory().size()) {
+				while (!robot.getCurrentCommand().getType().equals("END") 
+					   && i < robot.getMemory().size()) {
 					i++;
 					robot.incrementPc();
 				}
@@ -192,8 +193,9 @@ public class RobotController {
 				robot.setError("Can't drop on non-walkable spot");
 				return;
 			}
-			Resource resource = new Resource(robot.removeCargo(dump), TileFactory.getTileIdForResource(cargo.getName()),
-					cargo.getName());
+			Resource resource = new Resource(robot.removeCargo(dump), 
+					                         TileFactory.getTileIdForResource(cargo.getName()),
+					                         cargo.getName());
 
 			resource.setPosition(actOn);
 
@@ -216,7 +218,8 @@ public class RobotController {
 
 		if (thing instanceof RobotTerminal) {
 			level.getInventory().addResource(new Resource(robot.removeCargo(dump),
-					TileFactory.getTileIdForResource(cargo.getName()), cargo.getName()));
+					                         TileFactory.getTileIdForResource(cargo.getName()),
+					                         cargo.getName()));
 			// show a message if this is the first dump
 			if (firstTerminalDump) {
 				Event event = new MsgEvent(
