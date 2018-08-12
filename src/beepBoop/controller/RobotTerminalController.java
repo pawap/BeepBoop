@@ -202,20 +202,20 @@ public class RobotTerminalController implements Observer {
 	// export a program to disk
 	private void export(String type, String text) {
 		JFileChooser chooser = new JFileChooser();
-		String fileExtension = ".bbp";
+		String fileExtension = "bbp";
 		String fileType = "BeepBoopProgram File";
 		chooser.setDialogTitle("Export the BeepBoopProgram of your Robot");
 		if (type.equals("Error Log")) {
 			chooser.setDialogTitle("Export the Error Log of your Robot");
-			fileExtension = ".txt";
+			fileExtension = "txt";
 			fileType = "Textfile";
 		}
 		chooser.setFileFilter(new FileNameExtensionFilter(fileType, fileExtension));
 		int result = chooser.showDialog(this.mainFrame, "Export");
 		if (result == JFileChooser.APPROVE_OPTION) {
 			String name = chooser.getSelectedFile().getPath();
-			if (!name.endsWith(fileExtension)) {
-				name += fileExtension;
+			if (!name.endsWith("." + fileExtension)) {
+				name += "." + fileExtension;
 			}
 			try (FileWriter writer = new FileWriter(name)) {
 				writer.write(text);
