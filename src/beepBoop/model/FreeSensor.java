@@ -1,16 +1,18 @@
 package beepBoop.model;
 
 import java.awt.Point;
+
 /**
- * PTP 2018
- * BeepBoop - the RobotGame
+ * PTP 2018 BeepBoop - the RobotGame
  * 
- * A sensor that checks if the Tile next to the Robot in a given direction is free. 
+ * A sensor that checks if the Tile next to the Robot in a given direction is
+ * free.
+ * 
  * @author ptp18-d06(Pawel Rasch, Tim Runge)
  *
  */
 public class FreeSensor implements ISensor {
-	
+
 	@Override
 	public boolean check(String[] params, Point p, Level level) {
 		Point target = Command.getPointFromDirection(p, params[1]);

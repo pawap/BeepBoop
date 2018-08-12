@@ -3,10 +3,10 @@ package beepBoop.model;
 import beepBoop.service.TileFactory;
 
 /**
- * PTP 2018
- * BeepBoop - the RobotGame
+ * PTP 2018 BeepBoop - the RobotGame
  * 
- * The Player is the Thing representing the user in BeepBoop. 
+ * The Player is the Thing representing the user in BeepBoop.
+ * 
  * @author ptp18-d06(Pawel Rasch, Tim Runge)
  *
  */
@@ -23,7 +23,9 @@ public class Player extends Thing {
 	}
 
 	/**
-	 * A Player with terminal access can use the terminal functions to construct and manage robots.
+	 * A Player with terminal access can use the terminal functions to construct
+	 * and manage robots.
+	 * 
 	 * @return true, if the Player has terminal access
 	 */
 	public boolean hasTerminalAccess() {
@@ -31,8 +33,11 @@ public class Player extends Thing {
 	}
 
 	/**
-	 * A Player with terminal access can use the terminal functions to construct and manage robots.
-	 * @param terminalAccess the terminalAccess to set
+	 * A Player with terminal access can use the terminal functions to construct
+	 * and manage robots.
+	 * 
+	 * @param terminalAccess
+	 *            the terminalAccess to set
 	 */
 	public void setTerminalAccess(boolean terminalAccess) {
 		this.terminalAccess = terminalAccess;

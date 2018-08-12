@@ -7,10 +7,10 @@ import java.util.Observable;
 import java.util.Set;
 
 /**
- * PTP 2018
- * BeepBoop - the RobotGame
+ * PTP 2018 BeepBoop - the RobotGame
  * 
  * The Inventory holds the Resources the player and their robots have collected.
+ * 
  * @author ptp18-d06(Pawel Rasch, Tim Runge)
  *
  */
@@ -18,7 +18,7 @@ public class Inventory extends Observable implements Serializable {
 
 	private static final long serialVersionUID = -4001842018972736252L;
 	private HashSet<Resource> resources;
-	
+
 	/**
 	 * Constructor
 	 */
@@ -35,19 +35,23 @@ public class Inventory extends Observable implements Serializable {
 
 	/**
 	 * Replaces the Resources in the Inventory.
-	 * @param resources a new set of Resources
+	 * 
+	 * @param resources
+	 *            a new set of Resources
 	 */
 	public void setResources(HashSet<Resource> resources) {
 		this.resources = resources;
 	}
 
-    /**
-     * Add a Resource to the Inventory.
-     * @param resource the Resource to be added
-     */
+	/**
+	 * Add a Resource to the Inventory.
+	 * 
+	 * @param resource
+	 *            the Resource to be added
+	 */
 	public void addResource(Resource resource) {
-		for (Resource res: resources) {
-			if (res.getName().equals(resource.getName())) {		
+		for (Resource res : resources) {
+			if (res.getName().equals(resource.getName())) {
 				res.increaseAmount(resource.getAmount());
 				this.setChanged();
 				this.notifyObservers();
@@ -58,20 +62,24 @@ public class Inventory extends Observable implements Serializable {
 		this.setChanged();
 		this.notifyObservers();
 	}
-	
+
 	/**
-	 * Subtract an amount from a held Resource if at least as much is held as is supposed to be subtracted. 
-	 * @param resource the type and amount of Resource that should be subtracted
-	 * @return true, if the Inventory held enough of the Resource and the subtraction was successful
+	 * Subtract an amount from a held Resource if at least as much is held as is
+	 * supposed to be subtracted.
+	 * 
+	 * @param resource
+	 *            the type and amount of Resource that should be subtracted
+	 * @return true, if the Inventory held enough of the Resource and the
+	 *         subtraction was successful
 	 */
 	public boolean subtractResource(Resource resource) {
-		for (Resource res: resources) {
-			if (res.getName().equals(resource.getName()) && res.getAmount() >= resource.getAmount()) {		
+		for (Resource res : resources) {
+			if (res.getName().equals(resource.getName()) && res.getAmount() >= resource.getAmount()) {
 				res.takeAmount(resource.getAmount());
 				this.setChanged();
 				this.notifyObservers();
 				return true;
-				
+
 			}
 		}
 		return false;
@@ -80,12 +88,14 @@ public class Inventory extends Observable implements Serializable {
 	/**
 	 * If the inventory contains at least as many Resources as needed, subtract
 	 * the needed Resources and return true.
-	 * @param costs the needed Resources as a List
+	 * 
+	 * @param costs
+	 *            the needed Resources as a List
 	 * @return true, if the cost could be paid
 	 */
-	public boolean pay(List<Resource> costs) {	
+	public boolean pay(List<Resource> costs) {
 		for (Resource cost : costs) {
-			for (Resource stock: resources) {
+			for (Resource stock : resources) {
 				if (cost.getName().equals(stock.getName())) {
 					if (cost.getAmount() > stock.getAmount()) {
 						return false;
@@ -98,5 +108,5 @@ public class Inventory extends Observable implements Serializable {
 		}
 		return !resources.isEmpty();
 	}
-	
+
 }

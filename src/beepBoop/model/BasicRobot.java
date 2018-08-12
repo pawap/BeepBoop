@@ -6,34 +6,35 @@ import java.util.List;
 import beepBoop.service.TileFactory;
 
 /**
- * PTP 2018
- * BeepBoop - the RobotGame
+ * PTP 2018 BeepBoop - the RobotGame
  * 
- * The most basic robot. Can carry up to 1000 of one type of Resource.
- * It has two sensors, a ResourceSensor and a FreeSensor.
+ * The most basic robot. Can carry up to 1000 of one type of Resource. It has
+ * two sensors, a ResourceSensor and a FreeSensor.
+ * 
  * @author ptp18-d06(Pawel Rasch, Tim Runge)
  *
  */
-public class BasicRobot extends AbstractRobot{
+public class BasicRobot extends AbstractRobot {
 
 	private static final long serialVersionUID = 2698956408529540093L;
 	private static int robotCounter;
-	
+
 	static {
 		robotCounter = 0;
 	}
-	
+
 	/**
-	 * Constructor
-	 * gives the new robot a default name.
+	 * Constructor gives the new robot a default name.
 	 */
 	public BasicRobot() {
 		this("BasicBeepBot " + BasicRobot.robotCounter);
 	}
-	
+
 	/**
 	 * Constructor
-	 * @param name the name for the new robot.
+	 * 
+	 * @param name
+	 *            the name for the new robot.
 	 */
 	public BasicRobot(String name) {
 		super(TileFactory.ROBOT_0);
@@ -42,14 +43,15 @@ public class BasicRobot extends AbstractRobot{
 		this.errorLog = new LinkedList<String>();
 		this.sensors = new LinkedList<String>();
 		this.name = name;
-		this.maxCapacity = 10000;		
+		this.maxCapacity = 10000;
 		sensors.add("FREE");
 		sensors.add("RESOURCE");
 		BasicRobot.robotCounter++;
 	}
-	
+
 	/**
 	 * Info about the Robot, including its cost.
+	 * 
 	 * @return information for the user about this class of robot
 	 */
 	public static String getInfo() {

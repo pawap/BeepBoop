@@ -20,11 +20,11 @@ import beepBoop.model.AbstractRobot;
 import beepBoop.service.RobotQueue;
 
 /**
- * PTP 2018
- * BeepBoop - the RobotGame
+ * PTP 2018 BeepBoop - the RobotGame
  * 
- * The GUI for the Robot managing submenu of the RobetTerminal. 
- * This GUI lets the user manage the Robots.
+ * The GUI for the Robot managing submenu of the RobetTerminal. This GUI lets
+ * the user manage the Robots.
+ * 
  * @author ptp18-d06(Pawel Rasch, Tim Runge)
  *
  */
@@ -51,7 +51,7 @@ public class RTManageUI extends AbstractRobotTerminalUI {
 		// Add robotsDropDownLabel
 		JLabel robotsDropDownLabel = new JLabel("Choose a robot!");
 		robotsDropDownLabel.setForeground(Color.LIGHT_GRAY);
-		GridBagConstraints c = new GridBagConstraints();        
+		GridBagConstraints c = new GridBagConstraints();
 		c.weighty = 0;
 		c.weightx = 1;
 		c.gridx = 0;
@@ -59,48 +59,48 @@ public class RTManageUI extends AbstractRobotTerminalUI {
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.anchor = GridBagConstraints.WEST;
 
-		this.add(robotsDropDownLabel,c);
+		this.add(robotsDropDownLabel, c);
 
 		// Add robotsDropDown
 		robotsDropDown = new JComboBox<String>();
 		robotsDropDown.setModel(new DefaultComboBoxModel<String>());
 		c.gridwidth = GridBagConstraints.REMAINDER;
 		c.gridy = 1;
-		this.add(robotsDropDown,c);
-		
-		//Add cargoLabel
+		this.add(robotsDropDown, c);
+
+		// Add cargoLabel
 		cargoLabel = new JLabel();
 		c.gridy = 2;
 		cargoLabel.setBackground(Color.DARK_GRAY);
 		cargoLabel.setForeground(Color.LIGHT_GRAY);
 		this.add(cargoLabel);
-		
+
 		// Add infoField and its scrollPane
 		infoField = new JTextArea(20, 10);
 		c.fill = GridBagConstraints.BOTH;
 		c.gridy = 3;
-		this.add(infoField,c);
+		this.add(infoField, c);
 		JScrollPane scrollPane = new JScrollPane(infoField);
-        scrollPane.setMinimumSize(new Dimension(200,300));
-		this.add(scrollPane,c);
-        
-        //Add infoChooserDropDown and set currentInfoType
-        infoChooserDropDown = new JComboBox<String>();
-        infoChooserDropDown.setModel(new DefaultComboBoxModel<String>());
-        infoChooserDropDown.addItem("Error Log");
-        infoChooserDropDown.addItem("Load Program");
-        c.gridy = 4;
-        c.fill = GridBagConstraints.HORIZONTAL;
-        c.gridwidth = 3;
-        this.add(infoChooserDropDown, c);
-        
-        //Add Buttons
-        importButton = new JButton("Import Program");
-        exportButton = new JButton("Export");
-        applyButton = new JButton("Apply");
-        backButton = new JButton("Back");
-        c.gridwidth = 1;
-        c.gridx = 3;
+		scrollPane.setMinimumSize(new Dimension(200, 300));
+		this.add(scrollPane, c);
+
+		// Add infoChooserDropDown and set currentInfoType
+		infoChooserDropDown = new JComboBox<String>();
+		infoChooserDropDown.setModel(new DefaultComboBoxModel<String>());
+		infoChooserDropDown.addItem("Error Log");
+		infoChooserDropDown.addItem("Load Program");
+		c.gridy = 4;
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridwidth = 3;
+		this.add(infoChooserDropDown, c);
+
+		// Add Buttons
+		importButton = new JButton("Import Program");
+		exportButton = new JButton("Export");
+		applyButton = new JButton("Apply");
+		backButton = new JButton("Back");
+		c.gridwidth = 1;
+		c.gridx = 3;
 		this.add(importButton, c);
 		c.gridx = 4;
 		this.add(exportButton, c);
@@ -108,58 +108,60 @@ public class RTManageUI extends AbstractRobotTerminalUI {
 		this.add(applyButton, c);
 		c.gridx = 6;
 		this.add(backButton, c);
-        
+
 	}
 
 	/**
-	 * Adds EventListeners to the gui elements. Needs to contain the following key -> value pairs:
-	 * Robot drop down menu: "rcDropDown" -> ItemListener
-	 * Info chooser drop down menu: "infDrop" -> ItemListener
-	 * Import button: "import" -> ActionListener
-	 * Export button: "export" -> ActionListener
-	 * Apply button: "apply" -> ActionListener
-	 * Back button: "back" -> ActionListener
-	 * @param listeners  
+	 * Adds EventListeners to the gui elements. Needs to contain the following
+	 * key -> value pairs: Robot drop down menu: "rcDropDown" -> ItemListener
+	 * Info chooser drop down menu: "infDrop" -> ItemListener Import button:
+	 * "import" -> ActionListener Export button: "export" -> ActionListener
+	 * Apply button: "apply" -> ActionListener Back button: "back" ->
+	 * ActionListener
+	 * 
+	 * @param listeners
 	 */
 	@Override
-	public void addListeners(HashMap<String, EventListener> listeners) {		
-		if(correctListeners(listeners)) {
+	public void addListeners(HashMap<String, EventListener> listeners) {
+		if (correctListeners(listeners)) {
 			robotsDropDown.addItemListener((ItemListener) listeners.get("robDrop"));
 			infoChooserDropDown.addItemListener((ItemListener) listeners.get("infDrop"));
 			importButton.addActionListener((ActionListener) listeners.get("import"));
 			exportButton.addActionListener((ActionListener) listeners.get("export"));
 			applyButton.addActionListener((ActionListener) listeners.get("apply"));
 			backButton.addActionListener((ActionListener) listeners.get("back"));
-		}
-		else {
+		} else {
 			System.out.println("Tried to pass wrong Listener type to RTManageUI");
 		}
 	}
-	
+
 	/**
 	 * Adds the robots in a RobotQueue to this UI's robotDropDown
-	 * @param robots the RobotQueue containing the robots to be added
+	 * 
+	 * @param robots
+	 *            the RobotQueue containing the robots to be added
 	 */
 	public void fillRobotsDropDown(RobotQueue robots) {
-		for (AbstractRobot robot: robots) {
+		for (AbstractRobot robot : robots) {
 			robotsDropDown.addItem(robot.getName());
-        }
+		}
 	}
-
 
 	/**
 	 * Sets the text of the infoField
-	 * @param text each String will be a row in the infoField
+	 * 
+	 * @param text
+	 *            each String will be a row in the infoField
 	 */
 	public void setInfoText(List<String> text) {
 		if (text == null) {
 			return;
 		}
 		this.infoField.setText("");
-        for (String row : text) {
-        	this.infoField.append(row + "\n");
-        }
-		
+		for (String row : text) {
+			this.infoField.append(row + "\n");
+		}
+
 	}
 
 	/**
@@ -168,7 +170,7 @@ public class RTManageUI extends AbstractRobotTerminalUI {
 	public String getInfoText() {
 		return infoField.getText();
 	}
-	
+
 	/**
 	 * @return the robot drop down menu
 	 */
@@ -178,6 +180,7 @@ public class RTManageUI extends AbstractRobotTerminalUI {
 
 	/**
 	 * The cargo label displays the cargo of the chosen robot.
+	 * 
 	 * @return the cargo label
 	 */
 	public JLabel getCargoLabel() {
@@ -196,10 +199,10 @@ public class RTManageUI extends AbstractRobotTerminalUI {
 	 */
 	public JComboBox<String> getInfoChooserDropDown() {
 		return infoChooserDropDown;
-		
+
 	}
-	
-	//helper method for addListeners
+
+	// helper method for addListeners
 	private boolean correctListeners(HashMap<String, EventListener> listeners) {
 		EventListener robDropL = listeners.get("robDrop");
 		EventListener infDropL = listeners.get("infDrop");
@@ -207,13 +210,9 @@ public class RTManageUI extends AbstractRobotTerminalUI {
 		EventListener expL = listeners.get("export");
 		EventListener appL = listeners.get("apply");
 		EventListener backL = listeners.get("back");
-		
-		return robDropL instanceof ItemListener &&
-			   infDropL instanceof ItemListener &&
-			   impL instanceof ActionListener &&
-			   expL instanceof ActionListener &&
-			   appL instanceof ActionListener &&
-			   backL instanceof ActionListener;
+
+		return robDropL instanceof ItemListener && infDropL instanceof ItemListener && impL instanceof ActionListener
+				&& expL instanceof ActionListener && appL instanceof ActionListener && backL instanceof ActionListener;
 	}
 
 }
