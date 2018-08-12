@@ -2,6 +2,7 @@ package beepBoop.model;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import beepBoop.service.TileFactory;
 
@@ -38,9 +39,9 @@ public class BasicRobot extends AbstractRobot {
 	 */
 	public BasicRobot(String name) {
 		super(TileFactory.ROBOT_0);
-		this.memory = new LinkedList<String>();
+		this.memory = new CopyOnWriteArrayList<String>();
 		this.memory.add("GOTO 0");
-		this.errorLog = new LinkedList<String>();
+		this.errorLog = new CopyOnWriteArrayList<String>();
 		this.sensors = new LinkedList<String>();
 		this.name = name;
 		this.maxCapacity = 10000;
