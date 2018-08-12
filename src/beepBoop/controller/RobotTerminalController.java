@@ -38,7 +38,9 @@ import beepBoop.ui.RTManageUI;
 /**
  * PTP 2018 BeepBoop - the RobotGame
  * 
- * Controller for the RobotTerminal Manipluates the Level by adding
+ * Controller for the RobotTerminal. 
+ * Manipulates the Level by adding Robots. 
+ * Holds the Robot currently chosen for modifications. 
  * 
  * @author ptp18-d06(Pawel Rasch, Tim Runge)
  *

@@ -82,6 +82,7 @@ public class RTManageUI extends AbstractRobotTerminalUI {
 		this.add(infoField, c);
 		JScrollPane scrollPane = new JScrollPane(infoField);
 		scrollPane.setMinimumSize(new Dimension(200, 300));
+		scrollPane.setAutoscrolls(false);
 		this.add(scrollPane, c);
 
 		// Add infoChooserDropDown and set currentInfoType
@@ -157,11 +158,22 @@ public class RTManageUI extends AbstractRobotTerminalUI {
 		if (text == null) {
 			return;
 		}
-		this.infoField.setText("");
+		String currentInfoText = this.infoField.getText();
+		String newInfoText = "";
+		
 		for (String row : text) {
-			this.infoField.append(row + "\n");
+			
+			newInfoText += row + "\n";
 		}
-
+		String lastString = "";
+		if (!text.isEmpty()) {
+			lastString = text.get(text.size() - 1);
+		}
+		if (currentInfoText != null && newInfoText.equals(currentInfoText + lastString)) {
+			this.infoField.append(lastString);
+			return;
+		}
+		this.infoField.setText(newInfoText);
 	}
 
 	/**
