@@ -346,7 +346,9 @@ public class RobotTerminalController implements Observer {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			((RTManageUI) robotTerminalUI).setInfoText(importProgram());
+			RTManageUI ui = (RTManageUI) robotTerminalUI;
+			ui.setInfoText(importProgram());
+			ui.getInfoChooserDropDown().setSelectedItem("Load Program");
 			setCurrentInfoType("Program");
 
 		}
