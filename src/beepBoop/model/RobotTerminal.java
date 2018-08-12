@@ -3,6 +3,9 @@ package beepBoop.model;
 import beepBoop.service.TileFactory;
 
 /**
+ * PTP 2018
+ * BeepBoop - the RobotGame
+ * 
  * The in-Landscape representation of the Robot Terminal. 
  * The Player has to interact with this to access the  
  * RobotTerminal Menu and thus the Robot Terminal functions.

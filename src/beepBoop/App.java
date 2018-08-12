@@ -20,6 +20,9 @@ import beepBoop.service.TileFactory;
 import beepBoop.ui.MainFrame;
 
 /**
+ * PTP 2018
+ * BeepBoop - the RobotGame
+ * 
  * App offers the main entry point to BeepBoop. 
  * Creates a Demo level that lets a user experience  
  * all available BeepBoop features.

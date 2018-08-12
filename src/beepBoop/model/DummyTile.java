@@ -6,6 +6,9 @@ import java.awt.Image;
 import java.awt.image.BufferedImage;
 
 /**
+ * PTP 2018
+ * BeepBoop - the RobotGame
+ * 
  * Simple monocolored tiles intended for testing purposes. 
  * @author ptp18-d06(Pawel Rasch, Tim Runge)
  *

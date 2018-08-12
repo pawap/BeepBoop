@@ -5,6 +5,9 @@ import java.awt.Point;
 import beepBoop.service.TileFactory;
 
 /**
+ * PTP 2018
+ * BeepBoop - the RobotGame
+ * 
  * This event drops a certain number of each Resource with random amounts (less than 100) in random places
  * within the rectangle bounded by the two given Points 
  * @author ptp18-d06(Pawel Rasch, Tim Runge)

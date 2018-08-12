@@ -4,6 +4,9 @@ import java.awt.Dimension;
 import java.awt.Image;
 
 /**
+ * PTP 2018
+ * BeepBoop - the RobotGame
+ * 
  * Tiles hold the Images to be displayed in the GUI. Each Thing has a Tile.
  * The Landscape is basically a 2d array of Tile IDs, so that each grid is
  * associated with a Tile.

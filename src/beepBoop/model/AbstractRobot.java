@@ -4,6 +4,9 @@ import java.awt.Point;
 import java.util.List;
 
 /**
+ * PTP 2018
+ * BeepBoop - the RobotGame
+ * 
  * All robots should extend this class.
  * @author ptp18-d06(Pawel Rasch, Tim Runge)
  */

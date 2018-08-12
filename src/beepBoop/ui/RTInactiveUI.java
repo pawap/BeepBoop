@@ -9,6 +9,9 @@ import java.util.HashMap;
 import javax.swing.JTextArea;
 
 /**
+ * PTP 2018
+ * BeepBoop - the RobotGame
+ * 
  * This UI is shown in place of the RobotTerminalUI as long as the Player has no access to the Terminal.
  * @author ptp18-d06(Pawel Rasch, Tim Runge)
  *

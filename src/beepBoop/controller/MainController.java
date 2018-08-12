@@ -24,6 +24,9 @@ import beepBoop.model.Thing;
 import beepBoop.ui.MainFrame;
 
 /**
+ * PTP 2018
+ * BeepBoop - the RobotGame
+ * 
  * The BeepBoop MainController propagates input to all relevant controllers.
  * Takes care of loading and saving a level.
  * @author ptp18-d06(Pawel Rasch, Tim Runge)

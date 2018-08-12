@@ -3,6 +3,9 @@ package beepBoop.model;
 import java.awt.Point;
 
 /**
+ * PTP 2018
+ * BeepBoop - the RobotGame
+ * 
  * Code in a Robot's memory is turned into Commands.
  * Commands are processed by the RobotController.
  * @author ptp18-d06(Pawel Rasch, Tim Runge)

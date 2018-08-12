@@ -6,6 +6,9 @@ import beepBoop.model.BmpTile;
 import beepBoop.model.Tile;
 
 /**
+ * PTP 2018
+ * BeepBoop - the RobotGame
+ * 
  * Grants access to all Tiles used in BeepBoop. Use getInstance() to
  * get access to the singleton instance of TileFactory.
  * TileFactory holds each TileId as a public static int.

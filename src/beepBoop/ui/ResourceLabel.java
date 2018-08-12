@@ -9,6 +9,9 @@ import javax.swing.JPanel;
 import beepBoop.model.Resource;
 
 /**
+ * PTP 2018
+ * BeepBoop - the RobotGame
+ * 
  * Displays the Image of a Resource and its amount.
  * @author ptp18-d06(Pawel Rasch, Tim Runge)
  *

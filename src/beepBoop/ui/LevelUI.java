@@ -14,6 +14,9 @@ import beepBoop.model.Thing;
 import beepBoop.model.Tile;
 
 /**
+ * PTP 2018
+ * BeepBoop - the RobotGame
+ * 
  * Shows the visible part of the Level.
  * @author ptp18-d06(Pawel Rasch, Tim Runge)
  *

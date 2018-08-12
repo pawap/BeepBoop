@@ -3,6 +3,9 @@ package beepBoop.model;
 import beepBoop.service.TileFactory;
 
 /**
+ * PTP 2018
+ * BeepBoop - the RobotGame
+ * 
  * The Player is the Thing representing the user in BeepBoop. 
  * @author ptp18-d06(Pawel Rasch, Tim Runge)
  *

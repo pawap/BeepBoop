@@ -11,6 +11,9 @@ import beepBoop.service.EventQueue;
 import beepBoop.service.RobotQueue;
 
 /**
+ * PTP 2018
+ * BeepBoop - the RobotGame
+ * 
  * A Level holds a Landscape, a Player, Robot- and EventQueue, an Inventory and a collection of Things.
  * The player and his Robot act in a Level.
  * @author ptp18-d06(Pawel Rasch, Tim Runge)

@@ -3,6 +3,9 @@ package beepBoop.model;
 import java.awt.Point;
 
 /**
+ * PTP 2018
+ * BeepBoop - the RobotGame
+ * 
  * BeepBoop Robot sensors must implement this interface.
  * @author ptp18-d06(Pawel Rasch, Tim Runge)
  *

@@ -10,6 +10,9 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 /**
+ * PTP 2018
+ * BeepBoop - the RobotGame
+ * 
  *  A Tile holding a bitmap graphic.
  * @author ptp18-d06(Pawel Rasch, Tim Runge)
  *

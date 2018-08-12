@@ -6,6 +6,9 @@ import java.io.Serializable;
 import beepBoop.service.TileFactory;
 
 /**
+ * PTP 2018
+ * BeepBoop - the RobotGame
+ * 
  * A Landscape holds a grid of tiles. Each BeepBoop Level uses a Landscape which defines the basic terrain. 
  * @author ptp18-d06(Pawel Rasch, Tim Runge)
  *

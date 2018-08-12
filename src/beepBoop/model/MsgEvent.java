@@ -1,8 +1,10 @@
 package beepBoop.model;
 
 /**
- * An Event class that issues a message.
+ * PTP 2018
+ * BeepBoop - the RobotGame
  * 
+ * An Event class that issues a message.
  * @author ptp18-d06(Pawel Rasch, Tim Runge)
  *
  */

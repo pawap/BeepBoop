@@ -10,6 +10,9 @@ import java.util.HashMap;
 import javax.swing.JButton;
 
 /**
+ * PTP 2018
+ * BeepBoop - the RobotGame
+ * 
  * The GUI for the main submenu of the RobetTerminal. This GUI lets the navigate to the other submenus.
  * @author ptp18-d06(Pawel Rasch, Tim Runge)
  *

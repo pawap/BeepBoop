@@ -8,6 +8,9 @@ import beepBoop.model.ResourceSensor;
 import beepBoop.model.ISensor;
 
 /**
+ * PTP 2018
+ * BeepBoop - the RobotGame
+ * 
  * Grants access to the robot sensors of BeepBoop.
  * @author ptp18-d06(Pawel Rasch, Tim Runge)
  *

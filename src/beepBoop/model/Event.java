@@ -5,6 +5,9 @@ import java.util.Observable;
 import java.util.concurrent.Delayed;
 import java.util.concurrent.TimeUnit;
 /**
+ * PTP 2018
+ * BeepBoop - the RobotGame
+ * 
  * Abstract parent class for all beepboop events. Implements the java.util.concurrent.Delayed interface,
  * so that an event can be an element in a DelayedQueue. This allows issuing timed events, based on
  * the current system time. Fully functional persistence is not yet realized as of version 1.0.    

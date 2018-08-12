@@ -6,6 +6,9 @@ import beepBoop.model.Level;
 import beepBoop.model.Thing;
 
 /**
+ * PTP 2018
+ * BeepBoop - the RobotGame
+ * 
  * a MockUp Class for a level to facilitate testing
  * 
  * @author ptp18-d06(Pawel Rasch, Tim Runge)

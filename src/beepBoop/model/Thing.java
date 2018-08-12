@@ -8,6 +8,9 @@ import java.util.Observable;
 import beepBoop.service.TileFactory;
 
 /**
+ * PTP 2018
+ * BeepBoop - the RobotGame
+ * 
  * Everything but Landscape Tiles in BeepBoop is a Thing.
  * Thing is the superclass for the Player, Resources, Terminals and Robots.
  * @author ptp18-d06(Pawel Rasch, Tim Runge)

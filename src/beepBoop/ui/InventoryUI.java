@@ -15,6 +15,9 @@ import beepBoop.model.Inventory;
 import beepBoop.model.Resource;
 
 /**
+ * PTP 2018
+ * BeepBoop - the RobotGame
+ * 
  * Displays the Resources the Player and their robots have collected.
  * @author ptp18-d06(Pawel Rasch, Tim Runge)
  *

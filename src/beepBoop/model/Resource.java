@@ -8,6 +8,9 @@ import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 
 /**
+ * PTP 2018
+ * BeepBoop - the RobotGame
+ * 
  * The model class for beepbop resources, Resources are Things in a level. The type of a resource is defined by its name.
  * @author ptp18-d06(Pawel Rasch, Tim Runge)
  *

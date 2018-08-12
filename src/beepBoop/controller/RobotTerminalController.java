@@ -36,6 +36,9 @@ import beepBoop.ui.RTMainUI;
 import beepBoop.ui.RTManageUI;
 
 /**
+ * PTP 2018
+ * BeepBoop - the RobotGame
+ * 
  * Controller for the RobotTerminal
  * @author ptp18-d06(Pawel Rasch, Tim Runge)
  *

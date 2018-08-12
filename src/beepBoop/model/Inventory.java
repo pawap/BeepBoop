@@ -7,6 +7,9 @@ import java.util.Observable;
 import java.util.Set;
 
 /**
+ * PTP 2018
+ * BeepBoop - the RobotGame
+ * 
  * The Inventory holds the Resources the player and their robots have collected.
  * @author ptp18-d06(Pawel Rasch, Tim Runge)
  *

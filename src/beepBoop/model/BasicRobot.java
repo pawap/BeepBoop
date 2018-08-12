@@ -6,6 +6,9 @@ import java.util.List;
 import beepBoop.service.TileFactory;
 
 /**
+ * PTP 2018
+ * BeepBoop - the RobotGame
+ * 
  * The most basic robot. Can carry up to 1000 of one type of Resource.
  * It has two sensors, a ResourceSensor and a FreeSensor.
  * @author ptp18-d06(Pawel Rasch, Tim Runge)

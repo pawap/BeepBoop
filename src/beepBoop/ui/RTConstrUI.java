@@ -17,6 +17,9 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
 /**
+ * PTP 2018
+ * BeepBoop - the RobotGame
+ * 
  * The GUI for the Construction submenu of the RobetTerminal. This GUI lets the user construct new Robots.
  * @author ptp18-d06(Pawel Rasch, Tim Runge)
  *

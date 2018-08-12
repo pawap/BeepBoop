@@ -10,6 +10,9 @@ import beepBoop.service.EventQueue;
 import beepBoop.ui.MainFrame;
 
 /**
+ * PTP 2018
+ * BeepBoop - the RobotGame
+ * 
  * Controller for BeepBoop Events
  * @author ptp18-d06(Pawel Rasch, Tim Runge)
  *

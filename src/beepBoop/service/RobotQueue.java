@@ -7,6 +7,9 @@ import java.util.LinkedList;
 import beepBoop.model.AbstractRobot;
 
 /**
+ * PTP 2018
+ * BeepBoop - the RobotGame
+ * 
  * Contains all Robots of a Level
  * @author ptp18-d06(Pawel Rasch, Tim Runge)
  *

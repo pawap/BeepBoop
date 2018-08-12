@@ -6,6 +6,9 @@ import java.util.HashMap;
 import javax.swing.JPanel;
 
 /**
+ * PTP 2018
+ * BeepBoop - the RobotGame
+ * 
  * The superclass of all Robot Terminal UI classes. 
  * @author ptp18-d06(Pawel Rasch, Tim Runge)
  *

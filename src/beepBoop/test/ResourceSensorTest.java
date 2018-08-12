@@ -14,6 +14,9 @@ import beepBoop.service.TileFactory;
 import beepBoop.test.mock.MockLevel;
 
 /**
+ * PTP 2018
+ * BeepBoop - the RobotGame
+ * 
  * @author ptp18-d06(Pawel Rasch, Tim Runge)
  */
 public class ResourceSensorTest {

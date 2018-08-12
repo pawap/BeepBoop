@@ -23,6 +23,9 @@ import beepBoop.model.Inventory;
 import beepBoop.model.Level;
 
 /**
+ * PTP 2018
+ * BeepBoop - the RobotGame
+ * 
  * The parent frame of the BeepBoop GUI.
  * @author ptp18-d06(Pawel Rasch, Tim Runge)
  *

@@ -10,6 +10,9 @@ import org.junit.Test;
 import beepBoop.model.Command;
 
 /**
+ * PTP 2018
+ * BeepBoop - the RobotGame
+ * 
  * @author ptp18-d06(Pawel Rasch, Tim Runge)
  */
 public class CommandTest {

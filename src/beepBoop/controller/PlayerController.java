@@ -10,6 +10,9 @@ import beepBoop.ui.LevelUI;
 import beepBoop.ui.MainFrame;
 
 /**
+ * PTP 2018
+ * BeepBoop - the RobotGame
+ * 
  * Controller for the BeepBoop player.
  * Reacts on input it receives via the MainController.
  * @author ptp18-d06(Pawel Rasch, Tim Runge)

@@ -20,6 +20,9 @@ import beepBoop.model.AbstractRobot;
 import beepBoop.service.RobotQueue;
 
 /**
+ * PTP 2018
+ * BeepBoop - the RobotGame
+ * 
  * The GUI for the Robot managing submenu of the RobetTerminal. 
  * This GUI lets the user manage the Robots.
  * @author ptp18-d06(Pawel Rasch, Tim Runge)
