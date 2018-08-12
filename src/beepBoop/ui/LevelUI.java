@@ -31,7 +31,7 @@ public class LevelUI extends JPanel {
 	private int maxViewOrgY;
 
 	/**
-	 * Constructor Constructs a GUI showing hte part of the level surrounding
+	 * Constructor Constructs a GUI showing the part of the level surrounding
 	 * the Player.
 	 * 
 	 * @param level
@@ -78,8 +78,10 @@ public class LevelUI extends JPanel {
 				Point position = thing.getPosition();
 				if (inView(position)) {
 					position = mapToView(position);
-					g.drawImage(thing.getImage(), (int) position.getX() * Tile.SIZE.width,
-							(int) position.getY() * Tile.SIZE.height, null);
+					g.drawImage(thing.getImage(), 
+							    (int) position.getX() * Tile.SIZE.width,
+							    (int) position.getY() * Tile.SIZE.height,
+							    null);
 				}
 			}
 		}
@@ -109,7 +111,7 @@ public class LevelUI extends JPanel {
 		for (int x = 0; x < viewSize.getWidth(); x++) {
 			for (int y = 0; y < viewSize.getHeight(); y++) {
 				g.drawImage(getLevel().getLandscape().getTile(x + viewOrigin.x, y + viewOrigin.y).getImage(),
-						x * Tile.SIZE.width, y * Tile.SIZE.height, null);
+						    x * Tile.SIZE.width, y * Tile.SIZE.height, null);
 			}
 		}
 	}

@@ -29,7 +29,7 @@ public class RTInactiveUI extends AbstractRobotTerminalUI {
 		this.setLayout(new GridBagLayout());
 		this.setBackground(Color.DARK_GRAY);
 		String text = "Access the nearest Robot Terminal. "
-				+ "A WiFi connection to your brain implant will be established automatically.";
+				    + "A WiFi connection to your brain implant will be established automatically.";
 		JTextArea textArea = new JTextArea();
 		textArea.setEditable(false);
 		textArea.setWrapStyleWord(true);

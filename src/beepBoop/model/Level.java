@@ -126,7 +126,9 @@ public class Level implements Serializable {
 	 */
 	public boolean isPositionFree(int x, int y) {
 		Point p = new Point(x, y);
-		return landscape.getTile(x, y).isWalkable() && !things.containsKey(p) && !player.getPosition().equals(p);
+		return landscape.getTile(x, y).isWalkable() 
+			   && !things.containsKey(p) 
+			   && !player.getPosition().equals(p);
 	}
 
 	/**
@@ -139,7 +141,8 @@ public class Level implements Serializable {
 	 */
 	public boolean addThing(Thing thing) {
 		Point pos = thing.getPosition();
-		if (!(this.landscape.isInsideDimensions(pos.x, pos.y) && isPositionFree(pos.x, pos.y))) {
+		if (!(this.landscape.isInsideDimensions(pos.x, pos.y) 
+			&& isPositionFree(pos.x, pos.y))) {
 			return false;
 		}
 		things.put(thing.getPosition(), thing);
@@ -228,7 +231,8 @@ public class Level implements Serializable {
 	 */
 	public Thing getThing(int x, int y) {
 		if (player != null) {
-			if (player.getPosition().x == x && player.getPosition().y == y) {
+			if (player.getPosition().x == x 
+				&& player.getPosition().y == y) {
 				return player;
 			}
 		}

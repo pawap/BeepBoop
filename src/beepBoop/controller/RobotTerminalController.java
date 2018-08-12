@@ -131,11 +131,8 @@ public class RobotTerminalController implements Observer {
 			this.currentRobot.deleteObserver(this);
 			this.currentRobot = robot;
 			this.currentRobot.addObserver(this);
-			if (this.currentInfoType.equals("Program")) { // if the program of
-															// the last robot is
-															// being shown,
-															// prepare to load
-															// this one's
+			// if the program of the last robot is being shown, prepare to load this one's
+			if (this.currentInfoType.equals("Program")) {  
 				setCurrentInfoType("Load Program");
 			}
 			update(null, null);
@@ -168,7 +165,9 @@ public class RobotTerminalController implements Observer {
 			return;
 		} else {
 			System.out.println("Unsuccessfully tried to add Listeners to " + robotTerminalUI.getClass()
-					+ ". Modify RobotTerminalController.addUIListeners to handle " + robotTerminalUI.getClass() + ".");
+					           + ". Modify RobotTerminalController.addUIListeners to handle " 
+					           + robotTerminalUI.getClass()
+					           + ".");
 		}
 	}
 
@@ -233,7 +232,7 @@ public class RobotTerminalController implements Observer {
 			RTManageUI rtUI = (RTManageUI) this.robotTerminalUI;
 			// update cargoLabel
 			String cargoString = (currentRobot.getCargo() != null) ? currentRobot.getCargo().getName() + ": "
-					: "No Cargo!";
+					                                               : "No Cargo!";
 			JLabel cargoLabel = rtUI.getCargoLabel();
 			cargoLabel.setText(cargoString);
 			cargoLabel.setIcon(
@@ -286,9 +285,8 @@ public class RobotTerminalController implements Observer {
 			y = (i / 3) - 1 + playerPosition.y;
 			if (level.isPositionFree(x, y)) {
 				List<Resource> costs = newBot.getCosts();
-				if (this.level.getInventory().pay(costs)) { // check inventory
-															// and pay if
-															// possible
+				// check inventory and pay if possible
+				if (this.level.getInventory().pay(costs)) { 
 					newBot.setPosition(new Point(x, y));
 					return this.level.addRobot(newBot);
 				}

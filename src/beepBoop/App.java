@@ -44,7 +44,9 @@ public class App {
 		mainContr = new MainController(gui, level);
 
 		// add menu bar to gui
-		gui.initMenuBar(mainContr.getLoadListener(), mainContr.getSaveListener(), mainContr.getExitListener());
+		gui.initMenuBar(mainContr.getLoadListener(), 
+				        mainContr.getSaveListener(), 
+				        mainContr.getExitListener());
 
 		gui.setVisible(true);
 

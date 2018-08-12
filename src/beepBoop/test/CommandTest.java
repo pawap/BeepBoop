@@ -40,7 +40,8 @@ public class CommandTest {
 		Command someCommand = new Command(validCommandString);
 		String type = someCommand.getType();
 		// assert
-		assertEquals("Wrong command type: " + type + ". Should have been CommandType.", type, "CommandType");
+		assertEquals("Wrong command type: " + type + ". Should have been CommandType.",
+				     type, "CommandType");
 	}
 
 	@Test
@@ -66,8 +67,8 @@ public class CommandTest {
 		// act
 		Point newPosition = Command.getPointFromDirection(somePosition, direction);
 		// assert
-		assertEquals("New position should have been " + targetPosition + ", was " + newPosition, newPosition,
-				targetPosition);
+		assertEquals("New position should have been " + targetPosition + ", was " + newPosition, 
+				newPosition, targetPosition);
 	}
 
 	@Test
@@ -79,8 +80,8 @@ public class CommandTest {
 		// act
 		Point newPosition = Command.getPointFromDirection(somePosition, direction);
 		// assert
-		assertEquals("New position should have been " + targetPosition + ", was " + newPosition, newPosition,
-				targetPosition);
+		assertEquals("New position should have been " + targetPosition + ", was " + newPosition,
+				     newPosition, targetPosition);
 	}
 
 	@Test
@@ -92,8 +93,8 @@ public class CommandTest {
 		// act
 		Point newPosition = Command.getPointFromDirection(somePosition, direction);
 		// assert
-		assertEquals("New position should have been " + targetPosition + ", was " + newPosition, newPosition,
-				targetPosition);
+		assertEquals("New position should have been " + targetPosition + ", was " + newPosition,
+				newPosition, targetPosition);
 	}
 
 	@Test
@@ -105,7 +106,7 @@ public class CommandTest {
 		// act
 		Point newPosition = Command.getPointFromDirection(somePosition, direction);
 		// assert
-		assertEquals("New position should have been " + targetPosition + ", was " + newPosition, newPosition,
-				targetPosition);
+		assertEquals("New position should have been " + targetPosition + ", was " + newPosition,
+				newPosition, targetPosition);
 	}
 }

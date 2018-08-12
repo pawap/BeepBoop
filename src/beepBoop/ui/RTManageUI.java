@@ -112,12 +112,14 @@ public class RTManageUI extends AbstractRobotTerminalUI {
 	}
 
 	/**
-	 * Adds EventListeners to the gui elements. Needs to contain the following
-	 * key -> value pairs: Robot drop down menu: "rcDropDown" -> ItemListener
-	 * Info chooser drop down menu: "infDrop" -> ItemListener Import button:
-	 * "import" -> ActionListener Export button: "export" -> ActionListener
-	 * Apply button: "apply" -> ActionListener Back button: "back" ->
-	 * ActionListener
+	 * Adds EventListeners to the gui elements. 
+	 * Needs to contain the following key -> value pairs: 
+	 * Robot drop down menu: "rcDropDown" -> ItemListener
+	 * Info chooser drop down menu: "infDrop" -> ItemListener 
+	 * Import button: "import" -> ActionListener 
+	 * Export button: "export" -> ActionListener
+	 * Apply button: "apply" -> ActionListener 
+	 * Back button: "back" -> ActionListener
 	 * 
 	 * @param listeners
 	 */
@@ -211,8 +213,12 @@ public class RTManageUI extends AbstractRobotTerminalUI {
 		EventListener appL = listeners.get("apply");
 		EventListener backL = listeners.get("back");
 
-		return robDropL instanceof ItemListener && infDropL instanceof ItemListener && impL instanceof ActionListener
-				&& expL instanceof ActionListener && appL instanceof ActionListener && backL instanceof ActionListener;
+		return robDropL instanceof ItemListener 
+			   && infDropL instanceof ItemListener 
+			   && impL instanceof ActionListener
+			   && expL instanceof ActionListener 
+			   && appL instanceof ActionListener 
+			   && backL instanceof ActionListener;
 	}
 
 }
