@@ -25,8 +25,8 @@ public class PlayerController {
 	
 	/**
 	 * Constructor
-	 * @param levelUI current level UI
-	 * @param inventoryUI the inventory UI
+	 * @param mf the gui
+	 * @param robotTerminalController RobotTerminalController
 	 */
 	public PlayerController(MainFrame mf,RobotTerminalController robotTerminalController) {
 		super();

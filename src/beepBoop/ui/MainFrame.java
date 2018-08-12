@@ -131,7 +131,7 @@ public class MainFrame extends JFrame {
 
 	/**
 	 * Initialize the InventoryUI with the corresponding Inventory.
-	 * @param level the Inventory to be displayed
+	 * @param inventory the Inventory to be displayed
 	 */	
 	public void initInventoryUI(Inventory inventory) {
 		this.inventoryUI = new InventoryUI(inventory);
