@@ -310,7 +310,6 @@ public class RobotTerminalController implements Observer {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			navigateTo("main");
-			System.out.println("navigate to main");
 		}
 
 	}
@@ -377,12 +376,10 @@ public class RobotTerminalController implements Observer {
 		public void actionPerformed(ActionEvent e) {
 			if (currentInfoType.equals("Load Program") || currentInfoType.equals("Program")) {
 				List<String> program = Arrays.asList(((RTManageUI) robotTerminalUI).getInfoText().split("\n"));
-				System.out.println("Program:" + program.get(2));
 				currentRobot.setMemory(program);
 				currentRobot.setPc(0);
 
 			}
-			System.out.println(Character.getName("\n".toCharArray()[0]) + "RLSE" + getCurrentInfoType());
 		}
 
 	}
